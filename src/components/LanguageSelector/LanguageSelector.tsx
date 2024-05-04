@@ -4,7 +4,7 @@ import s from './LanguageSelector.module.css';
 
 const LanguageSelector = () => {
   const [isOpenDropdown, setIsOpenDropdown] = useState<boolean>(false);
-  const [lang, setLang] = useState<string>('en');
+  const [_, setLang] = useState<string>('en');
   const dropdownRef = useRef<HTMLUListElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
 
