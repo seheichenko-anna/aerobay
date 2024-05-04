@@ -1,35 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Route, Routes } from 'react-router-dom';
+import Layout from './components/Layout/Layout';
+import Catalog from './pages/Catalog';
+import HomePage from './pages/HomePage';
+import AboutUs from './pages/AboutUs';
+import ContactUs from './pages/ContactUs';
+import CookiesPolicy from './pages/CookiesPolicy';
+import DeliveryAndPayments from './pages/DeliveryAndPayments';
+import { ReturnsAndRefunds } from './pages/ReturnsAndRefunds';
+import NotFoundPage from './pages/NotFoundPage';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="catalog" element={<Catalog />} />
+        <Route path="about-us" element={<AboutUs />} />
+        <Route path="contact-us" element={<ContactUs />} />
+        <Route path="cookies-policy" element={<CookiesPolicy />} />
+        <Route path="delivery-and-payments" element={<DeliveryAndPayments />} />
+        <Route path="returns-and-refunds" element={<ReturnsAndRefunds />} />
+        <Route path="privacy-policy" element={<PrivacyPolicy />} />
+      </Route>
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+  );
 }
 
-export default App
+export default App;
