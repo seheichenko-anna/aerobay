@@ -8,6 +8,7 @@ import CookiesPolicy from './pages/CookiesPolicy';
 import DeliveryAndPayments from './pages/DeliveryAndPayments';
 import { ReturnsAndRefunds } from './pages/ReturnsAndRefunds';
 import NotFoundPage from './pages/NotFoundPage';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="cookies-policy" element={<CookiesPolicy />} />
         <Route path="delivery-and-payments" element={<DeliveryAndPayments />} />
         <Route path="returns-and-refunds" element={<ReturnsAndRefunds />} />
+        <Route path="privacy-policy" element={<PrivacyPolicy />} />
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

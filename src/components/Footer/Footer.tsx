@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import svg from '../../assets/sprite.svg';
 import s from './Footer.module.css';
+import LanguageSelector from '../LanguageSelector/LanguageSelector';
 
 const Footer = () => {
   return (
@@ -67,11 +68,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <div className={s.icon_wrapper}>
-                  <svg className={s.social_icon}>
-                    <use xlinkHref={`${svg}#icon-globe`} />
-                  </svg>
-                </div>
+                <LanguageSelector />
               </li>
             </ul>
           </div>
