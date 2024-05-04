@@ -102,10 +102,7 @@ div.social_links {
     padding: 5px;
 }
 
-.social_icon {
-    width: 20px;
-    height: 20px;
-}
+
 
 .icon_wrapper {
     display: flex;
@@ -115,6 +112,22 @@ div.social_links {
     background-color: #fff;
     width: 30px;
     height: 30px;
+    fill: #667085;
+    stroke: #667085;
+    transition: fill 0.4s ease-in-out, stroke 0.4s ease-in-out;
+}
+
+.icon_wrapper:focus,
+.icon_wrapper:hover {
+    fill: #101828;
+    stroke: #101828;
+}
+
+.social_icon {
+    width: 20px;
+    height: 20px;
+    fill: inherit;
+    stroke: inherit;
 }
 
 .footer_info {

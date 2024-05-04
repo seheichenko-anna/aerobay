@@ -13,11 +13,21 @@
     height: 30px;
     border: none;
     position: relative;
+    fill: #667085;
+    transition: fill 0.4s ease-in-out;
+}
+
+.icon_wrapper:active,
+.icon_wrapper:focus,
+.icon_wrapper:hover {
+    fill: #101828;
+
 }
 
 .icon_globe {
     width: 20px;
     height: 20px;
+    fill: inherit;
 }
 
 .dropdown {
@@ -25,9 +35,9 @@
     top: 42px;
     right: 50%;
     transform: translateX(50%);
-    width: 80px;
+    width: 110px;
     height: 100px;
-    padding: 20px 16px;
+    padding: 20px 0px;
     background-color: #fff;
     border: 1px solid #eaecf0;
     border-radius: 12px;
@@ -45,5 +55,22 @@
 
 .dropdown li {
     padding: 14px 12px;
+    width: 75%;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+
+}
+
+.dropdown li:hover,
+.dropdown li:active,
+.dropdown li:focus {
+    background-color: #F9FAFB;
+    color: #101828;
+}
+
+.dropdown p {
+    width: 75%;
 }
