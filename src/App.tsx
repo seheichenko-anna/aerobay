@@ -11,11 +11,11 @@ import NotFoundPage from './pages/NotFoundPage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 
 function App() {
-  return (
+  return (<>
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route path="catalog" element={<Catalog />} />
+        <Route index path='home-page' element={<HomePage />} />
+        <Route path="/catalog" element={<Catalog />} />
         <Route path="about-us" element={<AboutUs />} />
         <Route path="contact-us" element={<ContactUs />} />
         <Route path="cookies-policy" element={<CookiesPolicy />} />
@@ -25,6 +25,8 @@ function App() {
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
+    
+    </>
   );
 }
 

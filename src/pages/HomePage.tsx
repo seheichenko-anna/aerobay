@@ -1,5 +1,9 @@
+import ActionCallBlock from "../components/ActionCallBlock/ActionCallBlock";
+
 const HomePage = () => {
-  return <div>HomePage</div>;
+  return <div>HomePage
+      <ActionCallBlock/>
+  </div>;
 };
 
 export default HomePage;
