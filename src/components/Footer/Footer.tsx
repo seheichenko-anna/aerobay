@@ -102,6 +102,8 @@ const Footer = () => {
           </Link>
         </div>
       </div>
+      {/* тимчасова лінка для перевірки*/}
+      <Link to='home-page'>Return Home page</Link>
     </footer>
   );
 };
