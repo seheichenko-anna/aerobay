@@ -1,0 +1,47 @@
+.split_screen {
+    padding: 48px 16px;
+}
+
+.benefits_list {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 25px;
+}
+
+.benefits_list li {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    padding: 10px 20px 10px 10px;
+    background-color: #fafafa;
+}
+
+.benefits_list img {
+    width: 15px;
+    height: 15px;
+    padding: 4px;
+}
+
+.benefits_list svg {
+    width: 15px;
+    height: 15px;
+    padding: 4px;
+}
+
+.benefits_list p {
+    font-size: 16px;
+    color: #767676;
+}
+
+@media screen and (min-width:1440px) {
+
+    .split_screen {
+        padding: 52px;
+    }
+
+    .benefits_list li:nth-child(odd) {
+        margin-right: auto;
+    }
+}

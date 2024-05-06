@@ -1,9 +1,14 @@
-import ActionCallBlock from "../components/ActionCallBlock/ActionCallBlock";
 
+import SplitScreen from '../components/SplitScreen/SplitScreen';
+import ActionCallBlock from "../components/ActionCallBlock/ActionCallBlock";
 const HomePage = () => {
-  return <div>HomePage
+  return (
+    <>
+      <div>HomePage</div>
+      <SplitScreen />
       <ActionCallBlock/>
-  </div>;
+    </>
+  );
 };
 
 export default HomePage;
