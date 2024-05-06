@@ -26,7 +26,7 @@ const SplitScreen = () => {
           <svg>
             <use xlinkHref={`${svg}#icon-geo-exploration`} />
           </svg>
-          <p>Hybrid drone</p>
+          <p>Geophysical Exploration</p>
         </li>
       </ul>
     </section>
