@@ -11,21 +11,24 @@ import NotFoundPage from './pages/NotFoundPage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 
 function App() {
-  return (<>
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index path='home-page' element={<HomePage />} />
-        <Route path="/catalog" element={<Catalog />} />
-        <Route path="about-us" element={<AboutUs />} />
-        <Route path="contact-us" element={<ContactUs />} />
-        <Route path="cookies-policy" element={<CookiesPolicy />} />
-        <Route path="delivery-and-payments" element={<DeliveryAndPayments />} />
-        <Route path="returns-and-refunds" element={<ReturnsAndRefunds />} />
-        <Route path="privacy-policy" element={<PrivacyPolicy />} />
-      </Route>
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
-    
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="about-us" element={<AboutUs />} />
+          <Route path="contact-us" element={<ContactUs />} />
+          <Route path="cookies-policy" element={<CookiesPolicy />} />
+          <Route
+            path="delivery-and-payments"
+            element={<DeliveryAndPayments />}
+          />
+          <Route path="returns-and-refunds" element={<ReturnsAndRefunds />} />
+          <Route path="privacy-policy" element={<PrivacyPolicy />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </>
   );
 }
