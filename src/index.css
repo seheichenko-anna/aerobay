@@ -33,6 +33,11 @@ img {
   height: auto;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+
 @font-face {
   font-family: 'Gilroy';
   src: url('./fonts/Gilroy-Medium.ttf') format('truetype'),
