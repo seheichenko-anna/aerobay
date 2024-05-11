@@ -11,28 +11,28 @@ const ThreeTypesOfDrones = () => {
       </h2>
       <ul className={s.three_drones_list}>
         <li className={s.lidar_research}>
-          <Link to="catalog" className={s.arrow_wrapper}>
+          <Link to="lidar-drone" className={s.arrow_wrapper}>
             <svg className={s.arrow}>
               <use xlinkHref={`${svg}#icon-arrow-up-right`} />
             </svg>
           </Link>
-          <p className={s.drone_title}>LiDAR research</p>
+          <h3 className={s.drone_title}>LiDAR research</h3>
         </li>
         <li className={s.agribusiness}>
-          <Link to="catalog" className={s.arrow_wrapper}>
+          <Link to="agriculture-drone" className={s.arrow_wrapper}>
             <svg className={s.arrow}>
               <use xlinkHref={`${svg}#icon-arrow-up-right`} />
             </svg>
           </Link>
-          <p className={s.drone_title}>Agribusiness</p>
+          <h3 className={s.drone_title}>Agribusiness</h3>
         </li>
         <li className={s.photo_video_production}>
-          <Link to="catalog" className={s.arrow_wrapper}>
+          <Link to="drone-viewer" className={s.arrow_wrapper}>
             <svg className={s.arrow}>
               <use xlinkHref={`${svg}#icon-arrow-up-right`} />
             </svg>
           </Link>
-          <p className={s.drone_title}>Photo-video production</p>
+          <h3 className={s.drone_title}>Photo-video production</h3>
         </li>
       </ul>
     </section>
