@@ -1,0 +1,17 @@
+.container {
+    max-width: 1138px;
+    margin: 0 auto;
+}
+
+.drone_background {
+    width: 1138px;
+    height: 1138px;
+    border-radius: 50%;
+    background-color: #EAECF0;
+    margin: 0 auto;
+    padding: 104px 103px 103px 104px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
