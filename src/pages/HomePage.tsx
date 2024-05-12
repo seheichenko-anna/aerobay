@@ -8,8 +8,8 @@ const HomePage = () => {
     <>
       <div>HomePage</div>
       <SplitScreen />
-      <HowItWorks />
       <ThreeTypesOfDrones />
+      <HowItWorks />
       <ActionCallBlock />
     </>
   );
