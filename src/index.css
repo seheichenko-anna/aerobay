@@ -45,8 +45,12 @@ img {
     url('./fonts/Gilroy-Semibold.ttf') format('truetype'),
 }
 
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Gilroy', sans-serif;
-
   margin: 0;
 }
