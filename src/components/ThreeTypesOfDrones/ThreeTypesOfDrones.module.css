@@ -1,0 +1,136 @@
+.section_title {
+    font-weight: 500;
+    font-size: 30px;
+    text-transform: capitalize;
+    text-align: center;
+    color: #101828;
+    margin-bottom: 48px;
+}
+
+@media screen and (min-width:1440px) {
+    .section_title {
+        font-size: 78px;
+    }
+
+    .title_accent {
+        padding: 8px;
+    }
+}
+
+.title_accent {
+    border: 1px solid #bafc50;
+    border-radius: 70px;
+    padding: 4px;
+}
+
+@media screen and (min-width:1440px) {
+    .title_accent {
+        padding: 10px;
+    }
+}
+
+
+.three_drones {
+    padding: 64px 16px;
+}
+
+@media screen and (min-width:1440px) {
+    .three_drones {
+        padding: 96px 52px;
+    }
+}
+
+.three_drones_list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+@media screen and (min-width:1440px) {
+    .three_drones_list {
+        flex-direction: row;
+        gap: 32px;
+    }
+}
+
+
+.three_drones_list li {
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 343px;
+    height: 300px;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    justify-content: space-between;
+}
+
+@media screen and (min-width:1440px) {
+    .three_drones_list li {
+        width: 424px;
+        height: 400px;
+    }
+}
+
+
+.lidar_research {
+    background-image: url("../../assets/three-drones/LiDAR-research-mobile.jpg");
+}
+
+.agribusiness {
+    background-image: url("../../assets/three-drones/Agribusiness-mobile.jpg");
+}
+
+.photo_video_production {
+    background-image: url("../../assets/three-drones/Photo-video-production-mobile.jpg");
+}
+
+@media screen and (min-width:1440px) {
+    .lidar_research {
+        background-image: url("../../assets/three-drones/LiDAR-research-desktop.jpg");
+    }
+
+    .agribusiness {
+        background-image: url("../../assets/three-drones/Agribusiness-desktop.jpg");
+    }
+
+    .photo_video_production {
+        background-image: url("../../assets/three-drones/Photo-video-production-desktop.jpg");
+    }
+}
+
+
+.arrow_wrapper {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-left: auto;
+    fill: #1E1E1E;
+}
+
+@media screen and (min-width:1440px) {
+    .arrow_wrapper {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+.arrow {
+    width: 20px;
+    height: 20px;
+}
+
+.drone_title {
+    font-weight: 500;
+    font-size: 24px;
+    color: #fff;
+}

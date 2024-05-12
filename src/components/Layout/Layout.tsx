@@ -6,7 +6,8 @@ const Layout = () => {
   return (
     <>
       <div>Header</div>
-      <Link to='home-page'>Return Home page</Link>
+         {/* тимчасова лінка для перевірки*/}
+      <Link to="/">Return Home page</Link>
       <Outlet />
       <Reviews/>
       {/* тимчасова лінка для перевірки*/}
