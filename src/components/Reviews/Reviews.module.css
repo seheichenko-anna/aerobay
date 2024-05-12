@@ -1,0 +1,188 @@
+.container {
+    padding: 96px 52px 96px 52px;
+}
+
+.blockText {
+    box-sizing: border-box;
+    max-width: 1336px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 75px;
+    padding: 50px 30px;
+    border-radius: 31px;
+    background: linear-gradient(90.00deg, rgb(249, 250, 251), rgb(222, 236, 221) 100%);
+    margin: 0 auto;
+    letter-spacing: 0%;
+}
+
+.rewiews {
+    color: rgb(71, 84, 103);
+    font-family: "Gilroy", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 21px;
+    text-align: left;
+}
+
+.title {
+    max-width: 323px;
+    margin-top: 12px;
+    color: rgb(16, 24, 40);
+    font-family: "Gilroy-Medium", sans-serif;
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 78px;
+    text-align: left;
+    text-transform: capitalize;
+}
+
+.buttonBlock {
+    display: flex;
+    align-items: center;
+    padding-top: 153px;
+}
+
+.button {
+    border: none;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    background: rgb(245, 245, 245);
+    margin-right: 3px;
+}
+
+.reviewCounter {
+    margin-right: 25px;
+    color: rgb(0, 0, 0);
+    font-family: "Gilroy-Medium" sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 0px;
+    text-align: left;
+    text-transform: capitalize;
+}
+
+.reviewCounter:first-letter {
+    font-size: 22px;
+}
+
+.backgroundButton {
+    background: rgb(186, 252, 80);
+}
+
+.videoBlock {
+    max-width: 871px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    padding: 30px 10px 30px 35px;
+    border-radius: 19px;
+    background: rgb(255, 255, 255);
+}
+
+.videoBlock_text {
+    max-width: 298px;
+}
+
+.name {
+    color: rgb(16, 24, 40);
+    font-family: "Gilroy", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 29px;
+    text-align: left;
+}
+
+.reviewText {
+    color: rgb(71, 84, 103);
+    font-family: "Gilroy", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23px;
+    text-align: left;
+    margin: 24px 0px 100px 0px;
+}
+
+.city {
+    color: rgb(102, 112, 133);
+    font-family: "Gilroy", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: left;
+}
+
+.videoBlock_video {
+    max-width: 496px;
+    border-radius: 13px;
+    text-align: center;
+}
+
+.videoBox {
+    border-radius: 13px;
+    max-width: 100%;
+    height: 429px;
+    object-fit: cover;
+}
+
+@media screen and (max-width:375px) {
+
+    .blockText {
+        gap: 32px;
+        background: linear-gradient(180.00deg, rgb(249, 250, 251), rgb(222, 236, 221) 101.971%);
+    }
+
+    .rewiews {
+        text-align: center;
+        font-weight: 500;
+    }
+
+    .title {
+        max-width: 333px;
+        font-size: 30px;
+        line-height: 36px;
+        text-align: center;
+    }
+
+    .buttonBlock {
+        padding-top: 0px;
+    }
+
+    .container {
+        padding: 64px 0px;
+    }
+
+    .blockText {
+        flex-direction: column;
+    }
+
+    .videoBlock {
+        padding: 30px 15px 30px 15px;
+        flex-direction: column;
+    }
+
+    .reviewText {
+        font-size: 16px;
+        line-height: 19px;
+        margin: 24px 0px 0px 0px;
+    }
+
+    .videoBlock_video {
+        height: 234px;
+        order: 1;
+    }
+
+    .videoBox {
+        height: 234px;
+    }
+
+    .videoBlock_text {
+        order: 2;
+    }
+}
