@@ -13,7 +13,7 @@ const Reviews = () => {
                         <h2 className={s.title}>What our client says</h2>
                     </div>
                     <div className={s.buttonBlock}>
-                        <span>1/10</span>
+                        <span className={s.reviewCounter}>1/10</span>
                         <button
                             className={
                                 s.button
