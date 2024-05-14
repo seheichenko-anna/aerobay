@@ -1,0 +1,22 @@
+.custom_pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination_dot {
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    border-radius: 50%;
+    border: transparent;
+    margin-right: 16px;
+    padding: 0;
+
+}
+
+.pagination_dot.active {
+    width: 30px;
+    height: 8px;
+    border-radius: 50px;
+}

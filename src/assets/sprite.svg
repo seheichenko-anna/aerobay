@@ -60,5 +60,15 @@
 <symbol id="icon-phone-call" viewBox="0 0 32 32">
 <path fill="none" stroke="#667085" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.8080" d="M20.066 6.667c1.302 0.254 2.499 0.891 3.437 1.829s1.575 2.135 1.829 3.437M20.066 1.333c2.706 0.301 5.229 1.512 7.155 3.436s3.141 4.445 3.445 7.151M29.333 22.56v4c0.001 0.371-0.075 0.739-0.223 1.079s-0.367 0.646-0.64 0.897c-0.274 0.251-0.597 0.442-0.948 0.561s-0.724 0.163-1.094 0.13c-4.103-0.446-8.044-1.848-11.507-4.093-3.222-2.047-5.953-4.779-8-8-2.253-3.478-3.656-7.439-4.093-11.56-0.033-0.369 0.010-0.74 0.129-1.091s0.308-0.673 0.558-0.947c0.25-0.273 0.553-0.492 0.892-0.641s0.705-0.227 1.075-0.227h4c0.647-0.006 1.274 0.223 1.765 0.645s0.811 1.008 0.902 1.649c0.169 1.28 0.482 2.537 0.933 3.747 0.179 0.477 0.218 0.996 0.112 1.495s-0.353 0.956-0.712 1.319l-1.693 1.693c1.898 3.338 4.662 6.102 8 8l1.693-1.693c0.362-0.358 0.82-0.605 1.319-0.712s1.017-0.068 1.495 0.112c1.21 0.451 2.467 0.764 3.747 0.933 0.648 0.091 1.239 0.418 1.662 0.917s0.648 1.136 0.631 1.79z"></path>
 </symbol>
+<symbol id="icon-arrow-left" viewBox="0 0 32 32">
+<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.6667" d="M6.667 16h18.667"></path>
+<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.6667" d="M6.667 16l8 8"></path>
+<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.6667" d="M6.667 16l8-8"></path>
+</symbol>
+<symbol id="icon-arrow-right" viewBox="0 0 32 32">
+<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.6667" d="M6.667 16h18.667"></path>
+<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.6667" d="M17.333 24l8-8"></path>
+<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.6667" d="M17.333 8l8 8"></path>
+</symbol>
 </defs>
 </svg>
