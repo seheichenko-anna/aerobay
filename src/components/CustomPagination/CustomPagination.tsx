@@ -4,11 +4,13 @@ import s from './CustomPagination.module.css';
 interface CustomPaginationProps {
   activeIndex: number;
   goToSlide: (index: number) => void;
+  color?: string;
 }
 
 const CustomPagination: FC<CustomPaginationProps> = ({
   activeIndex,
   goToSlide,
+  color,
 }) => {
   return (
     <div className={s.custom_pagination}>
@@ -16,7 +18,7 @@ const CustomPagination: FC<CustomPaginationProps> = ({
         {Array.from({ length: 3 }, (_, index) => (
           <button
             key={index}
-            className={`${s.pagination_dot} ${index === activeIndex ? s.active : ''}`}
+            className={`${s.pagination_dot} ${index === activeIndex ? s.active : ''} ${color === 'black' ? s.black : ''}`}
             onClick={() => goToSlide(index)}
           />
         ))}

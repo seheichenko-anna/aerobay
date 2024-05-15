@@ -7,11 +7,12 @@
 .pagination_dot {
     width: 8px;
     height: 8px;
-    background-color: white;
+    background-color: #fff;
     border-radius: 50%;
     border: transparent;
     margin-right: 16px;
     padding: 0;
+    opacity: 0.5;
 
 }
 
@@ -19,4 +20,16 @@
     width: 30px;
     height: 8px;
     border-radius: 50px;
+    opacity: 1;
+}
+
+.pagination_dot.active.black {
+    width: 26px;
+    height: 6px;
+}
+
+.pagination_dot.black {
+    background-color: #000;
+    width: 6px;
+    height: 6px;
 }
