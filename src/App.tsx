@@ -18,7 +18,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
+          <Route path='home-page' element={<HomePage />} />
           <Route path="catalog" element={<Catalog />} />
           <Route path="lidar-drone" element={<LiDARDrone />} />
           <Route path="agriculture-drone" element={<AgricultureDrone />} />
