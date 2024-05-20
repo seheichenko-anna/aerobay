@@ -68,7 +68,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <LanguageSelector />
+                <LanguageSelector type="footer" />
               </li>
             </ul>
           </div>
