@@ -32,10 +32,12 @@
 
 .three_drones {
     padding: 64px 16px;
-}
 
-@media screen and (min-width:1440px) {
-    .three_drones {
+    @media screen and (min-width:768px) {
+        padding: 80px 32px;
+    }
+
+    @media screen and (min-width:1440px) {
         padding: 96px 52px;
     }
 }
@@ -46,65 +48,49 @@
     justify-content: center;
     align-items: center;
     gap: 40px;
-}
 
-@media screen and (min-width:1440px) {
-    .three_drones_list {
+
+    @media screen and (min-width:768px) {
         flex-direction: row;
         gap: 32px;
     }
 }
 
-
-.three_drones_list li {
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 343px;
-    height: 300px;
-    border-radius: 20px;
-    overflow: hidden;
+.swiper {
     display: flex;
-    flex-direction: column;
-    padding: 30px;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
 }
 
-@media screen and (min-width:1440px) {
-    .three_drones_list li {
-        width: 424px;
+.slide {
+    max-width: 343px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider_wrapper {
+    position: relative;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.drone_wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 343px;
+    border-radius: 20px;
+
+    @media screen and (min-width:768px) {
+        max-width: 424px;
         height: 400px;
     }
 }
 
-
-.lidar_research {
-    background-image: url("../../assets/three-drones/LiDAR-research-mobile.jpg");
-}
-
-.agribusiness {
-    background-image: url("../../assets/three-drones/Agribusiness-mobile.jpg");
-}
-
-.photo_video_production {
-    background-image: url("../../assets/three-drones/Photo-video-production-mobile.jpg");
-}
-
-@media screen and (min-width:1440px) {
-    .lidar_research {
-        background-image: url("../../assets/three-drones/LiDAR-research-desktop.jpg");
-    }
-
-    .agribusiness {
-        background-image: url("../../assets/three-drones/Agribusiness-desktop.jpg");
-    }
-
-    .photo_video_production {
-        background-image: url("../../assets/three-drones/Photo-video-production-desktop.jpg");
-    }
-}
-
-
 .arrow_wrapper {
+    position: absolute;
+    top: 30px;
+    right: 30px;
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -130,7 +116,14 @@
 }
 
 .drone_title {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
     font-weight: 500;
     font-size: 24px;
     color: #fff;
+}
+
+.pagination {
+    margin-top: 16px;
 }
