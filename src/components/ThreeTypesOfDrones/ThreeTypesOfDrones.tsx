@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import CustomPagination from '../CustomPagination/CustomPagination';
 
 const ThreeTypesOfDrones = () => {
-  const { isLaptopOrTablet, isMobileOrBigScreen, isBigScreen } = useDashboard();
+  const { isLaptopOrTablet, isMobileOrBigScreen } = useDashboard();
   const [swiper, setSwiper] = useState<any>(null);
   const [activeIndex, setActiveIndex] = useState<number>(1);
   useEffect(() => {
