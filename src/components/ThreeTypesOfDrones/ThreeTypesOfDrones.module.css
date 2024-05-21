@@ -4,16 +4,19 @@
     text-transform: capitalize;
     text-align: center;
     color: #101828;
-    margin-bottom: 48px;
-}
+    margin: 0 auto 48px;
 
-@media screen and (min-width:1440px) {
-    .section_title {
-        font-size: 78px;
+
+    @media screen and (max-width:374px) {
+        font-size: 24px;
     }
 
-    .title_accent {
-        padding: 8px;
+    @media screen and (min-width:768px) {
+        font-size: 56px;
+    }
+
+    @media screen and (min-width:1440px) {
+        font-size: 78px;
     }
 }
 
@@ -21,14 +24,15 @@
     border: 1px solid #bafc50;
     border-radius: 70px;
     padding: 4px;
-}
 
-@media screen and (min-width:1440px) {
-    .title_accent {
+    @media screen and (min-width:768px) {
+        padding: 8px;
+    }
+
+    @media screen and (min-width:1440px) {
         padding: 10px;
     }
 }
-
 
 .three_drones {
     padding: 64px 16px;
@@ -63,7 +67,7 @@
 }
 
 .slide {
-    max-width: 343px;
+    max-width: 424px;
     display: flex;
     justify-content: center;
     align-items: center;
