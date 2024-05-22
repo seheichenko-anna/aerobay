@@ -4,16 +4,22 @@
     justify-content: center;
 }
 
+.pagination_dots {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+
 .pagination_dot {
     width: 8px;
     height: 8px;
     background-color: #fff;
     border-radius: 50%;
     border: transparent;
-    margin-right: 16px;
     padding: 0;
     opacity: 0.5;
-
 }
 
 .pagination_dot.active {
