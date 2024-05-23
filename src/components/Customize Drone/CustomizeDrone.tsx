@@ -15,7 +15,7 @@ const CustomizeDrone = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isFirstSlide, setIsFirstSlide] = useState<boolean>(true);
   const [isLastSlide, setIsLastSlide] = useState<boolean>(false);
-  const { isBigScreen, isMobileOrTablet } = useDashboard();
+  const { isBigScreenOrTablet, isAllMobile, isBigScreen } = useDashboard();
 
   useEffect(() => {
     if (swiper) {
@@ -48,15 +48,17 @@ const CustomizeDrone = () => {
   return (
     <section className={s.customize_drone_section}>
       <div className={s.container}>
-        <h2 className={s.section_customize_title}>
-          <span className={s.accent_color}>Customize</span> your own drone for
-          your business need
-        </h2>
-        <p className={s.text_under_title}>
-          You can choose a base drone tailored to suit your business needs
-        </p>
-        {isMobileOrTablet && (
-          <div className={s.swiper_container}>
+        <div className={s.title_section_wrapper}>
+          <h2 className={s.section_customize_title}>
+            <span className={s.accent_color}>Customize</span> your own drone for
+            your business need
+          </h2>
+          <p className={s.text_under_title}>
+            You can choose a base drone tailored to suit your business needs
+          </p>
+        </div>
+        {isAllMobile && (
+          <>
             <Swiper
               onSwiper={setSwiper}
               spaceBetween={32}
@@ -141,12 +143,12 @@ const CustomizeDrone = () => {
                 color="black"
               />
             </div>
-          </div>
+          </>
         )}
 
-        {isBigScreen && (
+        {isBigScreenOrTablet && (
           <>
-            <div className={s.drone_background}>
+            <div>
               <Swiper
                 onSwiper={setSwiper}
                 spaceBetween={64}
@@ -156,28 +158,42 @@ const CustomizeDrone = () => {
               >
                 <SwiperSlide>
                   <div
-                    className={`${s.drone_background_wrapper} ${s.liddar_background}`}
+                    className={`${s.drone_background} ${s.liddar_background}`}
                   >
-                    <div className={s.drone_info_wrapper}>
-                      <div>
-                        <h3 className={s.drone_title}>LIDDrone 200</h3>
-                        <p className={s.equipment}>(basic equipment)</p>
-                      </div>
-                      <img src={liddarDrone} className={s.drone_img} />
-                      <div className={s.cost_info}>
-                        <p className={s.total_cost}>Total cost: </p>
-                        <p className={s.cost_value}>
-                          <span>$ 500</span>
-                        </p>
-                        <Link to="lidar-drone" className={s.link_base_model}>
-                          <span>Bye base model</span>
-                          <span className={s.arrow_wrapper}>
-                            <svg className={s.icon_arrow_link}>
-                              <use xlinkHref={`${svg}#icon-arrow-up-right`} />
-                            </svg>
-                          </span>
-                        </Link>
-                      </div>
+                    <div className={s.drone_title_wrapper}>
+                      <h3 className={s.drone_title}>LIDDrone 200</h3>
+                      <p className={s.equipment}>(basic equipment)</p>
+                    </div>
+                    <img src={liddarDrone} className={s.drone_img} />
+                    <div className={s.cost_info}>
+                      <p className={s.total_cost}>Total cost: </p>
+                      <p className={s.cost_value}>
+                        <span>$ 500</span>
+                      </p>
+                      <Link to="lidar-drone" className={s.link_base_model}>
+                        <span>Bye base model</span>
+                        <span className={s.arrow_wrapper}>
+                          <svg className={s.icon_arrow_link}>
+                            <use xlinkHref={`${svg}#icon-arrow-up-right`} />
+                          </svg>
+                        </span>
+                      </Link>
+                    </div>
+                    <div
+                      className={`${isLastSlide ? s.swiper_button_prev : s.swiper_button_next} ${s.custom_swiper_next}`}
+                      onClick={goNext}
+                    >
+                      <svg className={s.icon_arrow_prev}>
+                        <use xlinkHref={`${svg}#icon-arrow-right`} />
+                      </svg>
+                    </div>
+                    <div
+                      className={`${!isFirstSlide ? s.swiper_button_next : s.swiper_button_prev} ${s.custom_swiper_prev}`}
+                      onClick={goPrev}
+                    >
+                      <svg className={s.icon_arrow_prev}>
+                        <use xlinkHref={`${svg}#icon-arrow-left`} />
+                      </svg>
                     </div>
                     <div className={s.pagination}>
                       <CustomPagination
@@ -188,32 +204,43 @@ const CustomizeDrone = () => {
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
-                  <div
-                    className={`${s.drone_background_wrapper} ${s.agro_background}`}
-                  >
-                    <div className={s.drone_info_wrapper}>
-                      <div>
-                        <h3 className={s.drone_title}>Drone Viewer 270</h3>
-                        <p className={s.equipment}>(basic equipment)</p>
-                      </div>
-                      <img src={droneViewer} className={s.drone_img} />
-                      <div className={s.cost_info}>
+                  <div className={`${s.drone_background} ${s.agro_background}`}>
+                    <div className={s.drone_title_wrapper}>
+                      <h3 className={s.drone_title}>Drone Viewer 2700</h3>
+                      <p className={s.equipment}>(basic equipment)</p>
+                    </div>
+                    <img src={droneViewer} className={s.drone_img} />
+                    <div className={s.cost_info}>
+                      <div className={s.cost_wrapper}>
                         <p className={s.total_cost}>Total cost: </p>
                         <p className={s.cost_value}>
                           <span>$ 500</span>
                         </p>
-                        <Link
-                          to="agriculture-drone"
-                          className={s.link_base_model}
-                        >
-                          <span>Bye base model</span>
-                          <span className={s.arrow_wrapper}>
-                            <svg className={s.icon_arrow_link}>
-                              <use xlinkHref={`${svg}#icon-arrow-up-right`} />
-                            </svg>
-                          </span>
-                        </Link>
                       </div>
+                      <Link to="lidar-drone" className={s.link_base_model}>
+                        <span>Bye base model</span>
+                        <span className={s.arrow_wrapper}>
+                          <svg className={s.icon_arrow_link}>
+                            <use xlinkHref={`${svg}#icon-arrow-up-right`} />
+                          </svg>
+                        </span>
+                      </Link>
+                    </div>
+                    <div
+                      className={`${isLastSlide ? s.swiper_button_prev : s.swiper_button_next} ${s.custom_swiper_next}`}
+                      onClick={goNext}
+                    >
+                      <svg className={s.icon_arrow_prev}>
+                        <use xlinkHref={`${svg}#icon-arrow-right`} />
+                      </svg>
+                    </div>
+                    <div
+                      className={`${!isFirstSlide ? s.swiper_button_next : s.swiper_button_prev} ${s.custom_swiper_prev}`}
+                      onClick={goPrev}
+                    >
+                      <svg className={s.icon_arrow_prev}>
+                        <use xlinkHref={`${svg}#icon-arrow-left`} />
+                      </svg>
                     </div>
                     <div className={s.pagination}>
                       <CustomPagination
@@ -224,32 +251,41 @@ const CustomizeDrone = () => {
                   </div>
                 </SwiperSlide>
                 <SwiperSlide>
-                  <div
-                    className={`${s.drone_background_wrapper} ${s.agro_background}`}
-                  >
-                    <div className={s.drone_info_wrapper}>
-                      <div>
-                        <h3 className={s.drone_title}>Drone Agras 250</h3>
-                        <p className={s.equipment}>(basic equipment)</p>
-                      </div>
-                      <img src={agroDrone} className={s.drone_img} />
-                      <div className={s.cost_info}>
-                        <p className={s.total_cost}>Total cost: </p>
-                        <p className={s.cost_value}>
-                          <span>$ 800</span>
-                        </p>
-                        <Link
-                          to="agriculture-drone"
-                          className={s.link_base_model}
-                        >
-                          <span>Bye base model</span>
-                          <span className={s.arrow_wrapper}>
-                            <svg className={s.icon_arrow_link}>
-                              <use xlinkHref={`${svg}#icon-arrow-up-right`} />
-                            </svg>
-                          </span>
-                        </Link>
-                      </div>
+                  <div className={`${s.drone_background} ${s.agro_background}`}>
+                    <div className={s.drone_title_wrapper}>
+                      <h3 className={s.drone_title}>Drone Agras 250</h3>
+                      <p className={s.equipment}>(basic equipment)</p>
+                    </div>
+                    <img src={agroDrone} className={s.drone_img} />
+                    <div className={s.cost_info}>
+                      <p className={s.total_cost}>Total cost: </p>
+                      <p className={s.cost_value}>
+                        <span>$ 800</span>
+                      </p>
+                      <Link to="lidar-drone" className={s.link_base_model}>
+                        <span>Bye base model</span>
+                        <span className={s.arrow_wrapper}>
+                          <svg className={s.icon_arrow_link}>
+                            <use xlinkHref={`${svg}#icon-arrow-up-right`} />
+                          </svg>
+                        </span>
+                      </Link>
+                    </div>
+                    <div
+                      className={`${isLastSlide ? s.swiper_button_prev : s.swiper_button_next} ${s.custom_swiper_next}`}
+                      onClick={goNext}
+                    >
+                      <svg className={s.icon_arrow_prev}>
+                        <use xlinkHref={`${svg}#icon-arrow-right`} />
+                      </svg>
+                    </div>
+                    <div
+                      className={`${!isFirstSlide ? s.swiper_button_next : s.swiper_button_prev} ${s.custom_swiper_prev}`}
+                      onClick={goPrev}
+                    >
+                      <svg className={s.icon_arrow_prev}>
+                        <use xlinkHref={`${svg}#icon-arrow-left`} />
+                      </svg>
                     </div>
                     <div className={s.pagination}>
                       <CustomPagination
@@ -260,22 +296,6 @@ const CustomizeDrone = () => {
                   </div>
                 </SwiperSlide>
               </Swiper>
-              <div
-                className={`${!isFirstSlide ? s.swiper_button_next : s.swiper_button_prev} ${s.custom_swiper_prev}`}
-                onClick={goPrev}
-              >
-                <svg className={s.icon_arrow_prev}>
-                  <use xlinkHref={`${svg}#icon-arrow-left`} />
-                </svg>
-              </div>
-              <div
-                className={`${isLastSlide ? s.swiper_button_prev : s.swiper_button_next} ${s.custom_swiper_next}`}
-                onClick={goNext}
-              >
-                <svg className={s.icon_arrow_prev}>
-                  <use xlinkHref={`${svg}#icon-arrow-right`} />
-                </svg>
-              </div>
             </div>
             <p className={s.text_under_swiper}>
               Or You can Customize Base Drone by <br />
@@ -285,7 +305,7 @@ const CustomizeDrone = () => {
             <Link to="customize-drone" className={s.link_to_cistomize_drone}>
               Get started
             </Link>
-            <div className={s.circle}></div>
+            {isBigScreen && <div className={s.circle}></div>}
           </>
         )}
       </div>
