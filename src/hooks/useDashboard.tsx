@@ -13,7 +13,10 @@ export const useDashboard = () => {
   const isBigScreen = useMediaQuery({ query: '(min-width: 1440px)' });
   const isMobileOrTablet = useMediaQuery({ query: '(max-width: 1439px)' });
   const isMobile = useMediaQuery({
-    query: '(min-width: 375px) and (max-width: 768px)',
+    query: '(min-width: 375px) and (max-width: 767px)',
+  });
+  const isAllMobile = useMediaQuery({
+    query: '(max-width: 767px)',
   });
   const isRetina = useMediaQuery({ query: '(min-resolution: 2dppx)' });
   return {
@@ -24,5 +27,6 @@ export const useDashboard = () => {
     isLaptopOrTablet,
     isMobileOrBigScreen,
     isMobile,
+    isAllMobile,
   };
 };

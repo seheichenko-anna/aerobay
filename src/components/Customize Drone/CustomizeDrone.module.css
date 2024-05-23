@@ -4,16 +4,33 @@
     text-transform: capitalize;
     text-align: center;
     color: #101828;
-    margin-bottom: 16px;
     position: relative;
+    margin: 0 auto 16px auto;
+
+    @media screen and (min-width: 768px) {
+        font-size: 48px;
+
+        @media screen and (min-width: 1440px) {
+            font-size: 64px;
+
+        }
+    }
 }
 
-@media screen and (min-width: 1440px) {
-    .section_customize_title {
-        font-size: 64px;
-        max-width: 809px;
-        margin: 0 auto 20px auto;
+.title_section_wrapper {
+    max-width: 343px;
+    margin: 0 auto 16px auto;
+
+    @media screen and (min-width: 768px) {
+        max-width: 650px;
+        margin: 0 auto 32px auto;
     }
+
+    @media screen and (min-width: 1440px) {
+        margin: 0 auto 60px auto;
+        max-width: 809px;
+    }
+
 }
 
 .circle {
@@ -22,7 +39,8 @@
     height: 1368px;
     border-radius: 50%;
     top: 177px;
-    left: -116px;
+    left: 50%;
+    transform: translateX(-50%);
     background-image: url("../../assets/customize-drone/backgroung-vector.svg");
     background-size: cover;
     background-repeat: no-repeat;
@@ -40,71 +58,65 @@
     text-align: center;
     color: #475467;
     margin-bottom: 40px;
-}
 
-@media screen and (min-width: 1440px) {
-    .text_under_title {
+    @media screen and (min-width: 768px) {
         font-size: 24px;
         max-width: 600px;
         margin: 0 auto 60px auto;
     }
+}
 
+@media screen and (min-width: 768px) {
     .text_under_swiper {
         font-size: 24px;
         text-align: center;
         color: #475467;
         margin-bottom: 35px;
+
     }
 }
 
 .customize_drone_section {
+    margin: 0 auto;
     padding: 64px 16px;
-}
 
-@media screen and (min-width: 1440px) {
-    .customize_drone_section {
-        padding: 96px 151px 96px 152px;
+    @media screen and (min-width: 768px) {
+        padding: 80px 32px;
+    }
+
+    @media screen and (min-width: 1440px) {
+        padding: 96px 152px;
     }
 }
 
 .container {
-    max-width: 343px;
     margin: 0 auto;
+    width: 96%;
     position: relative;
-}
-
-@media screen and (min-width: 1440px) {
-    .container {
-        max-width: 1138px;
-    }
 }
 
 .drone_background {
     position: relative;
-    width: 343px;
-    height: 343px;
+    width: 100%;
+    max-width: 1137px;
+    margin: 0 auto;
+    aspect-ratio: 1/1;
     margin-bottom: 20px;
     border-radius: 50%;
-    padding: 11px;
-}
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-@media screen and (min-width: 1440px) {
-    .drone_background {
-        width: 1137px;
-        height: 1138px;
+
+    @media screen and (min-width: 768px) {
+        margin-bottom: 32px;
+    }
+
+    @media screen and (min-width: 1440px) {
         margin-bottom: 60px;
-        padding: 0;
     }
-}
 
-@media screen and (min-width: 1440px) {
-    .drone_background_wrapper {
-        padding: 104px 103px 103px 104px;
-        width: 100%;
-        border-radius: 50%;
-        margin: 0 auto;
-        overflow: hidden;
-    }
 }
 
 .liddar_background {
@@ -116,21 +128,12 @@
 
 }
 
-@media screen and (min-width: 1440px) {
-    .drone_info_wrapper {
-        width: 931px;
-        height: 931px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        border-radius: 50%;
-    }
-}
-
 .drone_title_wrapper {
     margin-bottom: 20px;
 
+    @media screen and (min-width: 1440px) {
+        margin-top: 10%;
+    }
 }
 
 .drone_title {
@@ -140,15 +143,17 @@
     text-transform: capitalize;
     color: #101828;
     text-align: center;
-}
 
-@media screen and (min-width: 1440px) {
-    .drone_title {
-        margin-top: 26px;
+
+    @media screen and (min-width: 768px) {
+        font-size: 28px;
+    }
+
+    @media screen and (min-width: 1440px) {
         font-size: 32px;
     }
-}
 
+}
 
 .equipment {
     font-weight: 400;
@@ -159,46 +164,54 @@
     margin-bottom: 20px;
 }
 
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 768px) {
     .equipment {
         font-size: 14px;
     }
 }
 
 .drone_img {
-    width: 321px;
+    max-width: 931px;
+    width: 100%;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-}
-
-@media screen and (min-width: 1440px) {
-    .drone_img {
-        width: 930px;
-    }
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    padding: 20px;
 }
 
 .cost_info {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     flex-direction: column;
     gap: 10px;
     padding: 10px;
     margin-bottom: 17px;
-}
+    margin-top: auto;
 
-@media screen and (min-width: 1440px) {
-    .cost_info {
+
+    @media screen and (min-width: 768px) {
         border-radius: 50px;
         padding: 10px 10px 10px 30px;
-        width: 517px;
-        height: 78px;
+        margin-right: auto;
+        margin-left: auto;
+        margin-bottom: 30px;
+        flex-direction: row;
         backdrop-filter: blur(10.300000190734863px);
         background-color: rgba(255, 255, 255, 0.54);
-        margin-bottom: 27px;
-        flex-direction: row;
-        margin-bottom: 27px;
+        width: 100%;
+        max-width: 450px;
     }
+
+    @media screen and (min-width: 1440px) {
+        max-width: 517px;
+    }
+}
+
+.cost_wrapper {
+    display: flex;
+    align-items: center;
 }
 
 .total_cost {
@@ -215,10 +228,8 @@
     padding: 0px 35px;
     background-color: #f9fafb;
     border: 1px solid #eaecf0;
-}
 
-@media screen and (min-width: 1440px) {
-    .cost_value {
+    @media screen and (min-width: 768px) {
         background-color: #fff;
         padding: 10px 35px;
     }
@@ -230,14 +241,22 @@
     background-color: #bafc50;
     display: flex;
     align-items: center;
-    width: 250px;
-}
+    justify-content: space-between;
+    max-width: 250px;
+    width: 100%;
+    transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
 
-@media screen and (min-width: 1440px) {
-    .link_base_model {
+    @media screen and (min-width: 768px) {
         padding: 7.5px 10px 7.5px 20px;
         flex: 1;
         width: auto;
+        display: flex;
+        gap: 10px;
+    }
+
+    &&:hover {
+        color: #fff;
+        background-color: #101828;
     }
 }
 
@@ -253,19 +272,29 @@
     width: 40px;
     height: 40px;
     background-color: #101828;
-    margin-left: auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.4s ease-in-out;
 }
+
+.link_base_model:hover .arrow_wrapper {
+    background-color: #bafc50;
+}
+
 
 .icon_arrow_link {
     fill: #fff;
     width: 20px;
     height: 21px;
+    transition: fill 0.4s ease-in-out;
 }
 
-@media screen and (min-width: 1440px) {
+.link_base_model:hover .icon_arrow_link {
+    fill: #101828
+}
+
+@media screen and (min-width: 768px) {
 
     .icon_arrow_next,
     .icon_arrow_prev {
@@ -300,25 +329,22 @@
         background-color: #fff;
     }
 
-
     .custom_swiper_prev {
-        left: 64px;
+        left: 3%;
         top: 50%;
         transform: translateY(-50%);
-
     }
 
     .custom_swiper_next {
-        right: 64px;
+        right: 3%;
         top: 50%;
         transform: translateY(-50%);
     }
 
     .pagination {
-        position: absolute;
-        bottom: 82px;
-        left: 530px;
+        margin: 0 auto;
         z-index: 1;
+        margin-bottom: 3%;
     }
 
     .text_under_swiper {
@@ -331,10 +357,16 @@
         padding: 16px 10px 16px 20px;
         font-weight: 500;
         font-size: 16px;
-        color: #000;
+        color: #101828;
         display: block;
         text-align: center;
         margin: 0 auto;
         max-width: 250px;
+        transition: background-color 0.4s ease-in-out;
+
+        &&:hover {
+            background-color: #bafc50;
+        }
     }
+
 }
