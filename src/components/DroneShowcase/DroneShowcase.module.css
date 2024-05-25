@@ -1,0 +1,254 @@
+.droneShowcase {
+    margin: 0 auto;
+    box-sizing: border-box;
+    max-width: 1335px;
+    display: flex;
+    justify-content: center;
+    border-radius: 30px;
+}
+
+.video {
+    box-sizing: border-box;
+    max-width: 100%;
+    border-radius: 30px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.infoContainer {
+    position: absolute;
+    top: 54%;
+    left: 1.7%;
+    width: 96%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.infoBlock {
+    background-color: rgb(255, 255, 255);
+    max-width: 436px;
+    height: 253px;
+    border-radius: 30px;
+    padding: 25px 29px 25px 23px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 23px;
+}
+
+.priceContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.price {
+    color: rgb(16, 24, 40);
+    font-family: 'Gilroy-SemiBold' sans-serif;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 0px;
+    letter-spacing: 0%;
+    text-align: left;
+    width: 165px;
+}
+
+.product {
+    font-size: 14px;
+}
+
+.learnMoreButton {
+    border: none;
+    border-radius: 50px;
+    background: rgb(186, 252, 80);
+    height: 55px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 10px 16px 20px;
+    color: rgb(0, 0, 0);
+    font-family: 'Gilroy', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0%;
+    text-align: left;
+    gap: 25px;
+}
+
+.learnMoreButton>span {
+    border-radius: 50px;
+    background: rgb(16, 24, 40);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    color: white;
+}
+
+.title {
+    color: rgb(16, 24, 40);
+    font-family: 'Gilroy' sans-serif;
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 56px;
+    letter-spacing: 0%;
+    text-align: left;
+    text-transform: capitalize;
+}
+
+.description {
+    color: rgb(71, 84, 103);
+    font-family: 'Gilroy-Regular' sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0%;
+    text-align: left;
+}
+
+.specifications {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.specificationItem {
+    height: 63px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 10px 14px 10px 14px;
+    border-radius: 11px;
+    backdrop-filter: blur(15.9px);
+    background: rgba(255, 255, 255, 0.12);
+    color: rgb(255, 255, 255);
+}
+
+.specTitle {
+    font-family: 'Gilroy-Regular' sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0%;
+    text-align: left;
+}
+
+.specValue {
+    margin-top: 6px;
+    font-family: 'Gilroy-Medium' sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0%;
+    text-align: center;
+}
+
+.position {
+    position: absolute;
+    top: 94%;
+    left: 50%;
+}
+
+@media screen and (max-width:375px) {
+
+    .droneShowcase {
+        height: 420px;
+        margin: 0px 10px;
+        margin-bottom: 18px;
+    }
+
+    .video {
+        transform: scale(1.0);
+        width: 100%;
+        height: auto;
+    }
+
+    .infoContainer {
+        top: 65%;
+    }
+
+    .infoBlock {
+        height: 185px;
+        padding: 13px 17px;
+        gap: 15px;
+        box-shadow: 0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 2px 16px -4px rgba(16, 24, 40, 0.08);
+        background: rgb(255, 255, 255);
+    }
+
+    .priceContainer {
+        gap: 8px;
+    }
+
+    .price {
+        color: rgb(16, 24, 40);
+        font-family: 'Gilroy-SemiBold' sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 25px;
+        letter-spacing: 0%;
+        text-align: left;
+    }
+
+    .product {
+        font-size: 20px;
+    }
+
+    .learnMoreButton {
+        width: 130px;
+        height: 36px;
+        color: rgb(16, 24, 40);
+        font-family: 'Gilroy-Medium' sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 17px;
+        gap: 0px;
+        padding: 16px 10px;
+    }
+
+    .learnMoreButton>span {
+        width: 30px;
+        height: 30px;
+        padding: 8px;
+    }
+
+    .title {
+        color: rgb(16, 24, 40);
+        font-family: 'Gilroy' sans-serif;
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 28px;
+        letter-spacing: 0%;
+        text-align: left;
+        text-transform: capitalize;
+    }
+
+    .description {
+        color: rgb(71, 84, 103);
+        font-family: "Gilroy-Regular" sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 17px;
+        letter-spacing: 0%;
+        text-align: left;
+    }
+
+    .specifications {
+        display: none;
+    }
+
+    .position {
+        top: 50%;
+        left: 40%;
+    }
+}

@@ -5,10 +5,11 @@ import ThreeTypesOfDrones from '../components/ThreeTypesOfDrones/ThreeTypesOfDro
 import CustomizeDrone from '../components/Customize Drone/CustomizeDrone';
 
 import Reviews from '../components/Reviews/Reviews';
+import DroneShowcase from '../components/DroneShowcase/DroneShowcase';
 const HomePage = () => {
   return (
     <>
-      <div>HomePage</div>
+      <DroneShowcase/>
       <SplitScreen />
       <ThreeTypesOfDrones />
       <CustomizeDrone />
