@@ -13,6 +13,7 @@ import svg from '../../assets/sprite.svg';
 import Hamburger from 'hamburger-react';
 import useScreenSize from '../../hooks/useScreenSize';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
+// import Search from '../Search/Search';
 
 const Header = () => {
   const screenSize = useScreenSize();
@@ -104,6 +105,7 @@ const Header = () => {
 
           <div className={s.headerActions}>
             <div className={`${s.searchContainer}`}>
+              {/* <Search /> */}
               <button
                 className={`${s.searchButton}`}
                 onClick={handleSearchClick}

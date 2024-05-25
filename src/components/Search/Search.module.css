@@ -3,6 +3,30 @@
     width: 270px;
 }
 
+.search_wrapper {
+    transition: opacity 0.4s ease-out, visibility 0.4s ease-out
+}
+
+.input_wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.is_hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+}
 
 .btn {
     border-radius: 50px;
@@ -37,6 +61,10 @@
     outline: transparent;
 }
 
+.search_field::placeholder {
+    font-family: inherit;
+}
+
 .search_btn {
     border: none;
     width: 30px;
@@ -54,6 +82,8 @@
 
 .reset_btn {
     border: none;
+    position: absolute;
+    right: 0;
 }
 
 .icon_reset {

@@ -8,7 +8,7 @@ type FormData = {
 };
 
 const Search = () => {
-  const [isHidden, setIsHidden] = useState<boolean>(false);
+  const [isHidden, setIsHidden] = useState<boolean>(true);
   const [search, setSearch] = useState<string>('');
   const { register, handleSubmit, reset } = useForm<FormData>();
 
@@ -32,15 +32,16 @@ const Search = () => {
 
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-      {isHidden && (
-        <>
-          <button className={`${s.search_btn} ${s.btn}`} type="submit">
-            <svg className={s.icon_search}>
-              <use xlinkHref={`${svg}#icon-search`} />
-            </svg>
-          </button>
+      <div className={`${s.search_wrapper} ${isHidden ? s.is_hidden : ''}`}>
+        <button className={`${s.search_btn} ${s.btn}`} type="submit">
+          <svg className={s.icon_search}>
+            <use xlinkHref={`${svg}#icon-search`} />
+          </svg>
+        </button>
+        <div className={s.input_wrapper}>
           <input
             className={s.search_field}
+            placeholder="Search..."
             {...register('search')}
             onChange={e => updateSearchValue(e.target.value)}
             value={search}
@@ -48,15 +49,16 @@ const Search = () => {
           <button
             className={`${s.reset_btn} ${s.btn}`}
             type="button"
-            onClick={handleReset}
+            onClick={search ? handleReset : handleSearchOpener}
           >
             <svg className={s.icon_reset}>
               <use xlinkHref={`${svg}#icon-x`} />
             </svg>
           </button>
-        </>
-      )}
-      {!isHidden && (
+        </div>
+      </div>
+
+      <div className={`${s.search_wrapper} ${isHidden ? '' : s.is_hidden}`}>
         <button
           className={`${s.btn} ${s.open_btn}`}
           onClick={handleSearchOpener}
@@ -66,7 +68,7 @@ const Search = () => {
             <use xlinkHref={`${svg}#icon-search`} />
           </svg>
         </button>
-      )}
+      </div>
     </form>
   );
 };
