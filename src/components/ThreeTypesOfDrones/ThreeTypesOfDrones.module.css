@@ -4,16 +4,19 @@
     text-transform: capitalize;
     text-align: center;
     color: #101828;
-    margin-bottom: 48px;
-}
+    margin: 0 auto 48px;
 
-@media screen and (min-width:1440px) {
-    .section_title {
-        font-size: 78px;
+
+    @media screen and (max-width:374px) {
+        font-size: 24px;
     }
 
-    .title_accent {
-        padding: 8px;
+    @media screen and (min-width:768px) {
+        font-size: 56px;
+    }
+
+    @media screen and (min-width:1440px) {
+        font-size: 78px;
     }
 }
 
@@ -21,21 +24,24 @@
     border: 1px solid #bafc50;
     border-radius: 70px;
     padding: 4px;
-}
 
-@media screen and (min-width:1440px) {
-    .title_accent {
+    @media screen and (min-width:768px) {
+        padding: 8px;
+    }
+
+    @media screen and (min-width:1440px) {
         padding: 10px;
     }
 }
 
-
 .three_drones {
     padding: 64px 16px;
-}
 
-@media screen and (min-width:1440px) {
-    .three_drones {
+    @media screen and (min-width:768px) {
+        padding: 80px 32px;
+    }
+
+    @media screen and (min-width:1440px) {
         padding: 96px 52px;
     }
 }
@@ -46,65 +52,49 @@
     justify-content: center;
     align-items: center;
     gap: 40px;
-}
 
-@media screen and (min-width:1440px) {
-    .three_drones_list {
+
+    @media screen and (min-width:768px) {
         flex-direction: row;
         gap: 32px;
     }
 }
 
-
-.three_drones_list li {
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 343px;
-    height: 300px;
-    border-radius: 20px;
-    overflow: hidden;
+.swiper {
     display: flex;
-    flex-direction: column;
-    padding: 30px;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
 }
 
-@media screen and (min-width:1440px) {
-    .three_drones_list li {
-        width: 424px;
+.slide {
+    max-width: 424px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider_wrapper {
+    position: relative;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.drone_wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 343px;
+    border-radius: 20px;
+
+    @media screen and (min-width:768px) {
+        max-width: 424px;
         height: 400px;
     }
 }
 
-
-.lidar_research {
-    background-image: url("../../assets/three-drones/LiDAR-research-mobile.jpg");
-}
-
-.agribusiness {
-    background-image: url("../../assets/three-drones/Agribusiness-mobile.jpg");
-}
-
-.photo_video_production {
-    background-image: url("../../assets/three-drones/Photo-video-production-mobile.jpg");
-}
-
-@media screen and (min-width:1440px) {
-    .lidar_research {
-        background-image: url("../../assets/three-drones/LiDAR-research-desktop.jpg");
-    }
-
-    .agribusiness {
-        background-image: url("../../assets/three-drones/Agribusiness-desktop.jpg");
-    }
-
-    .photo_video_production {
-        background-image: url("../../assets/three-drones/Photo-video-production-desktop.jpg");
-    }
-}
-
-
 .arrow_wrapper {
+    position: absolute;
+    top: 30px;
+    right: 30px;
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -130,7 +120,14 @@
 }
 
 .drone_title {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
     font-weight: 500;
     font-size: 24px;
     color: #fff;
+}
+
+.pagination {
+    margin-top: 16px;
 }
