@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import s from './DroneShowcase.module.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
