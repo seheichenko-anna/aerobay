@@ -2,8 +2,11 @@ import s from "./Reviews.module.css";
 import srcVideo from './CosmosVideo.mp4'
 import { useEffect, useState } from "react";
 import { LuArrowRight, LuArrowLeft } from "react-icons/lu";
+// import useScreenSize from '../../hooks/useScreenSize';
 
+  
 const Reviews = () => {
+    // const screenSize = useScreenSize();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [leftButtonClicked, setLeftButtonClicked] = useState(false);
     const [rightButtonClicked, setRightButtonClicked] = useState(true);
@@ -57,7 +60,7 @@ const Reviews = () => {
                         <h2 className={s.title}>What our client says</h2>
                     </div>
 
-                    {screenWidth <= 375
+                    {screenWidth <= 845
                         ? null
                         : <div className={s.navigationButtons}>
                             <span className={s.reviewCounter}>{currentIndex === 0 ? 1 : currentIndex + 1}/{reviews.length}</span>
@@ -87,7 +90,7 @@ const Reviews = () => {
                     </div>
                 </div>
 
-                {screenWidth <= 375
+                {screenWidth <= 845
                     ? <div className={s.navigationButtons}>
                         <span className={s.reviewCounter}>{currentIndex === 0 ? 1 : currentIndex + 1}/{reviews.length}</span>
                         <button

@@ -1,5 +1,6 @@
 .container {
-    padding: 96px 52px 96px 52px;
+    padding: 64px 15px;
+
 }
 
 .reviewBlock {
@@ -8,39 +9,41 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 75px;
     padding: 50px 30px;
     border-radius: 31px;
-    background: linear-gradient(90.00deg, rgb(249, 250, 251), rgb(222, 236, 221) 100%);
     margin: 0 auto;
     letter-spacing: 0%;
+    gap: 32px;
+    background: linear-gradient(180.00deg, rgb(249, 250, 251), rgb(222, 236, 221) 101.971%);
+    flex-direction: column;
 }
 
 .rewiews {
     color: rgb(71, 84, 103);
     font-family: "Gilroy", sans-serif;
     font-size: 18px;
-    font-weight: 500;
     line-height: 21px;
-    text-align: left;
+    text-align: center;
+    font-weight: 500;
 }
 
 .title {
-    max-width: 323px;
     margin-top: 12px;
     color: rgb(16, 24, 40);
     font-family: "Gilroy-Medium", sans-serif;
-    font-size: 64px;
     font-weight: 400;
-    line-height: 78px;
-    text-align: left;
     text-transform: capitalize;
+    max-width: 333px;
+    font-size: 30px;
+    line-height: 36px;
+    text-align: center;
 }
 
 .navigationButtons {
     display: flex;
     align-items: center;
-    padding-top: 153px;
+    justify-content: center;
+    padding-top: 0px;
 }
 
 .button {
@@ -77,18 +80,18 @@
 
 .reviewContent {
     max-width: 871px;
-    
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 32px;
-    padding: 30px 10px 30px 35px;
     border-radius: 19px;
     background: rgb(255, 255, 255);
+    padding: 30px 15px 30px 15px;
+    flex-direction: column;
 }
 
 .reviewText {
-    max-width: 298px;
+    order: 2;
 }
 
 .author {
@@ -103,12 +106,12 @@
 .reviewBody {
     color: rgb(71, 84, 103);
     font-family: "Gilroy", sans-serif;
-    font-size: 20px;
     font-weight: 400;
-    line-height: 23px;
     text-align: left;
-    margin: 24px 0px 100px 0px;
-    height: 263px;
+    font-size: 16px;
+    line-height: 19px;
+    margin: 24px 0px 0px 0px;
+    height: auto;
 }
 
 .location {
@@ -118,74 +121,78 @@
     font-weight: 400;
     line-height: 19px;
     text-align: left;
+    margin-top: 5px;
 }
 
 .videoPlayer {
     max-width: 496px;
     border-radius: 13px;
     text-align: center;
+    height: 234px;
+    order: 1;
 }
 
 .video {
     border-radius: 13px;
     max-width: 100%;
-    height: 429px;
     object-fit: cover;
+    height: 234px;
 }
 
-@media screen and (max-width:375px) {
+@media screen and (min-width:846px) {
+    .container {
+        padding: 96px 52px 96px 52px;
+    }
 
     .reviewBlock {
-        gap: 32px;
-        background: linear-gradient(180.00deg, rgb(249, 250, 251), rgb(222, 236, 221) 101.971%);
-        flex-direction: column;
+        gap: 75px;
+        background: linear-gradient(90.00deg, rgb(249, 250, 251), rgb(222, 236, 221) 100%);
+        flex-direction: row;
     }
 
     .rewiews {
-        text-align: center;
         font-weight: 500;
+        text-align: left;
     }
 
     .title {
-        max-width: 333px;
-        font-size: 30px;
-        line-height: 36px;
-        text-align: center;
+        max-width: 323px;
+        font-size: 64px;
+        line-height: 78px;
+        text-align: left;
     }
 
     .navigationButtons {
-        padding-top: 0px;
-    }
-
-    .container {
-        padding: 64px 0px;
+        padding-top: 153px;
+        justify-content: flex-start;
     }
 
     .reviewContent {
-        padding: 30px 15px 30px 15px;
-        flex-direction: column;
-   }
+        padding: 30px 10px 30px 35px;
+        flex-direction: row-reverse;
+    }
 
     .reviewBody {
-        font-size: 16px;
-        line-height: 19px;
-        margin: 24px 0px 0px 0px;
-        height: auto;
+
+        font-size: 20px;
+        line-height: 23px;
+        margin: 24px 0px 70px 0px;
+        width: 100%;
     }
 
     .videoPlayer {
-        height: 234px;
-        order: 1;
+        height: auto;
     }
 
     .video {
-        height: 234px;
+        height: 429px;
     }
 
     .reviewText {
-        order: 2;
+        max-width: 298px;
     }
-    .location{
-        margin-top: 5px;
+
+    .location {
+        margin-top: 0px;
     }
 }
