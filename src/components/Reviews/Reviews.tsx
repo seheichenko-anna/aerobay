@@ -1,16 +1,15 @@
 import s from "./Reviews.module.css";
 import srcVideo from './CosmosVideo.mp4'
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { LuArrowRight, LuArrowLeft } from "react-icons/lu";
-// import useScreenSize from '../../hooks/useScreenSize';
+import useScreenSize from '../../hooks/useScreenSize';
 
   
 const Reviews = () => {
-    // const screenSize = useScreenSize();
+    const screenSize = useScreenSize();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [leftButtonClicked, setLeftButtonClicked] = useState(false);
     const [rightButtonClicked, setRightButtonClicked] = useState(true);
-    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
     const reviews = [
         {
@@ -42,25 +41,16 @@ const Reviews = () => {
         setRightButtonClicked(false)
     };
 
-
-    useEffect(() => {
-        const handleResize = () => setScreenWidth(window.innerWidth);
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
     return (
         <div className={s.container}>
             <div className={s.reviewBlock}>
                 <div>
                     <div>
-                        <h5 className={s.rewiews}>{screenWidth <= 375 ? "Testimonials" : 'Rewiews'}</h5>
+                        <h5 className={s.rewiews}>{screenSize.width <= 375 ? "Testimonials" : 'Rewiews'}</h5>
                         <h2 className={s.title}>What our client says</h2>
                     </div>
 
-                    {screenWidth <= 845
+                    {screenSize.width <= 845
                         ? null
                         : <div className={s.navigationButtons}>
                             <span className={s.reviewCounter}>{currentIndex === 0 ? 1 : currentIndex + 1}/{reviews.length}</span>
@@ -90,7 +80,7 @@ const Reviews = () => {
                     </div>
                 </div>
 
-                {screenWidth <= 845
+                {screenSize.width <= 845
                     ? <div className={s.navigationButtons}>
                         <span className={s.reviewCounter}>{currentIndex === 0 ? 1 : currentIndex + 1}/{reviews.length}</span>
                         <button
