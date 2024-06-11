@@ -33,6 +33,11 @@ img {
   height: auto;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+
 @font-face {
   font-family: 'Gilroy';
   src: url('./fonts/Gilroy-Medium.ttf') format('truetype'),
@@ -40,8 +45,16 @@ img {
     url('./fonts/Gilroy-Semibold.ttf') format('truetype'),
 }
 
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Gilroy', sans-serif;
-  box-sizing: border-box;
   margin: 0;
 }
+@media screen and (max-width:375px) {
+  .swiper-slide{
+      height: 80%;
+      }}

@@ -1,8 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import svg from '../../assets/sprite.svg';
 import s from './LanguageSelector.module.css';
 
-const LanguageSelector = () => {
+type SelectorTypeProps = {
+  type: string;
+};
+const LanguageSelector: FC<SelectorTypeProps> = ({ type }) => {
   const [isOpenDropdown, setIsOpenDropdown] = useState<boolean>(false);
   const [_, setLang] = useState<string>('en');
   const dropdownRef = useRef<HTMLUListElement>(null);
@@ -48,12 +51,21 @@ const LanguageSelector = () => {
         </svg>
       </button>
       {isOpenDropdown && (
-        <ul ref={dropdownRef} className={s.dropdown}>
-          <li onClick={() => handleSelectLanguage('en')}>
-            <p>English</p>
+        <ul
+          ref={dropdownRef}
+          className={`${s.dropdown} ${type === 'footer' ? s.footer : s.header}`}
+        >
+          <li
+            onClick={() => handleSelectLanguage('en')}
+            className={s.dropdown_menu_item}
+          >
+            <p className={s.dropdown_menu_text}>English</p>
           </li>
-          <li onClick={() => handleSelectLanguage('ua')}>
-            <p>Ukrainian</p>
+          <li
+            onClick={() => handleSelectLanguage('ua')}
+            className={s.dropdown_menu_item}
+          >
+            <p className={s.dropdown_menu_text}>Ukrainian</p>
           </li>
         </ul>
       )}

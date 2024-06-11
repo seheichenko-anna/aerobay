@@ -5,7 +5,13 @@
 .benefits_list {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     row-gap: 25px;
+
+    @media screen and (min-width:700px) {
+        justify-content: space-between;
+    }
+
 }
 
 .benefits_list li {
@@ -19,14 +25,14 @@
 }
 
 .benefits_list img {
-    width: 15px;
-    height: 15px;
+    width: 24px;
+    height: 24px;
     padding: 4px;
 }
 
 .benefits_list svg {
-    width: 15px;
-    height: 15px;
+    width: 24px;
+    height: 24px;
     padding: 4px;
 }
 
@@ -35,8 +41,14 @@
     color: #767676;
 }
 
-@media screen and (min-width:1440px) {
+@media screen and (min-width:768px) {
+    .split_screen {
+        padding: 32px;
+    }
 
+}
+
+@media screen and (min-width:1400px) {
     .split_screen {
         padding: 52px;
     }

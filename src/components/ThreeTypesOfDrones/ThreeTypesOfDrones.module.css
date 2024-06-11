@@ -1,0 +1,133 @@
+.section_title {
+    font-weight: 500;
+    font-size: 30px;
+    text-transform: capitalize;
+    text-align: center;
+    color: #101828;
+    margin: 0 auto 48px;
+
+
+    @media screen and (max-width:374px) {
+        font-size: 24px;
+    }
+
+    @media screen and (min-width:768px) {
+        font-size: 56px;
+    }
+
+    @media screen and (min-width:1440px) {
+        font-size: 78px;
+    }
+}
+
+.title_accent {
+    border: 1px solid #bafc50;
+    border-radius: 70px;
+    padding: 4px;
+
+    @media screen and (min-width:768px) {
+        padding: 8px;
+    }
+
+    @media screen and (min-width:1440px) {
+        padding: 10px;
+    }
+}
+
+.three_drones {
+    padding: 64px 16px;
+
+    @media screen and (min-width:768px) {
+        padding: 80px 32px;
+    }
+
+    @media screen and (min-width:1440px) {
+        padding: 96px 52px;
+    }
+}
+
+.three_drones_list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+
+
+    @media screen and (min-width:768px) {
+        flex-direction: row;
+        gap: 32px;
+    }
+}
+
+.swiper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide {
+    max-width: 424px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider_wrapper {
+    position: relative;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.drone_wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 343px;
+    border-radius: 20px;
+
+    @media screen and (min-width:768px) {
+        max-width: 424px;
+        height: 400px;
+    }
+}
+
+.arrow_wrapper {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-left: auto;
+    fill: #1E1E1E;
+}
+
+@media screen and (min-width:1440px) {
+    .arrow_wrapper {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+.arrow {
+    width: 20px;
+    height: 20px;
+}
+
+.drone_title {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    font-weight: 500;
+    font-size: 24px;
+    color: #fff;
+}
+
+.pagination {
+    margin-top: 16px;
+}
