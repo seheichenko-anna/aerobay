@@ -47,37 +47,57 @@ const ThreeTypesOfDrones = () => {
             className={s.swiper}
           >
             <SwiperSlide className={s.slide}>
-              <div className={s.slider_wrapper}>
-                <img src={lidDrone} className={s.img_drone} />
-                <Link to="lidar-drone" className={s.arrow_wrapper}>
-                  <svg className={s.arrow}>
+              <Link
+                to="lidar-drone"
+                className={s.slider_wrapper}
+                aria-label="Link to LiDAR research drone"
+              >
+                <img src={lidDrone} className={s.img_drone} alt="lidar drone" />
+                <div className={s.arrow_wrapper}>
+                  <svg className={s.arrow} aria-label="arrow icon">
                     <use xlinkHref={`${svg}#icon-arrow-up-right`} />
                   </svg>
-                </Link>
+                </div>
                 <h3 className={s.drone_title}>LiDAR research</h3>
-              </div>
+              </Link>
             </SwiperSlide>
             <SwiperSlide className={s.slide}>
-              <div className={s.slider_wrapper}>
-                <img src={agroDrone} className={s.img_drone} />
-                <Link to="agriculture-drone" className={s.arrow_wrapper}>
-                  <svg className={s.arrow}>
+              <Link
+                to="agriculture-drone"
+                className={s.slider_wrapper}
+                aria-label="Link to Agribusiness drone"
+              >
+                <img
+                  src={agroDrone}
+                  className={s.img_drone}
+                  alt="agriculture drone"
+                />
+                <div className={s.arrow_wrapper}>
+                  <svg className={s.arrow} aria-label="arrow icon">
                     <use xlinkHref={`${svg}#icon-arrow-up-right`} />
                   </svg>
-                </Link>
+                </div>
                 <h3 className={s.drone_title}>Agribusiness</h3>
-              </div>
+              </Link>
             </SwiperSlide>
             <SwiperSlide className={s.slide}>
-              <div className={s.slider_wrapper}>
-                <img src={droneViewer} className={s.img_drone} />
-                <Link to="drone-viewer" className={s.arrow_wrapper}>
-                  <svg className={s.arrow}>
+              <Link
+                to="drone-viewer"
+                className={s.slider_wrapper}
+                aria-label="Link to Photo-video production drone"
+              >
+                <img
+                  src={droneViewer}
+                  className={s.img_drone}
+                  alt="drone viewer"
+                />
+                <div className={s.arrow_wrapper}>
+                  <svg className={s.arrow} aria-label="arrow icon">
                     <use xlinkHref={`${svg}#icon-arrow-up-right`} />
                   </svg>
-                </Link>
+                </div>
                 <h3 className={s.drone_title}>Photo-video production</h3>
-              </div>
+              </Link>
             </SwiperSlide>
           </Swiper>
           <div className={s.pagination}>
@@ -93,31 +113,51 @@ const ThreeTypesOfDrones = () => {
       {isMobileOrBigScreen && (
         <ul className={s.three_drones_list}>
           <li className={s.drone_wrapper}>
-            <img src={lidDrone} className={s.img_drone} />
-            <Link to="lidar-drone" className={s.arrow_wrapper}>
-              <svg className={s.arrow}>
-                <use xlinkHref={`${svg}#icon-arrow-up-right`} />
-              </svg>
+            <Link to="lidar-drone" aria-label="Link to LiDAR research drone">
+              <img src={lidDrone} className={s.img_drone} alt="lidar drone" />
+              <div className={s.arrow_wrapper}>
+                <svg className={s.arrow} aria-label="arrow icon">
+                  <use xlinkHref={`${svg}#icon-arrow-up-right`} />
+                </svg>
+              </div>
+              <h3 className={s.drone_title}>LiDAR research</h3>
             </Link>
-            <h3 className={s.drone_title}>LiDAR research</h3>
           </li>
           <li className={s.drone_wrapper}>
-            <img src={agroDrone} className={s.img_drone} />
-            <Link to="agriculture-drone" className={s.arrow_wrapper}>
-              <svg className={s.arrow}>
-                <use xlinkHref={`${svg}#icon-arrow-up-right`} />
-              </svg>
+            <Link
+              to="agriculture-drone"
+              aria-label="Link to Agribusiness drone"
+            >
+              <img
+                src={agroDrone}
+                className={s.img_drone}
+                alt="agriculture drone"
+              />
+              <div className={s.arrow_wrapper}>
+                <svg className={s.arrow} aria-label="arrow icon">
+                  <use xlinkHref={`${svg}#icon-arrow-up-right`} />
+                </svg>
+              </div>
+              <h3 className={s.drone_title}>Agribusiness</h3>
             </Link>
-            <h3 className={s.drone_title}>Agribusiness</h3>
           </li>
           <li className={s.drone_wrapper}>
-            <img src={droneViewer} className={s.img_drone} />
-            <Link to="drone-viewer" className={s.arrow_wrapper}>
-              <svg className={s.arrow}>
-                <use xlinkHref={`${svg}#icon-arrow-up-right`} />
-              </svg>
+            <Link
+              to="drone-viewer"
+              aria-label="Link to Photo-video production drone"
+            >
+              <img
+                src={droneViewer}
+                className={s.img_drone}
+                alt="drone viewer"
+              />
+              <div className={s.arrow_wrapper}>
+                <svg className={s.arrow} aria-label="arrow icon">
+                  <use xlinkHref={`${svg}#icon-arrow-up-right`} />
+                </svg>
+              </div>
+              <h3 className={s.drone_title}>Photo-video production</h3>
             </Link>
-            <h3 className={s.drone_title}>Photo-video production</h3>
           </li>
         </ul>
       )}
