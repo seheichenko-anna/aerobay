@@ -14,7 +14,7 @@
 
 }
 
-.benefits_list li {
+.benefits_item {
     display: flex;
     gap: 10px;
     align-items: center;
@@ -24,21 +24,15 @@
     background-color: #fafafa;
 }
 
-.benefits_list img {
+.benefit_icon {
     width: 24px;
     height: 24px;
     padding: 4px;
 }
 
-.benefits_list svg {
-    width: 24px;
-    height: 24px;
-    padding: 4px;
-}
-
-.benefits_list p {
+.benefit {
     font-size: 16px;
-    color: #767676;
+    color: #6b6a6a;
 }
 
 @media screen and (min-width:768px) {
