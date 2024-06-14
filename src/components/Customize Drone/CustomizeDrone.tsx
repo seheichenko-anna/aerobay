@@ -80,7 +80,7 @@ const CustomizeDrone = () => {
                     <span>$ 500</span>
                   </p>
                   <Link to="lidar-drone" className={s.link_base_model}>
-                    <span>Bye base model</span>
+                    <span>Buy base model</span>
                     <span className={s.arrow_wrapper}>
                       <svg className={s.icon_arrow_link}>
                         <use xlinkHref={`${svg}#icon-arrow-up-right`} />
@@ -103,7 +103,7 @@ const CustomizeDrone = () => {
                     <span>$ 500</span>
                   </p>
                   <Link to="lidar-drone" className={s.link_base_model}>
-                    <span>Bye base model</span>
+                    <span>Buy base model</span>
                     <span className={s.arrow_wrapper}>
                       <svg className={s.icon_arrow_link}>
                         <use xlinkHref={`${svg}#icon-arrow-up-right`} />
@@ -126,7 +126,7 @@ const CustomizeDrone = () => {
                     <span>$ 800</span>
                   </p>
                   <Link to="lidar-drone" className={s.link_base_model}>
-                    <span>Bye base model</span>
+                    <span>Buy base model</span>
                     <span className={s.arrow_wrapper}>
                       <svg className={s.icon_arrow_link}>
                         <use xlinkHref={`${svg}#icon-arrow-up-right`} />
@@ -171,7 +171,7 @@ const CustomizeDrone = () => {
                         <span>$ 500</span>
                       </p>
                       <Link to="lidar-drone" className={s.link_base_model}>
-                        <span>Bye base model</span>
+                        <span>Buy base model</span>
                         <span className={s.arrow_wrapper}>
                           <svg className={s.icon_arrow_link}>
                             <use xlinkHref={`${svg}#icon-arrow-up-right`} />
@@ -218,7 +218,7 @@ const CustomizeDrone = () => {
                         </p>
                       </div>
                       <Link to="lidar-drone" className={s.link_base_model}>
-                        <span>Bye base model</span>
+                        <span>Buy base model</span>
                         <span className={s.arrow_wrapper}>
                           <svg className={s.icon_arrow_link}>
                             <use xlinkHref={`${svg}#icon-arrow-up-right`} />
@@ -263,7 +263,7 @@ const CustomizeDrone = () => {
                         <span>$ 800</span>
                       </p>
                       <Link to="lidar-drone" className={s.link_base_model}>
-                        <span>Bye base model</span>
+                        <span>Buy base model</span>
                         <span className={s.arrow_wrapper}>
                           <svg className={s.icon_arrow_link}>
                             <use xlinkHref={`${svg}#icon-arrow-up-right`} />
