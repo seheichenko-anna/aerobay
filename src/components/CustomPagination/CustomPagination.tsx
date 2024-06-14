@@ -21,6 +21,7 @@ const CustomPagination: FC<CustomPaginationProps> = ({
             className={`${s.pagination_dot} ${index === activeIndex ? s.active : ''} ${color === 'black' ? s.black : ''}`}
             onClick={() => goToSlide(index)}
             aria-label={`Slide ${index + 1}`}
+            tabIndex={-1}
           />
         ))}
       </div>
