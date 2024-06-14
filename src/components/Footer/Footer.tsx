@@ -50,7 +50,11 @@ const Footer = () => {
           <div className={s.social_links}>
             <ul className={s.social_links_list}>
               <li>
-                <a href="https://www.facebook.com" target="_blank">
+                <a
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  aria-label="Link to Facebook"
+                >
                   <div className={s.icon_wrapper}>
                     <svg className={s.social_icon}>
                       <use xlinkHref={`${svg}#icon-facebook`} />
@@ -59,7 +63,11 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="https://www.instagram.com" target="_blank">
+                <a
+                  href="https://www.instagram.com"
+                  target="_blank"
+                  aria-label="Link to Instagram"
+                >
                   <div className={s.icon_wrapper}>
                     <svg className={s.social_icon}>
                       <use xlinkHref={`${svg}#icon-instagram`} />
