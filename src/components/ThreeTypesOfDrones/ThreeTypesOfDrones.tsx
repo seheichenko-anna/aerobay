@@ -15,6 +15,7 @@ const ThreeTypesOfDrones = () => {
   const { isLaptopOrTablet, isMobileOrBigScreen } = useDashboard();
   const [swiper, setSwiper] = useState<any>(null);
   const [activeIndex, setActiveIndex] = useState<number>(1);
+
   useEffect(() => {
     if (swiper) {
       swiper.on('slideChange', () => {
@@ -27,6 +28,10 @@ const ThreeTypesOfDrones = () => {
     if (swiper) {
       swiper.slideTo(index);
     }
+  };
+
+  const handleLinkFocus = (index: number) => {
+    setActiveIndex(index);
   };
 
   return (
@@ -51,6 +56,7 @@ const ThreeTypesOfDrones = () => {
                 to="lidar-drone"
                 className={s.slider_wrapper}
                 aria-label="Link to LiDAR research drone"
+                onFocus={() => handleLinkFocus(0)}
               >
                 <img src={lidDrone} className={s.img_drone} alt="lidar drone" />
                 <div className={s.arrow_wrapper}>
@@ -66,6 +72,7 @@ const ThreeTypesOfDrones = () => {
                 to="agriculture-drone"
                 className={s.slider_wrapper}
                 aria-label="Link to Agribusiness drone"
+                onFocus={() => handleLinkFocus(1)}
               >
                 <img
                   src={agroDrone}
@@ -85,6 +92,7 @@ const ThreeTypesOfDrones = () => {
                 to="drone-viewer"
                 className={s.slider_wrapper}
                 aria-label="Link to Photo-video production drone"
+                onFocus={() => handleLinkFocus(2)}
               >
                 <img
                   src={droneViewer}
