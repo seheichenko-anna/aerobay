@@ -15,10 +15,14 @@ const Footer = () => {
             <h4 className={s.footer_title}>Products</h4>
             <ul className={s.list_links}>
               <li>
-                <Link to="catalog">Drones</Link>
+                <Link to="catalog" className={s.link}>
+                  Drones
+                </Link>
               </li>
               <li>
-                <Link to="catalog">Accessories</Link>
+                <Link to="catalog" className={s.link}>
+                  Accessories
+                </Link>
               </li>
             </ul>
           </div>
@@ -26,13 +30,19 @@ const Footer = () => {
             <h4 className={s.footer_title}>Information</h4>
             <ul className={s.list_links}>
               <li>
-                <Link to="delivery-and-payments">Delivery & Payments</Link>
+                <Link to="delivery-and-payments" className={s.link}>
+                  Delivery & Payments
+                </Link>
               </li>
               <li>
-                <Link to="returns-and-refunds">Returns & Refunds</Link>
+                <Link to="returns-and-refunds" className={s.link}>
+                  Returns & Refunds
+                </Link>
               </li>
               <li>
-                <Link to="cookies-policy">Cookies Policy</Link>
+                <Link to="cookies-policy" className={s.link}>
+                  Cookies Policy
+                </Link>
               </li>
             </ul>
           </div>
@@ -40,17 +50,25 @@ const Footer = () => {
             <h4 className={s.footer_title}>Company</h4>
             <ul className={s.list_links}>
               <li>
-                <Link to="about-us">About us</Link>
+                <Link to="about-us" className={s.link}>
+                  About us
+                </Link>
               </li>
               <li>
-                <Link to="contact-us">Contact Us</Link>
+                <Link to="contact-us" className={s.link}>
+                  Contact Us
+                </Link>
               </li>
             </ul>
           </div>
           <div className={s.social_links}>
             <ul className={s.social_links_list}>
               <li>
-                <a href="https://www.facebook.com" target="_blank">
+                <a
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  aria-label="Link to Facebook"
+                >
                   <div className={s.icon_wrapper}>
                     <svg className={s.social_icon}>
                       <use xlinkHref={`${svg}#icon-facebook`} />
@@ -59,7 +77,11 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="https://www.instagram.com" target="_blank">
+                <a
+                  href="https://www.instagram.com"
+                  target="_blank"
+                  aria-label="Link to Instagram"
+                >
                   <div className={s.icon_wrapper}>
                     <svg className={s.social_icon}>
                       <use xlinkHref={`${svg}#icon-instagram`} />
@@ -97,7 +119,7 @@ const Footer = () => {
               </svg>
             </li>
           </ul>
-          <Link to="privacy-policy" className={s.privacy_policy}>
+          <Link to="privacy-policy" className={`${s.privacy_policy} ${s.link}`}>
             Privacy Policy <br /> Terms & Conditions
           </Link>
         </div>
