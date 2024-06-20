@@ -27,7 +27,7 @@ const DroneCard: React.FC<DroneItemProps> = ({
           <use xlinkHref={`${svg}#icon-arrow-up-right`} />
         </svg>
       </div>
-      <h3 className={s.drone_title}>LiDAR research</h3>
+      <h3 className={s.drone_title}>{title}</h3>
     </Link>
   );
 };
