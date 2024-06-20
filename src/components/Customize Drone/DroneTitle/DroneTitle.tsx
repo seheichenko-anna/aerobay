@@ -12,6 +12,7 @@ const DroneTitle: React.FC<DroneTitleProps> = ({ activeIndex, titles }) => {
 
   return (
     <div
+      key={activeIndex}
       className={`${s.drone_title_wrapper} ${isBigScreenOrTablet ? s.drone_title_wrapper_bigscreen : ''}`}
     >
       <h3 className={s.drone_title}>{titles[activeIndex]}</h3>

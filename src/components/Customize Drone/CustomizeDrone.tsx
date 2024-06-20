@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { useDashboard } from '../../hooks/useDashboard';
@@ -45,12 +45,6 @@ const CustomizeDrone = () => {
 
   useEffect(() => {
     if (swiper) {
-      swiper.update();
-    }
-  }, [isAllMobile, swiper]);
-
-  useEffect(() => {
-    if (swiper) {
       const handleSlideChange = () => {
         setActiveIndex(swiper.realIndex);
       };
@@ -63,8 +57,8 @@ const CustomizeDrone = () => {
     }
   }, [swiper]);
 
-  const goNext = () => swiper?.slideNext();
-  const goPrev = () => swiper?.slidePrev();
+  const goNext = useCallback(() => swiper?.slideNext(), [swiper]);
+  const goPrev = useCallback(() => swiper?.slidePrev(), [swiper]);
 
   return (
     <section className={s.customize_drone_section}>
@@ -98,14 +92,18 @@ const CustomizeDrone = () => {
             spaceBetween={isAllMobile ? '5%' : '10%'}
             slidesPerView={1}
             centeredSlides
-            loop={true}
+            loop
+            autoplay={{ delay: 3000 }}
+            speed={1000}
+            effect="fade"
+            noSwiping
             pagination={{
               clickable: true,
               el: '.swiper_pagination',
               type: 'bullets',
               bulletClass: `swiper-pagination-bullet swiper_pagination_bullet_customize_drone`,
             }}
-            modules={[Pagination]}
+            modules={[Pagination, Autoplay]}
             className={`${'swiper_customize_drone'} ${isBigScreenOrTablet ? 'customize_background' : ''}`}
           >
             {customizeDrones.map((drone, index) => (

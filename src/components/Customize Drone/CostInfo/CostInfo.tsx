@@ -13,11 +13,12 @@ const CostInfo: React.FC<CostInfoProps> = ({ activeIndex, links, costs }) => {
   const { isBigScreenOrTablet } = useDashboard();
   return (
     <div
+      key={activeIndex}
       className={`${s.cost_info} ${isBigScreenOrTablet ? s.cost_info_bigscreen : ''}`}
     >
       <p className={s.total_cost}>Total cost:</p>
-      <p className={s.cost_value}>
-        <span>$ {costs[activeIndex]}</span>
+      <p className={s.cost_value_wrapper}>
+        <span className={s.cost_value}>$ {costs[activeIndex]}</span>
       </p>
       <Link to={links[activeIndex]} className={s.link_base_model}>
         <span>Buy base model</span>
