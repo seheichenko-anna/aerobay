@@ -1,0 +1,34 @@
+.swiper_pagination_bullet_types_of_drones {
+    width: 8px;
+    height: 8px;
+    background-color: #000000;
+    border-radius: 50%;
+    border: transparent;
+    padding: 0;
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    z-index: 2;
+}
+
+.swiper_pagination_bullet_types_of_drones:active {
+    background-color: #bafc50;
+}
+
+.swiper-pagination-bullet-active.swiper_pagination_bullet_types_of_drones {
+    width: 30px;
+    height: 8px;
+    border-radius: 50px;
+    opacity: 1;
+}
+
+.swiper-pagination-bullets.swiper_pagination_types_of_drones {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -5%;
+}
