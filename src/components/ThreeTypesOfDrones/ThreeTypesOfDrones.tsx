@@ -5,9 +5,9 @@ import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import DroneCard from './DroneCard/DroneCard';
-import lidDrone from '../../assets/three-drones/LiDAR-research.jpg';
-import agroDrone from '../../assets/three-drones/Agribusiness.jpg';
-import droneViewer from '../../assets/three-drones/Photo-video-production.jpg';
+import lidDrone from '../../assets/three-drones/LiDAR-research.webp';
+import agroDrone from '../../assets/three-drones/Agribusiness.webp';
+import droneViewer from '../../assets/three-drones/Photo-video-production.webp';
 import './swiperStylesTypesOfDrones.css';
 import s from './ThreeTypesOfDrones.module.css';
 
