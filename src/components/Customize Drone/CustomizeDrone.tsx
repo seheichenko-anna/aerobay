@@ -125,6 +125,7 @@ const CustomizeDrone = () => {
               <button
                 className={`${s.swiper_button_arrow} ${s.custom_swiper_prev}`}
                 onClick={goPrev}
+                aria-label="Previous Slide"
               >
                 <svg className={s.icon_arrow}>
                   <use xlinkHref={`${svg}#icon-arrow-left`} />
@@ -133,6 +134,7 @@ const CustomizeDrone = () => {
               <button
                 className={`${s.swiper_button_arrow} ${s.custom_swiper_next}`}
                 onClick={goNext}
+                aria-label="Next Slide"
               >
                 <svg className={s.icon_arrow}>
                   <use xlinkHref={`${svg}#icon-arrow-right`} />
