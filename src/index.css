@@ -54,7 +54,7 @@ body {
   font-family: 'Gilroy', sans-serif;
   margin: 0;
 }
-@media screen and (max-width:375px) {
-  .swiper-slide{
-      height: 80%;
-      }}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

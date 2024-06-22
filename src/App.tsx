@@ -12,6 +12,9 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import AgricultureDrone from './pages/DronesBuisnessCards/AgricultureDrone';
 import LiDARDrone from './pages/DronesBuisnessCards/LiDARDrone';
 import DroneViewer from './pages/DronesBuisnessCards/DroneViewer';
+import AdminPanel from './pages/AdminPanel/AdminPanel';
+import Dashboard from './pages/AdminPanel/Dashboard';
+import Accessory from './pages/AdminPanel/Accessory';
 
 function App() {
   return (
@@ -32,6 +35,10 @@ function App() {
           />
           <Route path="returns-and-refunds" element={<ReturnsAndRefunds />} />
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
+        </Route>
+        <Route path="admin" element={<AdminPanel />}>
+          <Route index element={<Dashboard />} />
+          <Route path="accessory" element={<Accessory />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

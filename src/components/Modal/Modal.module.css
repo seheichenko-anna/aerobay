@@ -1,0 +1,43 @@
+.backdrop {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 999;
+}
+
+.modal {
+    position: relative;
+    background-color: #ffffff;
+    padding: 24px 12px;
+    overflow-y: auto;
+    width: 280px;
+    border-radius: 10px;
+
+    @media screen and (min-width: 768px) {
+        width: 704px;
+    }
+
+    @media screen and (min-width: 1440px) {
+        width: 900px;
+    }
+}
+
+.btn_close {
+    position: absolute;
+    padding: 0;
+    top: 28px;
+    right: 12px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.icon_close {
+    width: 24px;
+    height: 24px;
+    stroke: #000000;
+}
