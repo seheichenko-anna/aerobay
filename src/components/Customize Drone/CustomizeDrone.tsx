@@ -111,7 +111,11 @@ const CustomizeDrone = () => {
                 key={index}
                 className={`${'swiper_slide_customize_drone'} ${isBigScreenOrTablet ? '' : 'customize_background'}`}
               >
-                <img src={drone.image} className={s.drone_img} />
+                <img
+                  src={drone.image}
+                  className={s.drone_img}
+                  alt={drone.title}
+                />
               </SwiperSlide>
             ))}
           </Swiper>
