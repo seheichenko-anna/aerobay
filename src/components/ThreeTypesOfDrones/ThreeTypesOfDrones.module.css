@@ -91,43 +91,6 @@
     }
 }
 
-.arrow_wrapper {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    margin-left: auto;
-    fill: #1E1E1E;
-}
-
-@media screen and (min-width:1440px) {
-    .arrow_wrapper {
-        width: 48px;
-        height: 48px;
-    }
-}
-
-.arrow {
-    width: 20px;
-    height: 20px;
-}
-
-.drone_title {
-    position: absolute;
-    bottom: 30px;
-    left: 30px;
-    font-weight: 500;
-    font-size: 24px;
-    color: #fff;
-}
-
-.pagination {
-    margin-top: 16px;
+.three_drones_swiper {
+    position: relative;
 }
