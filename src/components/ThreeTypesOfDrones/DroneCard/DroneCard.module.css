@@ -1,13 +1,20 @@
-.drone_wrapper {
+.slider_wrapper {
     position: relative;
     width: 100%;
-    max-width: 343px;
     border-radius: 20px;
+    transition: transform 0.4s ease-in-out;
+    max-width: 424px;
+    overflow: hidden;
+}
 
-    @media screen and (min-width:768px) {
-        max-width: 424px;
-        height: 400px;
-    }
+
+.slider_wrapper:hover .img_drone {
+    transform: scale(1.05);
+}
+
+.slider_wrapper:hover .arrow_wrapper {
+    background-color: #101828;
+    fill: #ffffff;
 }
 
 .arrow_wrapper {
@@ -24,6 +31,7 @@
     padding: 10px;
     margin-left: auto;
     fill: #1E1E1E;
+    transition: background-color 0.4s ease-in-out, fill 0.4s ease-in-out;
 }
 
 @media screen and (min-width:1440px) {
@@ -45,8 +53,16 @@
     font-weight: 500;
     font-size: 24px;
     color: #fff;
+    transition: transform 0.4s ease-in-out
+}
+
+.slider_wrapper:hover .drone_title {
+    transform: scale(1.05);
 }
 
 .img_drone {
     border-radius: 20px;
+    transition: transform 0.4s ease-in-out;
+    object-fit: cover;
+    object-position: center;
 }

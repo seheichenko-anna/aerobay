@@ -64,6 +64,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    max-width: 1336px;
 }
 
 .slide {
@@ -71,24 +72,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.slider_wrapper {
-    position: relative;
-    width: 100%;
-    border-radius: 20px;
-}
-
-.drone_wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 343px;
-    border-radius: 20px;
-
-    @media screen and (min-width:768px) {
-        max-width: 424px;
-        height: 400px;
-    }
 }
 
 .three_drones_swiper {
