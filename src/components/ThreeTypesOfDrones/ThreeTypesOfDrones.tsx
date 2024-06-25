@@ -66,7 +66,6 @@ const ThreeTypesOfDrones = () => {
           slidesPerView={'auto'}
           centeredSlides={true}
           initialSlide={1}
-          loop={isAllMobile ? true : false}
           className={s.swiper}
           autoHeight={true}
           modules={[Pagination]}
