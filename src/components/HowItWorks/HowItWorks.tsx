@@ -12,7 +12,7 @@ const HowItWorks = () => {
       number: 1,
       icon: 'business',
       title: 'Сhoose a drone “ready solution“ or a base model',
-      text: 'Drone-LiDAR / Agriculture Drone / View-Drone',
+      text: 'Drone-LiDAR / Agriculture Drone / View-Drone / Customize Drone',
     },
     {
       number: 2,
