@@ -102,6 +102,7 @@
     font-size: 18px;
     line-height: 1.38889;
     color: #101828;
+    min-height: 50px;
 }
 
 .step_text {
