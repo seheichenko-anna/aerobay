@@ -9,11 +9,9 @@ import agroDrone from '../../assets/three-drones/Agribusiness.jpg';
 import droneViewer from '../../assets/three-drones/Photo-video-production.jpg';
 import './swiperStylesTypesOfDrones.css';
 import s from './ThreeTypesOfDrones.module.css';
-import { useDashboard } from '../../hooks/useDashboard';
 
 const ThreeTypesOfDrones = () => {
   const [swiper, setSwiper] = useState<any>(null);
-  const { isAllMobile } = useDashboard();
 
   const drones = [
     {
