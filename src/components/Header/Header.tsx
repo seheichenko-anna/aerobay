@@ -13,6 +13,7 @@ import svg from '../../assets/sprite.svg';
 import Hamburger from 'hamburger-react';
 import useScreenSize from '../../hooks/useScreenSize';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
+import Search from '../Search/Search';
 // import Search from '../Search/Search';
 
 const Header = () => {
@@ -104,9 +105,9 @@ const Header = () => {
           </Link>
 
           <div className={s.headerActions}>
-            <div className={`${s.searchContainer}`}>
-              {/* <Search /> */}
-              <button
+            {/* <div className={`${s.searchContainer}`}> */}
+            <Search />
+            {/* <button
                 className={`${s.searchButton}`}
                 onClick={handleSearchClick}
               >
@@ -120,8 +121,8 @@ const Header = () => {
               <IoCloseOutline
                 onClick={() => setInputVisible(false)}
                 className={`${!inputVisible ? s.closeIcon : ''}`}
-              />
-            </div>
+              /> */}
+            {/* </div> */}
             <button className={`${s.navButton} ${s.btnGlobalLine}`}>
               <span className={`${s.arrowDown} ${s.arrSearch}`}>
                 {' '}
