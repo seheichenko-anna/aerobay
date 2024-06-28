@@ -30,7 +30,6 @@
         margin: 0 auto 60px auto;
         max-width: 809px;
     }
-
 }
 
 .circle {
@@ -45,7 +44,6 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
-
 
 .accent_color {
     border: 1px solid #bafc50;
@@ -157,7 +155,6 @@
             background-color: #bafc50;
         }
     }
-
 }
 
 .drone_background {
@@ -200,13 +197,72 @@
     }
 }
 
-.drone_img {
+.img_wrapper {
+    position: relative;
     max-width: 931px;
-    padding: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    width: 80%;
+    height: auto;
+}
+
+
+.drone_img {
     width: 100%;
+    height: 100%;
     margin: 0 auto;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.tip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
+    transform: scale(0.8);
+
+
+    @media screen and (min-width: 375px) {
+        transform: scale(0.9);
+    }
+
+    @media screen and (min-width: 1200px) {
+        transform: scale(1);
+    }
+
+}
+
+.tip_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(2px, 1vw, 10px);
+    backdrop-filter: blur (4px);
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid #cbcbcb;
+    border-radius: 30px;
+    padding: clamp(2px, 0.6vw, 10px) clamp(4px, 1.6vw, 20px);
+    font-weight: 500;
+    font-size: clamp(4px, 1.4vw, 16px);
+    line-height: 1.33333;
+    text-align: center;
+    color: #000;
+}
+
+.point {
+    border-radius: 100%;
+    background-color: #101828;
+    width: clamp(2px, 0.5vw, 7px);
+    height: clamp(2px, 0.5vw, 7px);
+}
+
+.point_green {
+    border-radius: 100%;
+    background-color: #bafc50;
+    width: clamp(4px, 1.4vw, 15px);
+    height: clamp(4px, 1.4vw, 15px);
 }

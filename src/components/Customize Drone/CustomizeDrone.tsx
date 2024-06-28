@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { useSpring, animated } from '@react-spring/web';
 import { useDashboard } from '../../hooks/useDashboard';
 import DroneTitle from './DroneTitle/DroneTitle';
 import CostInfo from './CostInfo/CostInfo';
@@ -26,6 +27,20 @@ const CustomizeDrone = () => {
       background: 'liddar_drone_background',
       image: liddarDrone,
       link: 'lidar-drone',
+      tips: [
+        {
+          text: 'Downlink antenna',
+          position: { top: '30%', left: '2%' },
+        },
+        {
+          text: 'Battery',
+          position: { top: '39%', left: '54%' },
+        },
+        {
+          text: 'Camera',
+          position: { top: '60%', left: '29%' },
+        },
+      ],
     },
     {
       title: 'Drone Viewer 2700',
@@ -33,6 +48,16 @@ const CustomizeDrone = () => {
       background: 'drone_viewer_background',
       image: droneViewer,
       link: 'drone-viewer',
+      tips: [
+        {
+          text: 'Battery',
+          position: { top: '38%', left: '50%' },
+        },
+        {
+          text: 'Camera',
+          position: { top: '60%', left: '34%' },
+        },
+      ],
     },
     {
       title: 'Drone Agras 250',
@@ -40,6 +65,20 @@ const CustomizeDrone = () => {
       background: 'agro_drone_background',
       image: agroDrone,
       link: 'agriculture-drone',
+      tips: [
+        {
+          text: 'Downlink antenna',
+          position: { top: '33%', left: '4%' },
+        },
+        {
+          text: 'Battery',
+          position: { top: '39%', left: '50%' },
+        },
+        {
+          text: 'Tank',
+          position: { top: '42%', left: '30%' },
+        },
+      ],
     },
   ];
 
@@ -90,7 +129,7 @@ const CustomizeDrone = () => {
           <Swiper
             onSwiper={setSwiper}
             spaceBetween={isAllMobile ? '5%' : '10%'}
-            slidesPerView={1}
+            slidesPerView={'auto'}
             centeredSlides
             loop
             autoplay={{ delay: 3000 }}
@@ -111,11 +150,46 @@ const CustomizeDrone = () => {
                 key={index}
                 className={`${'swiper_slide_customize_drone'} ${isBigScreenOrTablet ? '' : 'customize_background'}`}
               >
-                <img
-                  src={drone.image}
-                  className={s.drone_img}
-                  alt={drone.title}
-                />
+                <div className={s.img_wrapper}>
+                  <img
+                    src={drone.image}
+                    className={s.drone_img}
+                    alt={drone.title}
+                  />
+                  {drone.tips.map((tip, i) => {
+                    const isActive = activeIndex === index;
+                    const tipSpring = useSpring({
+                      opacity: isActive ? 1 : 0,
+                      from: { opacity: 0 },
+                      reset: true,
+                      delay: 500,
+                      key: `${activeIndex}-${i}`,
+                    });
+
+                    return (
+                      <animated.div
+                        key={`${activeIndex}-${i}`}
+                        className={s.tip}
+                        style={{
+                          ...tipSpring,
+                          top: tip.position.top,
+                          left: tip.position.left,
+                        }}
+                      >
+                        {tip.text === 'Battery' && (
+                          <span className={s.point_green}></span>
+                        )}
+                        <div className={s.tip_wrapper}>
+                          <span className={s.point}></span>
+                          {tip.text}
+                        </div>
+                        {tip.text !== 'Battery' && (
+                          <span className={s.point_green}></span>
+                        )}
+                      </animated.div>
+                    );
+                  })}
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
