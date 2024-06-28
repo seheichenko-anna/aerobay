@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useSpring, animated } from '@react-spring/web';
 import { useDashboard } from '../../../hooks/useDashboard';
 import svg from '../../../assets/sprite.svg';
 import s from './CostInfo.module.css';
@@ -9,6 +10,20 @@ interface CostInfoProps {
   costs: number[];
 }
 
+const AnimatedCostValue: React.FC<{ cost: number }> = ({ cost }) => {
+  const costSpring = useSpring({
+    opacity: 1,
+    from: { opacity: 0 },
+    delay: 600,
+  });
+
+  return (
+    <animated.span style={costSpring} className={s.cost_value}>
+      $ {cost}
+    </animated.span>
+  );
+};
+
 const CostInfo: React.FC<CostInfoProps> = ({ activeIndex, links, costs }) => {
   const { isBigScreenOrTablet } = useDashboard();
   return (
@@ -18,7 +33,7 @@ const CostInfo: React.FC<CostInfoProps> = ({ activeIndex, links, costs }) => {
     >
       <p className={s.total_cost}>Total cost:</p>
       <p className={s.cost_value_wrapper}>
-        <span className={s.cost_value}>$ {costs[activeIndex]}</span>
+        <AnimatedCostValue cost={costs[activeIndex]} />
       </p>
       <Link to={links[activeIndex]} className={s.link_base_model}>
         <span>Buy base model</span>
