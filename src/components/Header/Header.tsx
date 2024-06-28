@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import s from './Header.module.css';
 import { IoIosArrowDown } from 'react-icons/io';
 import { LuShoppingBag } from 'react-icons/lu';
-import { IoSearchOutline } from 'react-icons/io5';
+// import { IoSearchOutline } from 'react-icons/io5';
 import { MdOutlineArrowOutward } from 'react-icons/md';
-import { IoCloseOutline } from 'react-icons/io5';
+// import { IoCloseOutline } from 'react-icons/io5';
 import srcLogo from './images/Icon_drone.png';
 import srciconDron from './images/icon_dronBW.png';
 import srciconAccses from './images/icon_accessoriesBW.png';
@@ -25,7 +25,7 @@ const Header = () => {
   // const [selectedProduct, setSelectedProduct] = useState('');
   const [showDrones, setShowDrones] = useState(true);
   const [showAccessories, setShowAccessories] = useState(false);
-  const [inputVisible, setInputVisible] = useState(false);
+  // const [inputVisible, setInputVisible] = useState(false);
 
   const toggleProducts = (clic: string) => {
     if (clic === 'products') {
