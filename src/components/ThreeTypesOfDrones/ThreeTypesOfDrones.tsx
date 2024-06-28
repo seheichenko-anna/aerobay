@@ -9,11 +9,9 @@ import agroDrone from '../../assets/three-drones/Agribusiness.webp';
 import droneViewer from '../../assets/three-drones/Photo-video-production.webp';
 import './swiperStylesTypesOfDrones.css';
 import s from './ThreeTypesOfDrones.module.css';
-import { useDashboard } from '../../hooks/useDashboard';
 
 const ThreeTypesOfDrones = () => {
   const [swiper, setSwiper] = useState<any>(null);
-  const { isAllMobile } = useDashboard();
 
   const drones = [
     {
@@ -66,7 +64,6 @@ const ThreeTypesOfDrones = () => {
           slidesPerView={'auto'}
           centeredSlides={true}
           initialSlide={1}
-          loop={isAllMobile ? true : false}
           className={s.swiper}
           autoHeight={true}
           modules={[Pagination]}

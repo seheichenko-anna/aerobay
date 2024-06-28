@@ -57,9 +57,9 @@ const Header = () => {
     }
   };
 
-  const handleSearchClick = () => {
-    setInputVisible(!inputVisible);
-  };
+  // const handleSearchClick = () => {
+  //   setInputVisible(!inputVisible);
+  // };
 
   return (
     <>
@@ -123,12 +123,13 @@ const Header = () => {
                 className={`${!inputVisible ? s.closeIcon : ''}`}
               /> */}
             {/* </div> */}
-            <button className={`${s.navButton} ${s.btnGlobalLine}`}>
+
+            <div className={`${s.navButton} ${s.btnGlobalLine}`}>
               <span className={`${s.arrowDown} ${s.arrSearch}`}>
                 {' '}
                 <LanguageSelector type="header" />
               </span>
-            </button>
+            </div>
             <button className={`${s.navButton} ${s.cartButton}`}>
               Cart{' '}
               <span className={s.arrowDown}>
