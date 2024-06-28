@@ -22,6 +22,11 @@
 .container_title>*:last-child {
     border: 1px solid rgb(186, 252, 80);
     border-radius: 70px;
+    white-space: nowrap;
+}
+
+.container_title>*:first-child{
+    white-space: nowrap;
 }
 
 .container_button {
@@ -30,9 +35,9 @@
     background: rgb(186, 252, 80);
     height: 55px;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    gap: 75px;
     padding: 16px 10px 16px 20px;
     color: rgb(0, 0, 0);
     font-family: 'Gilroy', sans-serif;
@@ -41,6 +46,12 @@
     line-height: 19px;
     letter-spacing: 0%;
     text-align: left;
+    transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+}
+
+.container_button:hover{
+    color: #fff;
+    background-color: #101828;
 }
 
 .container_button>span {
@@ -52,10 +63,15 @@
     align-items: center;
     padding: 10px;
     color: white;
-    margin-left: 76px;
+    transition: background-color 0.4s ease-in-out,  color 0.4s ease-in-out;
 }
 
-@media screen and (max-width:375px) {
+.container_button:hover span{
+    background-color: rgb(186, 252, 80);
+    color: #101828;
+}
+
+@media screen and (max-width:767px) {
     .container_title {
         font-size: 30px;
         line-height: 36px;

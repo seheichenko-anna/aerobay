@@ -1,3 +1,4 @@
+import DOMPurify from 'dompurify';
 import { useState } from 'react';
 import svg from '../../assets/sprite.svg';
 import s from './Search.module.css';
@@ -17,12 +18,14 @@ const Search = () => {
   };
 
   const onSubmit = (data: FormData) => {
-    console.log(data.search);
+    const sanitizedData = DOMPurify.sanitize(data.search);
+    console.log(sanitizedData);
   };
 
   const updateSearchValue = (value: string) => {
-    setSearch(value);
-    console.log(value);
+    const sanitizedValue = DOMPurify.sanitize(value);
+    setSearch(sanitizedValue);
+    console.log(sanitizedValue);
   };
 
   const handleReset = (): void => {

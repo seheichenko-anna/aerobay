@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import s from './Header.module.css';
 import { IoIosArrowDown } from 'react-icons/io';
 import { LuShoppingBag } from 'react-icons/lu';
-import { IoSearchOutline } from 'react-icons/io5';
+// import { IoSearchOutline } from 'react-icons/io5';
 import { MdOutlineArrowOutward } from 'react-icons/md';
-import { IoCloseOutline } from 'react-icons/io5';
+// import { IoCloseOutline } from 'react-icons/io5';
 import srcLogo from './images/Icon_drone.png';
 import srciconDron from './images/icon_dronBW.png';
 import srciconAccses from './images/icon_accessoriesBW.png';
@@ -13,6 +13,7 @@ import svg from '../../assets/sprite.svg';
 import Hamburger from 'hamburger-react';
 import useScreenSize from '../../hooks/useScreenSize';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
+import Search from '../Search/Search';
 // import Search from '../Search/Search';
 
 const Header = () => {
@@ -24,7 +25,7 @@ const Header = () => {
   // const [selectedProduct, setSelectedProduct] = useState('');
   const [showDrones, setShowDrones] = useState(true);
   const [showAccessories, setShowAccessories] = useState(false);
-  const [inputVisible, setInputVisible] = useState(false);
+  // const [inputVisible, setInputVisible] = useState(false);
 
   const toggleProducts = (clic: string) => {
     if (clic === 'products') {
@@ -56,9 +57,9 @@ const Header = () => {
     }
   };
 
-  const handleSearchClick = () => {
-    setInputVisible(!inputVisible);
-  };
+  // const handleSearchClick = () => {
+  //   setInputVisible(!inputVisible);
+  // };
 
   return (
     <>
@@ -104,9 +105,9 @@ const Header = () => {
           </Link>
 
           <div className={s.headerActions}>
-            <div className={`${s.searchContainer}`}>
-              {/* <Search /> */}
-              <button
+            {/* <div className={`${s.searchContainer}`}> */}
+            <Search />
+            {/* <button
                 className={`${s.searchButton}`}
                 onClick={handleSearchClick}
               >
@@ -120,14 +121,15 @@ const Header = () => {
               <IoCloseOutline
                 onClick={() => setInputVisible(false)}
                 className={`${!inputVisible ? s.closeIcon : ''}`}
-              />
-            </div>
-            <button className={`${s.navButton} ${s.btnGlobalLine}`}>
+              /> */}
+            {/* </div> */}
+
+            <div className={`${s.navButton} ${s.btnGlobalLine}`}>
               <span className={`${s.arrowDown} ${s.arrSearch}`}>
                 {' '}
                 <LanguageSelector type="header" />
               </span>
-            </button>
+            </div>
             <button className={`${s.navButton} ${s.cartButton}`}>
               Cart{' '}
               <span className={s.arrowDown}>
