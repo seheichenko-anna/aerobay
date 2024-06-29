@@ -1,8 +1,19 @@
 import { fetchThunk, addThunk, deleteThunk, editThunk } from '../thunkHelpers';
 
-interface Accessory {
-  id: string;
-  name: string;
+export interface Accessory {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  discount: number;
+  image_url: string;
+  dimensions: string;
+  weight: string;
+  type: string;
+  amount: number;
+  category_id: number;
+  manufacturer_id: number;
+  subcategiries: number[];
 }
 
 export const fetchAccessoriesThunk = fetchThunk<Accessory[]>(
@@ -11,13 +22,16 @@ export const fetchAccessoriesThunk = fetchThunk<Accessory[]>(
 );
 export const addAccessoryThunk = addThunk<Accessory, Accessory>(
   'addAccessory',
-  'accessories'
+  'accessories',
+  fetchAccessoriesThunk
 );
-export const deleteAccessoryThunk = deleteThunk<{ id: string }, Accessory>(
+export const deleteAccessoryThunk = deleteThunk<{ id: number }, Accessory>(
   'deleteAccessory',
-  'accessories'
+  'accessories',
+  fetchAccessoriesThunk
 );
 export const editAccessoryThunk = editThunk<Accessory, Accessory>(
   'editAccessory',
-  'accessories'
+  'accessories',
+  fetchAccessoriesThunk
 );

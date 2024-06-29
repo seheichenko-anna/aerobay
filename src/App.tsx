@@ -15,6 +15,7 @@ import DroneViewer from './pages/DronesBuisnessCards/DroneViewer';
 import AdminPanel from './pages/AdminPanel/AdminPanel';
 import Dashboard from './pages/AdminPanel/Dashboard';
 import Accessory from './pages/AdminPanel/Accessory';
+import Manufacturer from './pages/AdminPanel/Manufacturer';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="admin" element={<AdminPanel />}>
           <Route index element={<Dashboard />} />
           <Route path="accessory" element={<Accessory />} />
+          <Route path="manufacturer" element={<Manufacturer />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

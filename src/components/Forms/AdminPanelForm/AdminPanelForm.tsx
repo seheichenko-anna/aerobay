@@ -1,11 +1,59 @@
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useAppDispatch } from '../../../redux/hooks/useAppDispatch';
+import {
+  addManufacturerThunk,
+  deleteManufacturerThunk,
+  editManufacturerThunk,
+} from '../../../redux/manufacturers/manufacturersOperations';
 import Button from './Button';
-import InputField from './InputField';
+import { fieldMappings } from './FieldMappings';
+import FormField from './FormField';
 
 interface AdminPanelFormProps {
   type: 'add' | 'edit' | 'delete';
+  inputType:
+    | 'drone'
+    | 'accessory'
+    | 'category'
+    | 'manufacturer'
+    | 'subcategory'
+    | 'groupForDrones';
+  selectedItem?: any;
+  closeModal: () => void;
 }
 
-const AdminPanelForm: React.FC<AdminPanelFormProps> = ({ type }) => {
+interface FormValues {
+  id: number;
+  name: string;
+}
+
+const AdminPanelForm: React.FC<AdminPanelFormProps> = ({
+  type,
+  inputType,
+  selectedItem,
+  closeModal,
+}) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    defaultValues: selectedItem || {},
+  });
+  const dispatch = useAppDispatch();
+
+  const onSubmit: SubmitHandler<FormValues> = data => {
+    if (type === 'add') {
+      dispatch(addManufacturerThunk(data));
+    } else if (type === 'edit') {
+      console.log(data);
+      dispatch(editManufacturerThunk(data));
+    } else if (type === 'delete') {
+      dispatch(deleteManufacturerThunk(data));
+    }
+    closeModal();
+  };
+
   const renderFormTitle = (type: 'add' | 'edit' | 'delete') => {
     switch (type) {
       case 'add':
@@ -19,31 +67,46 @@ const AdminPanelForm: React.FC<AdminPanelFormProps> = ({ type }) => {
     }
   };
 
+  const renderFormFields = (
+    itemType:
+      | 'drone'
+      | 'accessory'
+      | 'category'
+      | 'manufacturer'
+      | 'subcategory'
+      | 'groupForDrones'
+  ) => {
+    return fieldMappings[itemType]?.map(field => (
+      <FormField
+        key={field.id}
+        id={field.id}
+        type={field.type}
+        label={field.label}
+        register={register}
+        error={errors[field.id as keyof FormValues]}
+      />
+    ));
+  };
+
   return (
-    <form className="w-full p-4 overflow-y-auto">
+    <form
+      className="w-full p-4 overflow-y-auto"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <h2 className="text-2xl font-semibold text-gray-900 mb-4">
         {renderFormTitle(type)}
       </h2>
-      <div className="grid grid-cols-2 gap-4">
-        <InputField id="title" type="text" label="Title" />
-        <InputField id="description" type="text" label="Description" />
-        <InputField id="price" type="number" label="Price" />
-        <InputField id="discount" type="text" label="Discount" />
-        <InputField id="image_url" type="text" label="Image URL" />
-        <InputField id="dimensions" type="text" label="Dimensions" />
-        <InputField id="weight" type="text" label="Weight" />
-        <InputField id="type" type="text" label="Type" />
-        <InputField id="amount" type="number" label="Amount" />
-        <InputField id="category_id" type="number" label="Category Id" />
-        <InputField
-          id="manufacturer_id"
-          type="number"
-          label="Manufacturer Id"
-        />
-        <InputField id="subcategories" type="text" label="Subcategories" />
-      </div>
+      {type === 'delete' ? (
+        <div className="text-red-500">
+          Are you sure you want to delete this item?
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-4">
+          {renderFormFields(inputType)}
+        </div>
+      )}
       <div className="flex justify-end mt-4">
-        <Button type="submit" title="Save" />
+        <Button type="submit">{type === 'delete' ? 'Delete' : 'Save'} </Button>
       </div>
     </form>
   );

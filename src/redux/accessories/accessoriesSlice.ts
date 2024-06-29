@@ -4,13 +4,8 @@ import {
   addAccessoryThunk,
   deleteAccessoryThunk,
   editAccessoryThunk,
+  Accessory,
 } from './accessoriesOperations';
-
-interface Accessory {
-  id: string;
-  name: string;
-  // інші поля аксесуару
-}
 
 interface AccessoriesState {
   accessories: Accessory[];
@@ -24,6 +19,9 @@ const accessoriesSlice = createSlice({
   name: 'accessories',
   initialState: initialAccessoriesState,
   reducers: {},
+  selectors: {
+    selectAccessories: state => state.accessories,
+  },
   extraReducers: builder => {
     builder
       .addCase(
@@ -35,12 +33,12 @@ const accessoriesSlice = createSlice({
       .addCase(
         addAccessoryThunk.fulfilled,
         (state, { payload }: PayloadAction<Accessory>) => {
-          state.accessories.push(payload);
+          state.accessories = [...state.accessories, payload];
         }
       )
       .addCase(
         deleteAccessoryThunk.fulfilled,
-        (state, { payload }: PayloadAction<{ id: string }>) => {
+        (state, { payload }: PayloadAction<{ id: number }>) => {
           state.accessories = state.accessories.filter(
             accessory => accessory.id !== payload.id
           );
@@ -59,3 +57,4 @@ const accessoriesSlice = createSlice({
 });
 
 export const accessoriesReducer = accessoriesSlice.reducer;
+export const { selectAccessories } = accessoriesSlice.selectors;

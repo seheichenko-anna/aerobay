@@ -3,7 +3,7 @@ import { dronesApi } from '../axiosConfig/dronesApi';
 import { AxiosError } from 'axios';
 
 const handleAsyncThunk = async <T>(
-  method: 'get' | 'post' | 'delete' | 'patch',
+  method: 'get' | 'post' | 'delete' | 'patch' | 'put',
   url: string,
   data: any,
   thunkAPI: {
@@ -12,7 +12,7 @@ const handleAsyncThunk = async <T>(
 ): Promise<T> => {
   try {
     const response = await dronesApi[method](url, data);
-    return response.data;
+    return response.data.data;
   } catch (error) {
     if (error instanceof AxiosError) {
       return thunkAPI.rejectWithValue(error.response?.data.message);
@@ -26,39 +26,48 @@ export const fetchThunk = <T>(
   url: string
 ): AsyncThunk<T, void, {}> =>
   createAsyncThunk(type, async (_, thunkAPI) => {
-    return handleAsyncThunk<T>('get', url, null, thunkAPI);
+    return await handleAsyncThunk<T>('get', url, null, thunkAPI);
   });
 
 export const addThunk = <T, U>(
   type: string,
-  url: string
+  url: string,
+  fetchThunk: AsyncThunk<any, void, {}>
 ): AsyncThunk<T, U, {}> =>
   createAsyncThunk(type, async (data: U, thunkAPI) => {
-    return handleAsyncThunk<T>('post', url, data, thunkAPI);
+    const response = await handleAsyncThunk<T>('post', url, data, thunkAPI);
+    thunkAPI.dispatch(fetchThunk());
+    return response;
   });
 
 export const deleteThunk = <T, U>(
   type: string,
-  url: string
+  url: string,
+  fetchThunk: AsyncThunk<any, void, {}>
 ): AsyncThunk<T, U, {}> =>
   createAsyncThunk(type, async (data: U, thunkAPI) => {
-    return handleAsyncThunk<T>(
+    const response = await handleAsyncThunk<T>(
       'delete',
       `${url}/${(data as any).id}`,
       null,
       thunkAPI
     );
+    thunkAPI.dispatch(fetchThunk());
+    return response;
   });
 
 export const editThunk = <T, U>(
   type: string,
-  url: string
+  url: string,
+  fetchThunk: AsyncThunk<any, void, {}>
 ): AsyncThunk<T, U, {}> =>
   createAsyncThunk(type, async (data: U, thunkAPI) => {
-    return handleAsyncThunk<T>(
-      'patch',
+    const response = await handleAsyncThunk<T>(
+      'put',
       `${url}/${(data as any).id}`,
-      { data },
+      data,
       thunkAPI
     );
+    thunkAPI.dispatch(fetchThunk());
+    return response;
   });

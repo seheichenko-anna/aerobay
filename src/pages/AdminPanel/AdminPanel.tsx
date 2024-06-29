@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from './Header';
 import { Outlet } from 'react-router-dom';
+import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
+import { fetchManufacturersThunk } from '../../redux/manufacturers/manufacturersOperations';
 
 const user = {
   name: 'Test',
@@ -11,7 +13,7 @@ const user = {
 const navigation = [
   { name: 'Dashboard', href: '/aerobay/admin', current: true },
   { name: 'Accessory', href: '/aerobay/admin/accessory', current: false },
-  // Додайте інші пункти навігації за потреби
+  { name: 'Manufacturer', href: '/aerobay/admin/manufacturer', current: false },
 ];
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
@@ -20,6 +22,12 @@ const userNavigation = [
 ];
 
 const AdminPanel: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchManufacturersThunk());
+  }, [dispatch]);
+
   return (
     <div className="flex h-full min-h-screen bg-gray-100">
       <Header

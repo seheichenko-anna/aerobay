@@ -2,23 +2,22 @@ import { useState } from 'react';
 import AdminPanelForm from '../../components/Forms/AdminPanelForm/AdminPanelForm';
 import Modal from '../../components/Modal/Modal';
 import { useModal } from '../../hooks/useModal';
-import type { Accessory } from '../../redux/accessories/accessoriesOperations';
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
-import { selectAccessories } from '../../redux/accessories/accessoriesSlice';
+import { selectManufacturers } from '../../redux/manufacturers/manufacturersSlice';
+import type { Manufacturer } from '../../redux/manufacturers/manufacturersOperations';
 
 type FormType = 'add' | 'edit' | 'delete';
 
-const Accessory = () => {
+const Manufacturer = () => {
   const { isOpen, toggle } = useModal();
   const [formType, setFormType] = useState<FormType>('add');
-  const [selectedAccessory, setSelectedAccessory] = useState<Accessory | null>(
-    null
-  );
-  const accessories = useAppSelector(selectAccessories);
+  const [selectedManufacturer, setSelectedManufacturer] =
+    useState<Manufacturer | null>(null);
+  const manufacturers = useAppSelector(selectManufacturers);
 
-  const handleOpenModal = (type: FormType, accessory?: Accessory) => {
+  const handleOpenModal = (type: FormType, manufacturer?: Manufacturer) => {
     setFormType(type);
-    setSelectedAccessory(accessory || null);
+    setSelectedManufacturer(manufacturer || null);
     toggle();
   };
 
@@ -27,7 +26,7 @@ const Accessory = () => {
       <div className="bg-white shadow w-screen">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-            Accessory
+            Manufacturer
           </h1>
           <button
             className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-regular text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -53,26 +52,7 @@ const Accessory = () => {
                         scope="col"
                         className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
                       >
-                        Title
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
-                      >
-                        Price
-                      </th>
-
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
-                      >
-                        Type
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
-                      >
-                        Amount
+                        Name
                       </th>
 
                       <th
@@ -90,28 +70,21 @@ const Accessory = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
-                    {accessories && accessories.length > 0 ? (
-                      accessories.map(accessory => (
-                        <tr key={accessory.id}>
+                    {manufacturers && manufacturers.length > 0 ? (
+                      manufacturers.map(manufacturer => (
+                        <tr key={manufacturer.id}>
                           <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
-                            {accessory.id}
+                            {manufacturer.id}
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                            {accessory.title}
-                          </td>
-                          <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                            {accessory.price}
-                          </td>
-                          <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                            {accessory.type}
-                          </td>
-                          <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                            {accessory.amount}
+                            {manufacturer.name}
                           </td>
                           <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                             <button
                               className="text-green-500 hover:text-green-700"
-                              onClick={() => handleOpenModal('edit', accessory)}
+                              onClick={() =>
+                                handleOpenModal('edit', manufacturer)
+                              }
                             >
                               Edit
                             </button>
@@ -120,7 +93,7 @@ const Accessory = () => {
                             <button
                               className="text-red-500 hover:text-red-700"
                               onClick={() =>
-                                handleOpenModal('delete', accessory)
+                                handleOpenModal('delete', manufacturer)
                               }
                             >
                               Delete
@@ -134,7 +107,7 @@ const Accessory = () => {
                           className="px-6 py-4 text-sm font-medium text-gray-800"
                           colSpan={4}
                         >
-                          No accessesories found
+                          No manufacturers found
                         </td>
                       </tr>
                     )}
@@ -149,8 +122,8 @@ const Accessory = () => {
         <Modal closeModal={toggle}>
           <AdminPanelForm
             type={formType}
-            inputType="accessory"
-            selectedItem={selectedAccessory}
+            inputType="manufacturer"
+            selectedItem={selectedManufacturer}
             closeModal={toggle}
           />
         </Modal>
@@ -159,4 +132,4 @@ const Accessory = () => {
   );
 };
 
-export default Accessory;
+export default Manufacturer;

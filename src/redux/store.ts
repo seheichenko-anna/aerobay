@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { accessoriesReducer } from './accessories/accessoriesSlice';
+import { manufacturesReducer } from './manufacturers/manufacturersSlice';
 
 export const store = configureStore({
   reducer: {
-    accessoriesReducer,
+    accessories: accessoriesReducer,
+    manufacturers: manufacturesReducer,
   },
 });
 
