@@ -12,7 +12,15 @@ const handleAsyncThunk = async <T>(
 ): Promise<T> => {
   try {
     const response = await dronesApi[method](url, data);
-    return response.data.data;
+    if ('data' in response.data) {
+      return response.data.data;
+    } else if ('drones' in response.data) {
+      return response.data.drones;
+    } else if ('accessories' in response.data) {
+      return response.data.accessories;
+    } else {
+      return response.data;
+    }
   } catch (error) {
     if (error instanceof AxiosError) {
       return thunkAPI.rejectWithValue(error.response?.data.message);

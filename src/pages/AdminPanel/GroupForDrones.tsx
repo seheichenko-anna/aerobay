@@ -1,28 +1,28 @@
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
-import { selectManufacturers } from '../../redux/manufacturers/manufacturersSlice';
-import { type Manufacturer } from '../../redux/manufacturers/manufacturersOperations';
+import { selectGroupsForDrones } from '../../redux/groupsForDrones/groupsForDronesSlice';
+import { type GroupForDrones } from '../../redux/groupsForDrones/groupsForDronesOperations';
 import AdminDataTable from '../../components/AdminDataTable/AdminDataTable';
 
-const Manufacturer = () => {
-  const manufacturers = useAppSelector(selectManufacturers);
+const GroupForDrones = () => {
+  const groupForDrones = useAppSelector(selectGroupsForDrones);
 
   const renderActions = (
-    manufacturer: Manufacturer,
+    group: GroupForDrones,
     handleOpenModal: (
       type: 'add' | 'edit' | 'delete',
-      item?: Manufacturer
+      item?: GroupForDrones
     ) => void
   ) => (
     <>
       <button
         className="text-green-500 hover:text-green-700 mr-2"
-        onClick={() => handleOpenModal('edit', manufacturer)}
+        onClick={() => handleOpenModal('edit', group)}
       >
         Edit
       </button>
       <button
         className="text-red-500 hover:text-red-700"
-        onClick={() => handleOpenModal('delete', manufacturer)}
+        onClick={() => handleOpenModal('delete', group)}
       >
         Delete
       </button>
@@ -31,16 +31,17 @@ const Manufacturer = () => {
 
   return (
     <AdminDataTable
-      title="Manufacturer"
-      items={manufacturers}
+      title="Group For Drones"
+      items={groupForDrones}
       columns={[
         { header: 'ID', accessor: 'id' },
         { header: 'Name', accessor: 'name' },
+        { header: 'Description', accessor: 'description' },
       ]}
       renderActions={renderActions}
-      inputType="manufacturer"
+      inputType="groupForDrones"
     />
   );
 };
 
-export default Manufacturer;
+export default GroupForDrones;

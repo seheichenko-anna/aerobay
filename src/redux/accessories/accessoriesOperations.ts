@@ -13,7 +13,7 @@ export interface Accessory {
   amount: number;
   category_id: number;
   manufacturer_id: number;
-  subcategiries: number[];
+  subcategories: number[];
 }
 
 export const fetchAccessoriesThunk = fetchThunk<Accessory[]>(

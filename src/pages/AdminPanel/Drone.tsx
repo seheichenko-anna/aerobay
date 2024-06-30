@@ -1,36 +1,36 @@
-import { useAppSelector } from '../../redux/hooks/useAppSelector';
-import { selectAccessories } from '../../redux/accessories/accessoriesSlice';
-import {
-  fetchAccessoriesThunk,
-  type Accessory,
-} from '../../redux/accessories/accessoriesOperations';
-import AdminDataTable from '../../components/AdminDataTable/AdminDataTable';
-import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
 import { useEffect } from 'react';
+import AdminDataTable from '../../components/AdminDataTable/AdminDataTable';
+import {
+  fetchDronesThunk,
+  type Drone,
+} from '../../redux/drones/dronesOperations';
+import { selectDrones } from '../../redux/drones/dronesSlice';
+import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
+import { useAppSelector } from '../../redux/hooks/useAppSelector';
 
-const Accessory = () => {
+const Drone = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchAccessoriesThunk());
+    dispatch(fetchDronesThunk());
   }, [dispatch]);
 
-  const accessories = useAppSelector(selectAccessories);
+  const drones = useAppSelector(selectDrones);
 
   const renderActions = (
-    accessory: Accessory,
-    handleOpenModal: (type: 'add' | 'edit' | 'delete', item?: Accessory) => void
+    drone: Drone,
+    handleOpenModal: (type: 'add' | 'edit' | 'delete', item?: Drone) => void
   ) => (
     <>
       <button
         className="text-green-500 hover:text-green-700 mr-2"
-        onClick={() => handleOpenModal('edit', accessory)}
+        onClick={() => handleOpenModal('edit', drone)}
       >
         Edit
       </button>
       <button
         className="text-red-500 hover:text-red-700"
-        onClick={() => handleOpenModal('delete', accessory)}
+        onClick={() => handleOpenModal('delete', drone)}
       >
         Delete
       </button>
@@ -39,19 +39,18 @@ const Accessory = () => {
 
   return (
     <AdminDataTable
-      title="Accessory"
-      items={accessories}
+      title="Drones"
+      items={drones}
       columns={[
         { header: 'ID', accessor: 'id' },
         { header: 'Title', accessor: 'title' },
         { header: 'Price', accessor: 'price' },
-        { header: 'Type', accessor: 'type' },
         { header: 'Amount', accessor: 'amount' },
       ]}
       renderActions={renderActions}
-      inputType="accessory"
+      inputType="drone"
     />
   );
 };
 
-export default Accessory;
+export default Drone;

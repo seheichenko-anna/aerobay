@@ -1,8 +1,9 @@
 import { fetchThunk, addThunk, deleteThunk, editThunk } from '../thunkHelpers';
 
-interface Category {
-  id: string;
+export interface Category {
+  id: number;
   name: string;
+  description: string;
 }
 
 export const fetchCategoriesThunk = fetchThunk<Category[]>(
@@ -11,13 +12,16 @@ export const fetchCategoriesThunk = fetchThunk<Category[]>(
 );
 export const addCategoryThunk = addThunk<Category, Category>(
   'addCategory',
-  'categories'
+  'categories',
+  fetchCategoriesThunk
 );
-export const deleteCategoryThunk = deleteThunk<{ id: string }, Category>(
+export const deleteCategoryThunk = deleteThunk<{ id: number }, Category>(
   'deleteCategory',
-  'categories'
+  'categories',
+  fetchCategoriesThunk
 );
 export const editCategoryThunk = editThunk<Category, Category>(
   'editCategory',
-  'categories'
+  'categories',
+  fetchCategoriesThunk
 );

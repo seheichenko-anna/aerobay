@@ -4,13 +4,8 @@ import {
   addCategoryThunk,
   deleteCategoryThunk,
   editCategoryThunk,
+  Category,
 } from './categoriesOperations';
-
-interface Category {
-  id: string;
-  name: string;
-  // інші поля категорії
-}
 
 interface CategoriesState {
   categories: Category[];
@@ -24,6 +19,9 @@ const categoriesSlice = createSlice({
   name: 'categories',
   initialState: initialCategoriesState,
   reducers: {},
+  selectors: {
+    selectCategories: state => state.categories,
+  },
   extraReducers: builder => {
     builder
       .addCase(
@@ -35,12 +33,12 @@ const categoriesSlice = createSlice({
       .addCase(
         addCategoryThunk.fulfilled,
         (state, { payload }: PayloadAction<Category>) => {
-          state.categories.push(payload);
+          state.categories = [...state.categories, payload];
         }
       )
       .addCase(
         deleteCategoryThunk.fulfilled,
-        (state, { payload }: PayloadAction<{ id: string }>) => {
+        (state, { payload }: PayloadAction<{ id: number }>) => {
           state.categories = state.categories.filter(
             category => category.id !== payload.id
           );
@@ -59,3 +57,4 @@ const categoriesSlice = createSlice({
 });
 
 export const categoriesReducer = categoriesSlice.reducer;
+export const { selectCategories } = categoriesSlice.selectors;

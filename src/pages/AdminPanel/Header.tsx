@@ -1,10 +1,10 @@
-import {
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-  Transition,
-} from '@headlessui/react';
+// import {
+//   Menu,
+//   MenuButton,
+//   MenuItem,
+//   MenuItems,
+//   Transition,
+// } from '@headlessui/react';
 
 interface HeaderProps {
   user: { name: string; email: string; imageUrl: string };
@@ -27,7 +27,7 @@ const Header = ({ user, navigation, userNavigation }: HeaderProps) => {
             alt="Your Company"
           />
         </div>
-        <Menu as="div" className="relative">
+        {/* <Menu as="div" className="relative">
           <div>
             <MenuButton className="flex items-center text-sm rounded-full bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 w-10 h-10 rounded-full overflow-hidden">
               <span className="sr-only">Open user menu</span>
@@ -64,7 +64,7 @@ const Header = ({ user, navigation, userNavigation }: HeaderProps) => {
               ))}
             </MenuItems>
           </Transition>
-        </Menu>
+        </Menu> */}
       </div>
       <div className="flex-1 flex flex-col overflow-y-auto">
         <div className="px-2 py-3 space-y-1">
