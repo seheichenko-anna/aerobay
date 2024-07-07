@@ -1,0 +1,33 @@
+@import '../../assets/sass-functions/functions';
+
+.main_title {
+  margin: 30px 0 20px 0;
+  font-size: rem(48px);
+  font-weight: 400;
+  line-height: 58.22px;
+}
+.category_of_drones {
+  display: flex;
+  justify-content: space-between;
+  gap: 17.71px;
+  border-radius: 20px;
+  &__category {
+    max-width: 433px;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 221px;
+    border: 1px solid #e9eaee;
+    border-radius: 20px;
+    > img {
+      max-height: 170px;
+    }
+    > p {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
