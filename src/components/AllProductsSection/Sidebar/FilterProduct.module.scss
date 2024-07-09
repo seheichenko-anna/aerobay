@@ -1,0 +1,82 @@
+@import '../../../assets/sass-functions/functions';
+
+.filter_product {
+  flex-basis: 310px;
+  border: 1px solid #eaecf0;
+  border-radius: 10px;
+  &__wrap {
+    padding: 33.5px 54px 30px 32px;
+
+    > h2 {
+      font-size: rem(24px);
+      font-weight: 400;
+    }
+  }
+}
+.sidebar_dropdown {
+  padding: 4px 10px 3px 20px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  background-color: #fafafa;
+  border: 2px solid #eaecf0;
+  border-radius: 50px;
+  > p {
+    line-height: 24px;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+  }
+  &__arrow {
+    width: 30px;
+    height: 30px;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 50px;
+    cursor: pointer;
+    > img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+.dropdown_menu {
+  margin-top: 8px;
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: 8px;
+  background-color: #fafafa;
+  > div {
+    display: flex;
+    align-items: center;
+    > input,
+    label {
+      cursor: pointer;
+    }
+  }
+  > div > input[type='checkbox'] {
+    width: 16px;
+    height: 16px;
+    accent-color: #101828;
+  }
+  > div > label {
+    font-size: rem(14px);
+    margin-left: 4px;
+  }
+}
+.checked_values:not(:last-child)::after {
+  content: ',';
+  margin-right: 4px;
+}
+.checked_values:nth-child(2)::after {
+  content: '...';
+}
+
+.checked_values:nth-child(n + 3) {
+  display: none;
+}
