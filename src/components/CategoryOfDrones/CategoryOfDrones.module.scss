@@ -14,17 +14,18 @@
   &__category {
     max-width: 433px;
     width: 100%;
-    padding: 10px;
+    height: 221px;
+    padding: 10px 10px 20px 10px;
     display: flex;
     flex-direction: column;
-    height: 221px;
-    border: 1px solid #e9eaee;
+    gap: 10px;
+    background-color: #eaecf0;
     border-radius: 20px;
     > img {
-      max-height: 170px;
+      max-height: 158px;
     }
     > p {
-      flex-grow: 1;
+      font-size: rem(18px);
       display: flex;
       align-items: center;
       justify-content: center;
