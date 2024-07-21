@@ -13,6 +13,7 @@ import {
   TCatalogContext,
 } from '../../../pages/Catalog/Catalog';
 import rangeStat from '../../../assets/catalog/sidebar/price_range_stat.svg';
+
 export const FilterProducts: FC = () => {
   const test2 = useRef<HTMLInputElement>(null);
 
