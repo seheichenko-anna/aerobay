@@ -27,7 +27,7 @@ export const CategoryOfDrones = () => {
       <h1 className={c.main_title}>Catalog</h1>
       <div className={c.category_of_drones}>
         {categoryOfDrones?.map(category => (
-          <div className={c.category_of_drones__category}>
+          <div key={category?.id} className={c.category_of_drones__category}>
             <img src={category?.imagePath} alt={category?.title} />
             <p>{category?.title}</p>
           </div>
