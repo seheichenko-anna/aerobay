@@ -7,7 +7,6 @@ import {
   useState,
 } from 'react';
 import c from './FilterProduct.module.scss';
-import priceRangeStat from '../../../assets/catalog/sidebar/price_range_stat.svg';
 import { Dropdown2 } from '../Dropdown2';
 import {
   CatalogContext,
@@ -37,29 +36,29 @@ export const FilterProducts: FC = () => {
     ? `${String(maxPrice?.price - 20000).slice(0, -3)}.${String(maxPrice?.price - 20000).slice(-3)}`
     : `${String(maxPrice?.price).slice(0, -3)}.${String(maxPrice?.price).slice(-3)}`;
 
-  const handleChange = (e: ChangeEvent) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setMaxPrice({ isTrigged: true, price: +`${+value * 2}000`, value: +value });
   };
-  const handleCheckboxA1 = (e: ChangeEvent) => {
+  const handleCheckboxA1 = (e: ChangeEvent<HTMLInputElement>) => {
     setIsAvailabilityChecked({
       ...isAvailabilityChecked,
       'In stock': e.target.checked,
     });
   };
-  const handleCheckboxA2 = (e: ChangeEvent) => {
+  const handleCheckboxA2 = (e: ChangeEvent<HTMLInputElement>) => {
     setIsAvailabilityChecked({
       ...isAvailabilityChecked,
       'Not available': e.target.checked,
     });
   };
-  const handleCheckboxB1 = (e: ChangeEvent) => {
+  const handleCheckboxB1 = (e: ChangeEvent<HTMLInputElement>) => {
     setIsTypeChecked({
       ...isTypeChecked,
       'Model Drone': e.target.checked,
     });
   };
-  const handleCheckboxB2 = (e: ChangeEvent) => {
+  const handleCheckboxB2 = (e: ChangeEvent<HTMLInputElement>) => {
     setIsTypeChecked({
       ...isTypeChecked,
       'Ready-Solution Drone': e.target.checked,
@@ -118,7 +117,10 @@ export const FilterProducts: FC = () => {
           <div className={c.price_range}>
             <h3>Price range</h3>
             <div className={c.price_range__bgImage}>
-              <img src={priceRangeStat} alt="range background image" />
+              <img
+                src="../../../aerobay/src/assets/catalog/sidebar/price_range_stat.svg"
+                alt="range background image"
+              />
               <div className={c.range}>
                 <input
                   type="range"

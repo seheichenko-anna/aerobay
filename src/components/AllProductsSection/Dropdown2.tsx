@@ -5,10 +5,10 @@ import dropdownArrow from '../../assets/catalog/sidebar/top_arrow.svg';
 interface IDropdown2Props {
   isSidebarDropdown: boolean;
   selectedFilters: string[];
-  setSelectedFilters: Dispatch;
+  setSelectedFilters: Dispatch<React.SetStateAction<string[]>>;
 }
 
-export const Dropdown2: FC = ({
+export const Dropdown2: FC<IDropdown2Props> = ({
   isSidebarDropdown,
   selectedFilters,
   setSelectedFilters,
@@ -25,7 +25,7 @@ export const Dropdown2: FC = ({
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const setChecked = (e: ChangeEvent) => {
+  const setChecked = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (e.target.checked) {
       setSelectedFilters([...selectedFilters, value]);

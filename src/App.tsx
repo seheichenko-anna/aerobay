@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
-import Catalog from './pages/Catalog/Catalog';
+
 import HomePage from './pages/HomePage';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
@@ -12,6 +12,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import AgricultureDrone from './pages/DronesBuisnessCards/AgricultureDrone';
 import LiDARDrone from './pages/DronesBuisnessCards/LiDARDrone';
 import DroneViewer from './pages/DronesBuisnessCards/DroneViewer';
+import Catalog from './pages/Catalog/Catalog';
 
 function App() {
   return (
@@ -19,9 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="catalog" element={<Catalog />} />{' '}
-          <Route path="catalog/:product" element={<Catalog />} />
-          <Route path="catalog/:product/:photo" element={<Catalog />} />
+          <Route path="catalog" element={<Catalog />} />
           <Route path="lidar-drone" element={<LiDARDrone />} />
           <Route path="agriculture-drone" element={<AgricultureDrone />} />
           <Route path="drone-viewer" element={<DroneViewer />} />
