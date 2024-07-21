@@ -12,7 +12,7 @@ import {
   CatalogContext,
   TCatalogContext,
 } from '../../../pages/Catalog/Catalog';
-
+import priceRangeStat from '../../assets/catalog/sidebar/price_range_stat.svg';
 export const FilterProducts: FC = () => {
   const test2 = useRef<HTMLInputElement>(null);
 
@@ -118,7 +118,7 @@ export const FilterProducts: FC = () => {
             <h3>Price range</h3>
             <div className={c.price_range__bgImage}>
               <img
-                src="../../../aerobay/src/assets/catalog/sidebar/price_range_stat.svg"
+                src={priceRangeStat}
                 alt="range background image"
               />
               <div className={c.range}>
