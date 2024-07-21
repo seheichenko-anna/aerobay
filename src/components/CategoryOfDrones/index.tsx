@@ -5,19 +5,19 @@ const categoryOfDrones = [
     id: 1,
     title: 'Drones',
     href: '/',
-    imagePath: './src/assets/catalog/category-of-drones/drone.png',
+    imagePath: '/aerobay/assets/catalog/category-of-drones/drone.png',
   },
   {
     id: 2,
     title: 'Accessories',
     href: '/',
-    imagePath: './src/assets/catalog/category-of-drones/accessories.png',
+    imagePath: '/aerobay/assets/catalog/category-of-drones/accessories.png',
   },
   {
     id: 3,
     title: 'Customize drone',
     href: '/',
-    imagePath: './src/assets/catalog/category-of-drones/customize_drone.png',
+    imagePath: '/aerobay/assets/catalog/category-of-drones/customize_drone.png',
   },
 ];
 
