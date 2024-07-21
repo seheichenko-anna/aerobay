@@ -1,5 +1,6 @@
 import { FC, ChangeEvent, Dispatch, useState } from 'react';
 import c from './Dropdown2.module.scss';
+import dropdownArrow from '../../assets/catalog/sidebar/top_arrow.svg';
 
 interface IDropdown2Props {
   isSidebarDropdown: boolean;
@@ -33,9 +34,7 @@ export const Dropdown2: FC<IDropdown2Props> = ({
     }
   };
 
-  const sortByClick = (
-    title: string
-  ): React.MouseEventHandler<HTMLDivElement> => {
+  const sortByClick = (title: string): React.MouseEventHandler => {
     return () => {
       setSelectedFilters([title]);
       setIsDropdownOpen(false);
@@ -75,7 +74,7 @@ export const Dropdown2: FC<IDropdown2Props> = ({
                 ? { transform: 'rotate(360deg)' }
                 : { transform: 'rotate(180deg)' }
             }
-            src="../../../aerobay/src/assets/catalog/sidebar/top_arrow.svg"
+            src={dropdownArrow}
             alt="arrow-top"
           />
         </div>

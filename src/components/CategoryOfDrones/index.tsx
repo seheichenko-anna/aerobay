@@ -1,23 +1,26 @@
 import c from './CategoryOfDrones.module.scss';
+import dronesImg from '../../assets/catalog/category-of-drones/drone.png';
+import accessoriesImg from '../../assets/catalog/category-of-drones/accessories.png';
+import customizeDroneImg from '../../assets/catalog/category-of-drones/customize_drone.png';
 
 const categoryOfDrones = [
   {
     id: 1,
     title: 'Drones',
     href: '/',
-    imagePath: '/aerobay/assets/catalog/category-of-drones/drone.png',
+    imagePath: dronesImg,
   },
   {
     id: 2,
     title: 'Accessories',
     href: '/',
-    imagePath: '/aerobay/assets/catalog/category-of-drones/accessories.png',
+    imagePath: accessoriesImg,
   },
   {
     id: 3,
     title: 'Customize drone',
     href: '/',
-    imagePath: '/aerobay/assets/catalog/category-of-drones/customize_drone.png',
+    imagePath: customizeDroneImg,
   },
 ];
 
