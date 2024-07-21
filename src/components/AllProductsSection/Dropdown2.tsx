@@ -1,13 +1,14 @@
 import { FC, ChangeEvent, Dispatch, useState } from 'react';
 import c from './Dropdown2.module.scss';
+import dropdownArrow from '../../assets/catalog/sidebar/top_arrow.svg';
 
 interface IDropdown2Props {
   isSidebarDropdown: boolean;
   selectedFilters: string[];
-  setSelectedFilters: Dispatch<React.SetStateAction<string[]>>;
+  setSelectedFilters: Dispatch;
 }
 
-export const Dropdown2: FC<IDropdown2Props> = ({
+export const Dropdown2: FC = ({
   isSidebarDropdown,
   selectedFilters,
   setSelectedFilters,
@@ -24,7 +25,7 @@ export const Dropdown2: FC<IDropdown2Props> = ({
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const setChecked = (e: ChangeEvent<HTMLInputElement>) => {
+  const setChecked = (e: ChangeEvent) => {
     const value = e.target.value;
     if (e.target.checked) {
       setSelectedFilters([...selectedFilters, value]);
@@ -33,9 +34,7 @@ export const Dropdown2: FC<IDropdown2Props> = ({
     }
   };
 
-  const sortByClick = (
-    title: string
-  ): React.MouseEventHandler<HTMLDivElement> => {
+  const sortByClick = (title: string): React.MouseEventHandler => {
     return () => {
       setSelectedFilters([title]);
       setIsDropdownOpen(false);
@@ -75,7 +74,7 @@ export const Dropdown2: FC<IDropdown2Props> = ({
                 ? { transform: 'rotate(360deg)' }
                 : { transform: 'rotate(180deg)' }
             }
-            src="../../../aerobay/src/assets/catalog/sidebar/top_arrow.svg"
+            src={dropdownArrow}
             alt="arrow-top"
           />
         </div>
