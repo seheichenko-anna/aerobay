@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 import s from './Header.module.css';
 import { IoIosArrowDown } from 'react-icons/io';
 import { LuShoppingBag } from 'react-icons/lu';
-// import { IoSearchOutline } from 'react-icons/io5';
 import { MdOutlineArrowOutward } from 'react-icons/md';
-// import { IoCloseOutline } from 'react-icons/io5';
 import srcLogo from './images/Icon_drone.png';
 import srciconDron from './images/icon_dronBW.png';
 import srciconAccses from './images/icon_accessoriesBW.png';
@@ -14,280 +12,209 @@ import Hamburger from 'hamburger-react';
 import useScreenSize from '../../hooks/useScreenSize';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 import Search from '../Search/Search';
-// import Search from '../Search/Search';
+import { accessories } from './products';
+
+type DropdownType = 'products' | 'company' | 'solutions' | null;
+type ProductType = 'drones' | 'accessories' | null;
 
 const Header = () => {
   const screenSize = useScreenSize();
   const [isOpen, setOpen] = useState(false);
-  const [showProducts, setShowProducts] = useState(false);
-  const [showCompany, setShowCompany] = useState(false);
-  const [showSolutions, setShowSolutions] = useState(false);
-  // const [selectedProduct, setSelectedProduct] = useState('');
-  const [showDrones, setShowDrones] = useState(true);
-  const [showAccessories, setShowAccessories] = useState(false);
-  // const [inputVisible, setInputVisible] = useState(false);
+  const [showDropdown, setShowDropdown] = useState<DropdownType>(null);
+  const [selectedProduct, setSelectedProduct] = useState<ProductType>(null);
 
-  const toggleProducts = (clic: string) => {
-    if (clic === 'products') {
-      setShowProducts(!showProducts);
-      setShowCompany(false);
-      setShowSolutions(false);
-    }
-    if (clic === 'company') {
-      setShowProducts(false);
-      setShowCompany(!showCompany);
-      setShowSolutions(false);
-    }
-    if (clic === 'solutions') {
-      setShowProducts(false);
-      setShowCompany(false);
-      setShowSolutions(!showSolutions);
+  const handleToggleDropdown = (dropdown: DropdownType) => {
+    setShowDropdown(showDropdown === dropdown ? null : dropdown);
+    if (dropdown === 'products') {
+      setSelectedProduct('drones');
+    } else {
+      setSelectedProduct(null);
     }
   };
 
-  const selectProduct = (product: string) => {
-    if (product === 'drone') {
-      setShowDrones(!showDrones);
-      setShowAccessories(false);
-    }
-
-    if (product === 'accessories') {
-      setShowDrones(false);
-      setShowAccessories(!showAccessories);
-    }
+  const handleProductSelection = (product: ProductType) => {
+    setSelectedProduct(selectedProduct === product ? null : product);
   };
-
-  // const handleSearchClick = () => {
-  //   setInputVisible(!inputVisible);
-  // };
 
   return (
     <>
       {screenSize.width > 375 ? (
-        <header className={s.header}>
-          <nav className={s.nav}>
-            <button
-              className={s.navButton}
-              onClick={() => toggleProducts('products')}
-            >
-              Products{' '}
-              <span className={s.arrowDown}>
-                <IoIosArrowDown size={20} />
-              </span>
-            </button>
-            <button
-              className={s.navButton}
-              onClick={() => toggleProducts('company')}
-            >
-              Company{' '}
-              <span className={s.arrowDown}>
-                <IoIosArrowDown size={20} />
-              </span>
-            </button>
-            <button
-              className={s.navButton}
-              onClick={() => toggleProducts('solutions')}
-            >
-              Solutions{' '}
-              <span className={s.arrowDown}>
-                <IoIosArrowDown size={20} />
-              </span>
-            </button>
-          </nav>
-
-          <Link to="/">
-            <div className={s.logo}>
-              <img src={srcLogo} alt="Logo-dron" />
-              <svg>
-                <use xlinkHref={`${svg}#icon-logo`} />
-              </svg>
-            </div>
-          </Link>
-
-          <div className={s.headerActions}>
-            {/* <div className={`${s.searchContainer}`}> */}
-            <Search />
-            {/* <button
-                className={`${s.searchButton}`}
-                onClick={handleSearchClick}
-              >
-                <IoSearchOutline size={20} />
-              </button>
-              <input
-                type="text"
-                placeholder="Search..."
-                className={`${s.searchInput} ${inputVisible ? s.visible : ''}`}
-              ></input>
-              <IoCloseOutline
-                onClick={() => setInputVisible(false)}
-                className={`${!inputVisible ? s.closeIcon : ''}`}
-              /> */}
-            {/* </div> */}
-
-            <div className={`${s.navButton} ${s.btnGlobalLine}`}>
-              <span className={`${s.arrowDown} ${s.arrSearch}`}>
-                {' '}
-                <LanguageSelector type="header" />
-              </span>
-            </div>
-            <button className={`${s.navButton} ${s.cartButton}`}>
-              Cart{' '}
-              <span className={s.arrowDown}>
-                <LuShoppingBag size={20} />
-              </span>
-            </button>
-          </div>
-
-          {showCompany && (
-            <nav className={s.dropdownNav}>
-              <ul className={s.dropdownList}>
-                <li>
-                  <Link to="about-us">About us</Link>
-                </li>
-                <li>
-                  <Link to="contact-us">Contact</Link>
-                </li>
-                <li>
-                  <Link to="delivery-and-payments">Delivery & Payments</Link>
-                </li>
-              </ul>
-            </nav>
-          )}
-
-          {showSolutions && (
-            <nav className={`${s.dropdownNav} ${s.dropdownPosition}`}>
-              <ul className={s.dropdownList}>
-                <li>
-                  <Link to="lidar-drone">LiDAR research</Link>
-                </li>
-                <li>
-                  <Link to="agriculture-drone">Agribusiness</Link>
-                </li>
-                <li>
-                  <Link to="drone-viewer">
-                    Documentation(photo/video shooting)
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          )}
-
-          {showProducts && (
-            <section className={s.dropdownContent}>
-              <ul className={s.productList}>
-                <li>
-                  <button
-                    className={s.navButton}
-                    onClick={() => selectProduct('drone')}
-                  >
-                    <img src={srciconDron} alt="" />
-                    Drone
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className={s.navButton}
-                    onClick={() => selectProduct('accessories')}
-                  >
-                    <img src={srciconAccses} alt="" />
-                    Accessories
-                  </button>
-                </li>
-              </ul>
-
-              {showDrones && (
-                <ul className={s.dronesList}>
-                  <li className={s.droneItem}>
-                    <Link to={'/'} className={s.linkStyle}>
-                      <div
-                        className={`${s.electricalDrone} ${s.bigfotoDrone}`}
-                      ></div>
-                      <h5 className={s.titleCart}>Electrical</h5>
-                    </Link>
-                  </li>
-                  <li className={s.droneItem}>
-                    <Link to={'/'} className={s.linkStyle}>
-                      <div
-                        className={`${s.hybrideDrone} ${s.bigfotoDrone}`}
-                      ></div>
-                      <h5 className={s.titleCart}>Hybride</h5>
-                    </Link>
-                  </li>
-                </ul>
-              )}
-
-              {showAccessories && (
-                <ul className={s.accessoriesList}>
-                  <li className={s.accessoryItem}>
-                    <Link to={'/'} className={s.linkStyle}>
-                      <div
-                        className={`${s.foto_scaner} ${s.accessoryStyle}`}
-                      ></div>
-                      <h5 className={s.titleCart}>Scaner</h5>
-                    </Link>
-                  </li>
-                  <li className={s.accessoryItem}>
-                    <Link to={'/'} className={s.linkStyle}>
-                      <div
-                        className={`${s.foto_camera} ${s.accessoryStyle}`}
-                      ></div>
-                      <h5 className={s.titleCart}>Camera</h5>
-                    </Link>
-                  </li>
-                  <li className={s.accessoryItem}>
-                    <Link to={'/'} className={s.linkStyle}>
-                      <div
-                        className={`${s.foto_battery} ${s.accessoryStyle}`}
-                      ></div>
-                      <h5 className={s.titleCart}>Battery</h5>
-                    </Link>
-                  </li>
-                  <li className={s.accessoryItem}>
-                    <Link to={'/'} className={s.linkStyle}>
-                      <div
-                        className={`${s.foto_control_panel} ${s.accessoryStyle}`}
-                      ></div>
-                      <h5 className={s.titleCart}>Control panel</h5>
-                    </Link>
-                  </li>
-                  <li className={s.accessoryItem}>
-                    <Link to={'/'} className={s.linkStyle}>
-                      <div
-                        className={`${s.foto_antenna} ${s.accessoryStyle}`}
-                      ></div>
-                      <h5 className={s.titleCart}>Antenna</h5>
-                    </Link>
-                  </li>
-                  <li className={s.accessoryItem}>
-                    <Link to={'/'} className={s.linkStyle}>
-                      <div
-                        className={`${s.foto_tank} ${s.accessoryStyle}`}
-                      ></div>
-                      <h4 className={s.titleCart}>Tank</h4>
-                    </Link>
-                  </li>
-                  <li className={s.accessoryItem}>
-                    <Link to={'/'} className={s.linkStyle}>
-                      <div
-                        className={`${s.foto_base_station} ${s.accessoryStyle}`}
-                      ></div>
-                      <h5 className={s.titleCart}>Base station</h5>
-                    </Link>
-                  </li>
-                  <li className={s.accessoryItem}>
-                    <Link to={'/'} className={s.linkStyle}>
-                      <button className={s.btnArrow}>
-                        {' '}
-                        <MdOutlineArrowOutward size={24} />
+        <div className={s.headerWrapper}>
+          <header className={s.header}>
+            <nav className={s.nav}>
+              <div className={s.navItemWrapper}>
+                <button
+                  className={s.navButton}
+                  onClick={() => handleToggleDropdown('products')}
+                >
+                  Products
+                  <span className={s.arrowDown}>
+                    <IoIosArrowDown size={20} />
+                  </span>
+                </button>
+              </div>
+              {showDropdown === 'products' && (
+                <nav className={`${s.dropdown} ${s.dropdownProducts}`}>
+                  <ul className={s.productList}>
+                    <li
+                      className={` ${selectedProduct === 'drones' ? s.activeProduct : null}`}
+                    >
+                      <button
+                        className={`${s.productItemBtn} ${selectedProduct === 'drones' ? s.active : null}`}
+                        onClick={() => handleProductSelection('drones')}
+                      >
+                        <svg className={s.productIcon}>
+                          <use xlinkHref={`${svg}#icon-drone`} />
+                        </svg>
+                        Drone
                       </button>
-                      <h5 className={s.titleCart}>View all</h5>
-                    </Link>
-                  </li>
-                </ul>
+                    </li>
+                    <li
+                      className={`${selectedProduct === 'accessories' ? s.activeProduct : null}`}
+                    >
+                      <button
+                        className={`${s.productItemBtn} ${selectedProduct === 'accessories' ? s.active : null}`}
+                        onClick={() => handleProductSelection('accessories')}
+                      >
+                        <svg className={s.productIcon}>
+                          <use xlinkHref={`${svg}#icon-accessory`} />
+                        </svg>
+                        Accessories
+                      </button>
+                    </li>
+                  </ul>
+
+                  {selectedProduct === 'drones' && (
+                    <ul className={s.dronesList}>
+                      <li className={s.droneItem}>
+                        <Link to={'/'} className={s.linkStyle}>
+                          <div
+                            className={`${s.electricalDrone} ${s.bigfotoDrone}`}
+                          ></div>
+                          <h5 className={s.titleCart}>Electrical</h5>
+                        </Link>
+                      </li>
+                      <li className={s.droneItem}>
+                        <Link to={'/'} className={s.linkStyle}>
+                          <div
+                            className={`${s.hybrideDrone} ${s.bigfotoDrone}`}
+                          ></div>
+                          <h5 className={s.titleCart}>Hybride</h5>
+                        </Link>
+                      </li>
+                    </ul>
+                  )}
+
+                  {selectedProduct === 'accessories' && (
+                    <ul className={s.accessoriesList}>
+                      {accessories.map(accessory => (
+                        <li className={s.accessoryItem} key={accessory.id}>
+                          <Link to={accessory.link} className={s.linkStyle}>
+                            <div
+                              className={`${s[accessory.imageClass]} ${s.accessoryStyle}`}
+                            ></div>
+                            <h5 className={s.titleCart}>{accessory.title}</h5>
+                          </Link>
+                        </li>
+                      ))}
+                      <li className={s.accessoryItem}>
+                        <Link to={'/'} className={s.linkStyle}>
+                          <button className={s.btnArrow}>
+                            <MdOutlineArrowOutward size={24} />
+                          </button>
+                          <h5 className={s.titleCart}>View all</h5>
+                        </Link>
+                      </li>
+                    </ul>
+                  )}
+                </nav>
               )}
-            </section>
-          )}
-        </header>
+              <div className={s.navItemWrapper}>
+                {' '}
+                <button
+                  className={s.navButton}
+                  onClick={() => handleToggleDropdown('company')}
+                >
+                  Company{' '}
+                  <span className={s.arrowDown}>
+                    <IoIosArrowDown size={20} />
+                  </span>
+                  {showDropdown === 'company' && (
+                    <nav className={s.dropdown}>
+                      <ul className={s.dropdownList}>
+                        <li>
+                          <Link to="about-us">About us</Link>
+                        </li>
+                        <li>
+                          <Link to="contact-us">Contact</Link>
+                        </li>
+                        <li>
+                          <Link to="delivery-and-payments">
+                            Delivery&Payments
+                          </Link>
+                        </li>
+                      </ul>
+                    </nav>
+                  )}
+                </button>
+              </div>
+
+              <div className={s.navItemWrapper}>
+                <button
+                  className={s.navButton}
+                  onClick={() => handleToggleDropdown('solutions')}
+                >
+                  Solutions{' '}
+                  <span className={s.arrowDown}>
+                    <IoIosArrowDown size={20} />
+                  </span>
+                </button>
+                {showDropdown === 'solutions' && (
+                  <nav className={s.dropdown}>
+                    <ul className={s.dropdownList}>
+                      <li>
+                        <Link to="lidar-drone">LiDAR research</Link>
+                      </li>
+                      <li>
+                        <Link to="agriculture-drone">Agribusiness</Link>
+                      </li>
+                      <li>
+                        <Link to="drone-viewer">
+                          Documentation(photo/video shooting)
+                        </Link>
+                      </li>
+                    </ul>
+                  </nav>
+                )}
+              </div>
+            </nav>
+
+            <Link to="/">
+              <div className={s.logo}>
+                <img src={srcLogo} alt="Logo-dron" />
+                <svg>
+                  <use xlinkHref={`${svg}#icon-logo`} />
+                </svg>
+              </div>
+            </Link>
+
+            <div className={s.headerActions}>
+              <Search />
+              <div className={`${s.navButton} ${s.btnGlobalLine}`}>
+                <span className={`${s.arrowDown} ${s.arrSearch}`}>
+                  {' '}
+                  <LanguageSelector />
+                </span>
+              </div>
+              <button className={`${s.navButton} ${s.cartButton}`}>
+                Cart{' '}
+                <span className={s.arrowDown}>
+                  <LuShoppingBag size={20} />
+                </span>
+              </button>
+            </div>
+          </header>
+        </div>
       ) : (
         <>
           <header className={s.header}>
