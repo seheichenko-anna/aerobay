@@ -120,7 +120,9 @@ const LanguageSelector: FC<SelectorTypeProps> = ({ type }) => {
           {['en', 'ua'].map((lang, index) => (
             <li
               key={lang}
-              ref={el => (itemsRef.current[index] = el)}
+              ref={el => {
+                itemsRef.current[index] = el;
+              }}
               onClick={() => handleSelectLanguage(lang)}
               onKeyDown={handleTabKeyDown}
               tabIndex={0}
