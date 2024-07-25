@@ -38,7 +38,7 @@ const accessoriesSlice = createSlice({
       )
       .addCase(
         deleteAccessoryThunk.fulfilled,
-        (state, { payload }: PayloadAction<{ id: number }>) => {
+        (state, { payload }: PayloadAction<Accessory>) => {
           state.accessories = state.accessories.filter(
             accessory => accessory.id !== payload.id
           );

@@ -12,7 +12,7 @@ interface HeaderProps {
   userNavigation: { name: string; href: string }[];
 }
 
-const Header = ({ user, navigation, userNavigation }: HeaderProps) => {
+const Header = ({ navigation }: HeaderProps) => {
   function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ');
   }

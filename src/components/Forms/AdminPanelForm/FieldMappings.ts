@@ -1,7 +1,6 @@
-export const fieldMappings: Record<
-  string,
-  { id: string; type: string; label: string }[]
-> = {
+import { FieldMapping } from './AdminPanelForm';
+
+export const fieldMappings: Record<string, FieldMapping[]> = {
   drone: [
     { id: 'title', type: 'text', label: 'Title' },
     { id: 'description', type: 'text', label: 'Description' },
@@ -39,5 +38,7 @@ export const fieldMappings: Record<
   subcategory: [
     { id: 'name', type: 'text', label: 'Name' },
     { id: 'value', type: 'text', label: 'Value' },
+    { id: 'category_id', type: 'number', label: 'Category Id' },
+    { id: 'group_id', type: 'number', label: 'Group Id' },
   ],
 };

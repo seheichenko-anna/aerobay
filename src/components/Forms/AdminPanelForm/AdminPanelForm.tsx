@@ -1,13 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch } from '../../../redux/hooks/useAppDispatch';
-import {
-  Manufacturer,
-  addManufacturerThunk,
-  deleteManufacturerThunk,
-  editManufacturerThunk,
-} from '../../../redux/manufacturers/manufacturersOperations';
 import Button from './Button';
 import { fieldMappings } from './FieldMappings';
 import FormField from './FormField';
@@ -15,52 +9,28 @@ import { selectGroupsForDrones } from '../../../redux/groupsForDrones/groupsForD
 import { selectManufacturers } from '../../../redux/manufacturers/manufacturersSlice';
 import { selectSubcategories } from '../../../redux/subcategories/subcategoriesSlice';
 import { selectCategories } from '../../../redux/categories/categoriesSlice';
-import {
-  GroupForDrones,
-  addGroupForDronesThunk,
-  deleteGroupForDronesThunk,
-  editGroupForDronesThunk,
-} from '../../../redux/groupsForDrones/groupsForDronesOperations';
-import {
-  Subcategory,
-  addSubcategoryThunk,
-  deleteSubcategoryThunk,
-  editSubcategoryThunk,
-} from '../../../redux/subcategories/subcategoriesOperations';
-import {
-  Category,
-  addCategoryThunk,
-  deleteCategoryThunk,
-  editCategoryThunk,
-} from '../../../redux/categories/categoriesOperations';
-import {
-  Accessory,
-  addAccessoryThunk,
-  deleteAccessoryThunk,
-  editAccessoryThunk,
-} from '../../../redux/accessories/accessoriesOperations';
-import {
-  Drone,
-  addDroneThunk,
-  deleteDroneThunk,
-  editDroneThunk,
-} from '../../../redux/drones/dronesOperations';
-import Select from 'react-select';
+import Select, { MultiValue, SingleValue, StylesConfig } from 'react-select';
+import { thunks } from '../../../redux/thunks';
+import { Subcategory } from '../../../redux/subcategories/subcategoriesOperations';
+
+type InputAdminPanelFormType =
+  | 'drone'
+  | 'accessory'
+  | 'category'
+  | 'manufacturer'
+  | 'subcategory'
+  | 'groupForDrones';
+
+export type FormFieldNames = keyof FormValues;
 
 interface AdminPanelFormProps {
   type: 'add' | 'edit' | 'delete';
-  inputType:
-    | 'drone'
-    | 'accessory'
-    | 'category'
-    | 'manufacturer'
-    | 'subcategory'
-    | 'groupForDrones';
+  inputType: InputAdminPanelFormType;
   selectedItem?: any;
   closeModal: () => void;
 }
 
-interface FormValues {
+export interface FormValues {
   id: number;
   title?: string;
   description?: string;
@@ -77,8 +47,29 @@ interface FormValues {
   manufacturer_id?: number;
   category_id?: number;
   subcategories?: number[];
-  [key: string]: any;
 }
+
+export interface FieldMapping {
+  id: FormFieldNames;
+  type: string;
+  label: string;
+}
+
+interface OptionType {
+  value: number;
+  label: string;
+}
+
+const extractErrorMessage = (
+  errors: FieldErrors<FormValues>,
+  fieldName: FormFieldNames
+): string | undefined => {
+  const error = errors[fieldName];
+  if (error && typeof error === 'object' && 'message' in error) {
+    return error.message;
+  }
+  return undefined;
+};
 
 const AdminPanelForm: React.FC<AdminPanelFormProps> = ({
   type,
@@ -104,74 +95,30 @@ const AdminPanelForm: React.FC<AdminPanelFormProps> = ({
   console.log(categories);
   console.log(selectedItem);
 
+  const selectMultiStyles: StylesConfig<OptionType, true> = {
+    menu: styles => ({ ...styles, maxHeight: 100, zIndex: 9999 }),
+    menuList: styles => ({ ...styles, maxHeight: 100, overflowY: 'scroll' }),
+  };
+
+  const selectSingleStyles: StylesConfig<OptionType, false> = {
+    menu: styles => ({ ...styles, maxHeight: 100, zIndex: 9999 }),
+    menuList: styles => ({ ...styles, maxHeight: 100, overflowY: 'scroll' }),
+  };
+
   const onSubmit: SubmitHandler<FormValues> = data => {
-    console.log(data.subcategories);
-    console.log(data);
-    switch (inputType) {
-      case 'manufacturer':
-        const manufacturerData = data as Manufacturer;
-        if (type === 'add') {
-          dispatch(addManufacturerThunk(manufacturerData));
-        } else if (type === 'edit') {
-          dispatch(editManufacturerThunk(manufacturerData));
-        } else if (type === 'delete') {
-          dispatch(deleteManufacturerThunk(manufacturerData));
-        }
-        break;
-      case 'drone':
-        const droneData = data as Drone;
-        if (type === 'add') {
-          dispatch(addDroneThunk(droneData));
-        } else if (type === 'edit') {
-          dispatch(editDroneThunk(droneData));
-        } else if (type === 'delete') {
-          dispatch(deleteDroneThunk(droneData));
-        }
-        break;
-      case 'accessory':
-        const accessoryData = data as Accessory;
-        if (type === 'add') {
-          dispatch(addAccessoryThunk(accessoryData));
-        } else if (type === 'edit') {
-          dispatch(editAccessoryThunk(accessoryData));
-        } else if (type === 'delete') {
-          dispatch(deleteAccessoryThunk(accessoryData));
-        }
-        break;
-      case 'category':
-        const categoryData = data as Category;
-        if (type === 'add') {
-          dispatch(addCategoryThunk(categoryData));
-        } else if (type === 'edit') {
-          dispatch(editCategoryThunk(categoryData));
-        } else if (type === 'delete') {
-          dispatch(deleteCategoryThunk(categoryData));
-        }
-        break;
-      case 'subcategory':
-        const subcategoryData = data as Subcategory;
-        console.log(subcategoryData);
-        if (type === 'add') {
-          dispatch(addSubcategoryThunk(subcategoryData));
-        } else if (type === 'edit') {
-          dispatch(editSubcategoryThunk(subcategoryData));
-        } else if (type === 'delete') {
-          dispatch(deleteSubcategoryThunk(subcategoryData));
-        }
-        break;
-      case 'groupForDrones':
-        const groupForDrones = data as GroupForDrones;
-        if (type === 'add') {
-          dispatch(addGroupForDronesThunk(groupForDrones));
-        } else if (type === 'edit') {
-          dispatch(editGroupForDronesThunk(groupForDrones));
-        } else if (type === 'delete') {
-          dispatch(deleteGroupForDronesThunk(groupForDrones));
-        }
-        break;
-      default:
-        break;
+    const action = thunks[inputType][type];
+
+    if (!action) {
+      console.error('Action is not defined');
+      return;
     }
+
+    const typedAction: unknown = action;
+
+    if (typeof typedAction === 'function') {
+      dispatch(typedAction(data));
+    }
+
     closeModal();
   };
 
@@ -201,34 +148,27 @@ const AdminPanelForm: React.FC<AdminPanelFormProps> = ({
     }
   };
 
-  const renderFormFields = (
-    itemType:
-      | 'drone'
-      | 'accessory'
-      | 'category'
-      | 'manufacturer'
-      | 'subcategory'
-      | 'groupForDrones'
-  ) => {
+  const renderFormFields = (itemType: InputAdminPanelFormType) => {
     return fieldMappings[itemType]?.map(field => {
+      const fieldId = field.id;
       if (
-        field.id === 'group_id' ||
-        field.id === 'manufacturer_id' ||
-        field.id === 'category_id' ||
-        field.id === 'subcategories'
+        fieldId === 'group_id' ||
+        fieldId === 'manufacturer_id' ||
+        fieldId === 'category_id' ||
+        fieldId === 'subcategories'
       ) {
         const options =
-          field.id === 'group_id'
+          fieldId === 'group_id'
             ? groupsForDrones
-            : field.id === 'manufacturer_id'
+            : fieldId === 'manufacturer_id'
               ? manufacturers
-              : field.id === 'category_id'
+              : fieldId === 'category_id'
                 ? categories
                 : subcategories;
         if (!options) {
-          console.error(`Options for ${field.id} are undefined`);
+          console.error(`Options for ${fieldId} are undefined`);
           return (
-            <div key={field.id} className="mb-4">
+            <div key={fieldId} className="mb-4">
               <p className="text-red-500">
                 Error: options for {field.label} are undefined
               </p>
@@ -236,81 +176,87 @@ const AdminPanelForm: React.FC<AdminPanelFormProps> = ({
           );
         }
 
-        if (field.id === 'subcategories') {
-          const selectedSubcategories = options.filter(option =>
-            (selectedItem?.subcategories || []).includes(option.id)
+        if (fieldId === 'subcategories') {
+          const selectedSubcategories = (selectedItem?.subcategories || []).map(
+            (subcategory: Subcategory) => ({
+              value: subcategory.id,
+              label:
+                options.find(option => option.id === subcategory.id)?.name ||
+                '',
+            })
           );
 
           return (
-            <div key={field.id} className="mb-4">
+            <div key={fieldId} className="mb-4">
               <label
-                htmlFor={field.id}
+                htmlFor={fieldId}
                 className="block text-sm font-medium text-gray-700"
               >
                 {field.label}
               </label>
               <Select
-                id={field.id}
+                id={fieldId}
                 options={options.map(option => ({
                   value: option.id,
                   label: option.name,
                 }))}
                 isMulti
-                defaultValue={selectedSubcategories.map(option => ({
-                  value: option.id,
-                  label: option.name,
-                }))}
-                onChange={(selectedOptions: any) => {
-                  const values = selectedOptions.map(
-                    (option: any) => option.value
-                  );
-                  console.log(values);
-                  setValue(field.id, values);
+                defaultValue={selectedSubcategories}
+                onChange={(
+                  selectedOptions: MultiValue<{ value: number; label: string }>
+                ) => {
+                  const values = selectedOptions.map(option => option.value);
+                  setValue(fieldId, values);
                 }}
                 className="mt-1"
+                styles={selectMultiStyles}
               />
-              {errors[field.id] && (
+              {errors[fieldId] && (
                 <p className="mt-2 text-sm text-red-600">
-                  {errors[field.id]?.message}
+                  {errors[fieldId]?.message}
                 </p>
               )}
             </div>
           );
         }
-
+        const selectedOption = options.find(
+          option => option.id === selectedItem?.[fieldId]
+        );
         return (
-          <div key={field.id} className="mb-4">
+          <div key={fieldId} className="mb-4">
             <label
-              htmlFor={field.id}
+              htmlFor={fieldId}
               className="block text-sm font-medium text-gray-700"
             >
-              {getLabelWithoutId(field.id)}
+              {getLabelWithoutId(fieldId)}
             </label>
             <Select
-              id={field.id}
+              id={fieldId}
               options={options.map(option => ({
                 value: option.id,
                 label: option.name,
               }))}
               defaultValue={
-                selectedItem
+                selectedOption
                   ? {
-                      value: selectedItem[field.id],
-                      label: selectedItem[field.label],
+                      value: selectedOption.id,
+                      label: selectedOption.name,
                     }
                   : undefined
               }
-              onChange={(selectedOption: any) => {
-                console.log(selectedOption);
-                register(field.id, {
-                  value: selectedOption.value,
-                });
+              onChange={(
+                selectedOption: SingleValue<{ value: number; label: string }>
+              ) => {
+                if (selectedOption) {
+                  setValue(fieldId, selectedOption.value);
+                }
               }}
               className="mt-1"
+              styles={selectSingleStyles}
             />
-            {errors[field.id] && (
+            {errors[fieldId] && (
               <p className="mt-2 text-sm text-red-600">
-                {errors[field.id]?.message}
+                {errors[fieldId]?.message}
               </p>
             )}
           </div>
@@ -320,11 +266,11 @@ const AdminPanelForm: React.FC<AdminPanelFormProps> = ({
       return (
         <FormField
           key={field.id}
-          id={field.id}
+          id={fieldId}
           type={field.type}
           label={field.label}
           register={register}
-          error={errors[field.id as keyof FormValues]}
+          error={extractErrorMessage(errors, fieldId)}
         />
       );
     });
@@ -347,7 +293,7 @@ const AdminPanelForm: React.FC<AdminPanelFormProps> = ({
           {renderFormFields(inputType)}
         </div>
       )}
-      <div className="flex justify-end mt-4">
+      <div className="flex justify-end mt-10">
         <Button type="submit">{type === 'delete' ? 'Delete' : 'Save'}</Button>
       </div>
     </form>

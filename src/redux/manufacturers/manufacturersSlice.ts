@@ -38,7 +38,7 @@ const manufacturersSlice = createSlice({
       )
       .addCase(
         deleteManufacturerThunk.fulfilled,
-        (state, { payload }: PayloadAction<{ id: number }>) => {
+        (state, { payload }: PayloadAction<Manufacturer>) => {
           state.manufacturers = state.manufacturers.filter(
             manufacturer => manufacturer.id !== payload.id
           );

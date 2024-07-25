@@ -38,7 +38,7 @@ const dronesSlice = createSlice({
       )
       .addCase(
         deleteDroneThunk.fulfilled,
-        (state, { payload }: PayloadAction<{ id: number }>) => {
+        (state, { payload }: PayloadAction<Drone>) => {
           state.drones = state.drones.filter(drone => drone.id !== payload.id);
         }
       )

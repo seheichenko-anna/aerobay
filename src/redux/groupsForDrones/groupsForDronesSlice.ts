@@ -38,7 +38,7 @@ const groupsForDronesSlice = createSlice({
       )
       .addCase(
         deleteGroupForDronesThunk.fulfilled,
-        (state, { payload }: PayloadAction<{ id: number }>) => {
+        (state, { payload }: PayloadAction<GroupForDrones>) => {
           state.groupsForDrones = state.groupsForDrones.filter(
             group => group.id !== payload.id
           );

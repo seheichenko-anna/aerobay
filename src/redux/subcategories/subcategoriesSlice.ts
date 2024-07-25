@@ -38,7 +38,7 @@ const subcategoriesSlice = createSlice({
       )
       .addCase(
         deleteSubcategoryThunk.fulfilled,
-        (state, { payload }: PayloadAction<{ id: number }>) => {
+        (state, { payload }: PayloadAction<Subcategory>) => {
           state.subcategories = state.subcategories.filter(
             subcategory => subcategory.id !== payload.id
           );

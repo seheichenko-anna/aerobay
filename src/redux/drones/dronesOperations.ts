@@ -1,4 +1,6 @@
-import { fetchThunk, addThunk, deleteThunk, editThunk } from '../thunkHelpers';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { dronesApi } from '../../axiosConfig/dronesApi';
+import { AxiosError } from 'axios';
 
 export interface Drone {
   id: number;
@@ -13,19 +15,71 @@ export interface Drone {
   subcategories: number[];
 }
 
-export const fetchDronesThunk = fetchThunk<Drone[]>('fetchDrones', 'drones');
-export const addDroneThunk = addThunk<Drone, Drone>(
+export const fetchDronesThunk = createAsyncThunk<Drone[]>(
+  'fetchDrones',
+  async (_, thunkAPI) => {
+    try {
+      const response = await dronesApi.get('drones');
+      console.log(response.data.drones);
+      return response.data.drones;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return thunkAPI.rejectWithValue(error.response?.data.message);
+      }
+      return thunkAPI.rejectWithValue('An unexpected error occurred');
+    }
+  }
+);
+
+export const addDroneThunk = createAsyncThunk<Drone, Drone>(
   'addDrone',
-  'drones',
-  fetchDronesThunk
+  async (drone, thunkAPI) => {
+    console.log(drone);
+
+    try {
+      const response = await dronesApi.post('drones', drone);
+      console.log(response);
+
+      thunkAPI.dispatch(fetchDronesThunk());
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return thunkAPI.rejectWithValue(error.response?.data.message);
+      }
+      return thunkAPI.rejectWithValue('An unexpected error occurred');
+    }
+  }
 );
-export const deleteDroneThunk = deleteThunk<{ id: number }, Drone>(
+
+export const deleteDroneThunk = createAsyncThunk<Drone, Drone>(
   'deleteDrone',
-  'drones',
-  fetchDronesThunk
+  async (drone, thunkAPI) => {
+    try {
+      await dronesApi.delete(`drones/${drone.id}`);
+      thunkAPI.dispatch(fetchDronesThunk());
+      return drone;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return thunkAPI.rejectWithValue(error.response?.data.message);
+      }
+      return thunkAPI.rejectWithValue('An unexpected error occurred');
+    }
+  }
 );
-export const editDroneThunk = editThunk<Drone, Drone>(
+
+export const editDroneThunk = createAsyncThunk<Drone, Drone>(
   'editDrone',
-  'drones',
-  fetchDronesThunk
+  async (drone, thunkAPI) => {
+    try {
+      const response = await dronesApi.put(`drones/${drone.id}`, drone);
+      thunkAPI.dispatch(fetchDronesThunk());
+      return response.data.drone;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return thunkAPI.rejectWithValue(error.response?.data.message);
+      }
+      return thunkAPI.rejectWithValue('An unexpected error occurred');
+    }
+  }
 );
