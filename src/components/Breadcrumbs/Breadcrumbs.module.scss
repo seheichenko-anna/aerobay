@@ -1,0 +1,18 @@
+@import '../../assets/sass-functions/functions';
+
+.breadcrumbs {
+  margin-top: 4px;
+  display: flex;
+  column-gap: 15px;
+  font-size: rem(12px);
+  & > a {
+    color: #605f5f;
+    &:hover {
+      font-weight: 600;
+    }
+  }
+  & > a:not(:last-child):after {
+    content: url('../../assets/catalog/breadcrumbs//right_arrow.svg');
+    margin-left: 5px;
+  }
+}

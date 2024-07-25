@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
-import Catalog from './pages/Catalog/Catalog';
+
 import HomePage from './pages/HomePage';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
@@ -20,6 +20,7 @@ import Category from './pages/AdminPanel/Category';
 import GroupForDrones from './pages/AdminPanel/GroupForDrones';
 import Subcategory from './pages/AdminPanel/Subcategory';
 import Drone from './pages/AdminPanel/Drone';
+import Catalog from './pages/Catalog/Catalog';
 
 function App() {
   return (
