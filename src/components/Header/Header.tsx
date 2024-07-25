@@ -5,8 +5,6 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { LuShoppingBag } from 'react-icons/lu';
 import { MdOutlineArrowOutward } from 'react-icons/md';
 import srcLogo from './images/Icon_drone.png';
-import srciconDron from './images/icon_dronBW.png';
-import srciconAccses from './images/icon_accessoriesBW.png';
 import svg from '../../assets/sprite.svg';
 import Hamburger from 'hamburger-react';
 import useScreenSize from '../../hooks/useScreenSize';
