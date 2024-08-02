@@ -111,6 +111,7 @@ export const FilterProducts: FC = () => {
         <div className={c.filters}>
           <Dropdown2
             isSidebarDropdown={true}
+            isOpen={true}
             selectedFilters={selectedFilters}
             setSelectedFilters={setSelectedFilters}
           />

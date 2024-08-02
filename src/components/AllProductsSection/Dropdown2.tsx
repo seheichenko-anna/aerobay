@@ -4,12 +4,14 @@ import dropdownArrow from '../../assets/catalog/sidebar/top_arrow.svg';
 
 interface IDropdown2Props {
   isSidebarDropdown: boolean;
+  isOpen: boolean;
   selectedFilters: string[];
   setSelectedFilters: Dispatch<React.SetStateAction<string[]>>;
 }
 
 export const Dropdown2: FC<IDropdown2Props> = ({
   isSidebarDropdown,
+  isOpen,
   selectedFilters,
   setSelectedFilters,
 }) => {
@@ -19,7 +21,7 @@ export const Dropdown2: FC<IDropdown2Props> = ({
     { id: 3, title: 'New' },
     { id: 4, title: 'Sale' },
   ];
-  const [isDropdownOpen, setIsDropdownOpen] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(isOpen ? true : false);
 
   const handleOpen = () => {
     setIsDropdownOpen(!isDropdownOpen);
