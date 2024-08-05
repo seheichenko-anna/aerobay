@@ -43,10 +43,10 @@ export interface FormValues {
   amount?: number;
   name?: string;
   value?: string;
-  group_id?: number;
-  manufacturer_id?: number;
-  category_id?: number;
-  subcategories?: number[];
+  group_id?: number | null;
+  manufacturer_id?: number | null;
+  category_id?: number | null;
+  subcategories?: number[] | [];
 }
 
 export interface FieldMapping {
@@ -83,17 +83,19 @@ const AdminPanelForm: React.FC<AdminPanelFormProps> = ({
     setValue,
     formState: { errors },
   } = useForm<FormValues>({
-    defaultValues: selectedItem || {},
+    defaultValues: {
+      ...selectedItem,
+      group_id: selectedItem?.group_id ?? null,
+      manufacturer_id: selectedItem?.manufacturer_id ?? null,
+      category_id: selectedItem?.category_id ?? null,
+      subcategories: selectedItem?.subcategories ?? [],
+    },
   });
   const dispatch = useAppDispatch();
   const groupsForDrones = useSelector(selectGroupsForDrones);
   const manufacturers = useSelector(selectManufacturers);
   const subcategories = useSelector(selectSubcategories);
   const categories = useSelector(selectCategories);
-
-  console.log(subcategories);
-  console.log(categories);
-  console.log(selectedItem);
 
   const selectMultiStyles: StylesConfig<OptionType, true> = {
     menu: styles => ({ ...styles, maxHeight: 100, zIndex: 9999 }),
@@ -106,6 +108,8 @@ const AdminPanelForm: React.FC<AdminPanelFormProps> = ({
   };
 
   const onSubmit: SubmitHandler<FormValues> = data => {
+    console.log(data);
+
     const action = thunks[inputType][type];
 
     if (!action) {
