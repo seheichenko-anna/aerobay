@@ -25,7 +25,7 @@
     white-space: nowrap;
 }
 
-.container_title>*:first-child{
+.container_title>*:first-child {
     white-space: nowrap;
 }
 
@@ -49,7 +49,7 @@
     transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
 }
 
-.container_button:hover{
+.container_button:hover {
     color: #fff;
     background-color: #101828;
 }
@@ -63,10 +63,10 @@
     align-items: center;
     padding: 10px;
     color: white;
-    transition: background-color 0.4s ease-in-out,  color 0.4s ease-in-out;
+    transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
 }
 
-.container_button:hover span{
+.container_button:hover span {
     background-color: rgb(186, 252, 80);
     color: #101828;
 }
@@ -85,5 +85,11 @@
     .container_title>*:first-child {
         border: 1px solid rgb(186, 252, 80);
         border-radius: 70px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width:1439px) {
+    .container_title {
+        font-size: 48px;
     }
 }
