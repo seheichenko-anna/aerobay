@@ -90,7 +90,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <LanguageSelector type="footer" />
+                <LanguageSelector />
               </li>
             </ul>
           </div>
