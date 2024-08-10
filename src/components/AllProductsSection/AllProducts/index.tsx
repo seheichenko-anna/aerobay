@@ -94,7 +94,6 @@ export const AllProducts: FC = () => {
     }))
   ).flat();
 
-  console.log(selectedCategories);
   if (selectedCategories?.length) {
     allProductsX80 = allProductsX80.filter(el => {
       return selectedCategories.some(category => category === el.category);
@@ -121,11 +120,8 @@ export const AllProducts: FC = () => {
         return { [i + 1]: 9 };
       })
   );
-  console.log(ww);
 
   useEffect(() => {
-    console.log(8888888888888);
-
     setWW(
       Array(Math.ceil(er))
         .fill(0)
