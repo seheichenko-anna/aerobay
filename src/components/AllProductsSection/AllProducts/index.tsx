@@ -59,7 +59,7 @@ export const AllProducts: FC = () => {
 
   const {
     selectedCategories,
-    setSelectedCategories,
+
     isAvailabilityChecked,
     setIsAvailabilityChecked,
     isTypeChecked,

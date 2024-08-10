@@ -12,8 +12,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import AgricultureDrone from './pages/DronesBuisnessCards/AgricultureDrone';
 import LiDARDrone from './pages/DronesBuisnessCards/LiDARDrone';
 import DroneViewer from './pages/DronesBuisnessCards/DroneViewer';
-<<<<<<< HEAD
-=======
+
 import AdminPanel from './pages/AdminPanel/AdminPanel';
 import Dashboard from './pages/AdminPanel/Dashboard';
 import Accessory from './pages/AdminPanel/Accessory';
@@ -22,7 +21,7 @@ import Category from './pages/AdminPanel/Category';
 import GroupForDrones from './pages/AdminPanel/GroupForDrones';
 import Subcategory from './pages/AdminPanel/Subcategory';
 import Drone from './pages/AdminPanel/Drone';
->>>>>>> 417c19ce9714f6804ae3448ba1b13a43c7389da3
+
 import Catalog from './pages/Catalog/Catalog';
 
 function App() {
