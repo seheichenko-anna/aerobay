@@ -9,8 +9,8 @@ import {
   TCatalogContext,
 } from '../../../pages/Catalog/Catalog';
 import { Link } from 'react-router-dom';
-import { Tooltip } from 'react-tippy';
-import 'react-tippy/dist/tippy.css';
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 import { Pagination } from './Pagination';
 import { ButtonShowMore } from './ButtonShowMore';
 
@@ -59,7 +59,7 @@ export const AllProducts: FC = () => {
 
   const {
     selectedCategories,
-    setSelectedCategories,
+
     isAvailabilityChecked,
     setIsAvailabilityChecked,
     isTypeChecked,
@@ -94,6 +94,7 @@ export const AllProducts: FC = () => {
     }))
   ).flat();
 
+  console.log(selectedCategories);
   if (selectedCategories?.length) {
     allProductsX80 = allProductsX80.filter(el => {
       return selectedCategories.some(category => category === el.category);
@@ -120,8 +121,11 @@ export const AllProducts: FC = () => {
         return { [i + 1]: 9 };
       })
   );
+  console.log(ww);
 
   useEffect(() => {
+    console.log(8888888888888);
+
     setWW(
       Array(Math.ceil(er))
         .fill(0)
@@ -287,17 +291,15 @@ export const AllProducts: FC = () => {
                         </div>
                       )}
                     </div>
-                    <Tooltip
-                      className={c['product-card_compare-tooltip']}
-                      title="Compare"
-                      position="left"
-                      trigger="mouseenter"
-                      arrow={true}
+
+                    <div
+                      className={c['product-card_compare']}
+                      data-tooltip-id="compare-tooltip"
+                      data-tooltip-content="Compare"
                     >
-                      <div className={c['product-card_compare']}>
-                        <img src={compareImg} alt="compare the product" />
-                      </div>
-                    </Tooltip>
+                      <img src={compareImg} alt="compare the product" />
+                    </div>
+                    <Tooltip id="compare-tooltip" place="left" />
                   </div>
                   <img src={product?.imagePath} alt="img 1" />
                 </div>
@@ -308,41 +310,43 @@ export const AllProducts: FC = () => {
                     <del>{product?.oldPrice}</del>
                   </div>
                   {product?.hasColorGroups && (
-                    <div className={c['product-card_color-groups']}>
-                      <Tooltip
-                        className={c['product-card_compare-tooltip']}
-                        title="Yellow"
-                        position="top"
-                        trigger="mouseenter"
-                        arrow={true}
-                      >
-                        <p>
-                          <div></div>
+                    <>
+                      {' '}
+                      <div className={c['product-card_color-groups']}>
+                        <p
+                          data-tooltip-id="yellow-tooltip"
+                          data-tooltip-content="Yellow"
+                        >
+                          <p>
+                            <div></div>
+                          </p>
                         </p>
-                      </Tooltip>
-                      <Tooltip
-                        className={c['product-card_compare-tooltip']}
-                        title="Green"
-                        position="top"
-                        trigger="mouseenter"
-                        arrow={true}
-                      >
-                        <p>
-                          <div></div>
+
+                        <p
+                          data-tooltip-id="green-tooltip"
+                          data-tooltip-content="Green"
+                        >
+                          <p
+                            data-tooltip-id="green-tooltip"
+                            data-tooltip-content="Green"
+                          >
+                            <div></div>
+                          </p>
                         </p>
-                      </Tooltip>
-                      <Tooltip
-                        className={c['product-card_compare-tooltip']}
-                        title="Light Blue"
-                        position="top"
-                        trigger="mouseenter"
-                        arrow={true}
-                      >
-                        <p>
-                          <div></div>
+
+                        <p
+                          data-tooltip-id="light-blue-tooltip"
+                          data-tooltip-content="Light Blue"
+                        >
+                          <p>
+                            <div></div>
+                          </p>
                         </p>
-                      </Tooltip>
-                    </div>
+                      </div>
+                      <Tooltip id="yellow-tooltip" place="top" />
+                      <Tooltip id="green-tooltip" place="top" />{' '}
+                      <Tooltip id="light-blue-tooltip" place="top" />
+                    </>
                   )}
                 </div>
                 <span className={c['product-card_number-of-card']}>
