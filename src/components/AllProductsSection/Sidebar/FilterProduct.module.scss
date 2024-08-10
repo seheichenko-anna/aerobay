@@ -2,6 +2,8 @@
 
 .filter_product {
   flex-basis: 310px;
+  max-height: max-content;
+  height: 100%;
   border: 1px solid #eaecf0;
   border-radius: 10px;
   &__wrap {
