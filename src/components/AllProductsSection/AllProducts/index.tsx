@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useRef, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import c from './AllProducts.module.scss';
 import img_1 from '../../../assets/catalog/all-products/image_2.png';
 import img_2 from '../../../assets/catalog/all-products/image.png';
@@ -14,15 +14,52 @@ import 'react-tippy/dist/tippy.css';
 import { Pagination } from './Pagination';
 import { ButtonShowMore } from './ButtonShowMore';
 
-const cache = {};
-let prevValue;
+const allProducts = [
+  {
+    id: 1,
+    title: 'Agrodrone Agras',
+    category: 'Drone',
+    newPrice: 800,
+    oldPrice: 1600,
+    isNew: true,
+    isInStock: true,
+    href: '#',
+    imagePath: img_1,
+    hasColorGroups: true,
+  },
+  {
+    id: 2,
+    title: 'Agrodrone Agras',
+    category: 'Accessories',
+    newPrice: 800,
+    oldPrice: 1600,
+    isNew: true,
+    isInStock: false,
+    href: '#',
+    imagePath: img_2,
+    hasColorGroups: false,
+  },
+];
+
+interface IProduct {
+  id: number;
+  title: string;
+  category: string;
+  newPrice: number;
+  oldPrice: number;
+  isNew: boolean;
+  isInStock: boolean;
+  href: string;
+  imagePath: string;
+  hasColorGroups: boolean;
+}
 
 export const AllProducts: FC = () => {
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([
-    'Low To High',
-  ]);
+  const [sortByFilter, setSortByFilter] = useState<string[]>(['Low To High']);
 
   const {
+    selectedCategories,
+    setSelectedCategories,
     isAvailabilityChecked,
     setIsAvailabilityChecked,
     isTypeChecked,
@@ -50,78 +87,119 @@ export const AllProducts: FC = () => {
     }
   };
 
-  const allProducts = [
-    {
-      id: 1,
-      title: 'Agrodrone Agras',
-      newPrice: 800,
-      oldPrice: 1600,
-      isNew: true,
-      isInStock: true,
-      href: '#',
-      imagePath: img_1,
-      hasColorGroups: true,
-    },
-    {
-      id: 2,
-      title: 'Agrodrone Agras',
-      newPrice: 800,
-      oldPrice: 1600,
-      isNew: true,
-      isInStock: false,
-      href: '#',
-      imagePath: img_2,
-      hasColorGroups: false,
-    },
-  ];
-
-  const allProductsX80 = Array.from({ length: 40 }, (_, index) =>
+  let allProductsX80 = Array.from({ length: 41 }, (_, index) =>
     allProducts?.map(product => ({
       ...product,
       id: index * allProducts?.length + product?.id,
     }))
   ).flat();
+
+  console.log(selectedCategories);
+  if (selectedCategories?.length) {
+    allProductsX80 = allProductsX80.filter(el => {
+      return selectedCategories.some(category => category === el.category);
+    });
+  }
+  console.log(allProductsX80);
+
   const allProductsX80Length = allProductsX80?.length;
   const [currentPage, setCurrentPage] = useState(1);
   const [visibleProductsCount, setVisibleProductsCount] = useState(9);
-  const productsPerPage = visibleProductsCount;
-  //  const [start, setStart] = useState();
-  const start = useRef((currentPage - 1) * productsPerPage);
 
   const [isShowed, setIsShowed] = useState(true);
 
-  const handleShowMore = () => {
-    setVisibleProductsCount(prevVisibleProductsCount =>
-      Math.min(prevVisibleProductsCount + 3, allProductsX80Length)
-    );
-  };
-  console.log(
-    allProductsX80Length - cache.current + cache.current ===
-      allProductsX80Length
+  const er = allProductsX80Length / visibleProductsCount;
+  const [ww, setWW] = useState(
+    Array(Math.ceil(er))
+      .fill(0)
+      .map((_, i) => {
+        if (i + 1 === Math.ceil(er)) {
+          const a1 = Math.ceil(er) - 1;
+          const a2 = allProductsX80Length - a1 * 9;
+          return { [i + 1]: a2 };
+        }
+        return { [i + 1]: 9 };
+      })
   );
-  /*   useEffect(() => {
-    const ppp = document.querySelectorAll('.product article');
-    console.log(ppp[ppp.length - 1]?.getAttribute('data-id'));
-  }); */
+  console.log(ww);
 
-  /*   if (
-    allProductsX80Length - cache.current + cache.current ===
-    allProductsX80Length && currentPage
-  ) {
-    setIsShowed(false);
-  } else {
-    if (isShowed === false) {
-      setIsShowed(true);
-    }
-  } */
-  console.log(allProductsX80Length - cache.current);
+  useEffect(() => {
+    console.log(8888888888888);
 
-  const [currentP, setCurrentP] = useState([]);
+    setWW(
+      Array(Math.ceil(er))
+        .fill(0)
+        .map((_, i) => {
+          if (i + 1 === Math.ceil(er)) {
+            const a1 = Math.ceil(er) - 1;
+            const a2 = allProductsX80Length - a1 * 9;
+            return { [i + 1]: a2 };
+          }
+          return { [i + 1]: 9 };
+        })
+    );
+  }, [allProductsX80?.length]);
+
+  const handleShowMore = () => {
+    setWW(prev => {
+      let newWW = [...prev];
+
+      newWW[currentPage - 1] = {
+        [currentPage]: prev[currentPage - 1][currentPage] + 3,
+      };
+      if (newWW[newWW.length - 1][newWW.length] >= 3) {
+        newWW[newWW.length - 1] = {
+          [newWW.length]: prev[newWW.length - 1][newWW.length] - 3,
+        };
+        if (newWW[newWW.length - 1][newWW.length] === 0) {
+          newWW = newWW.slice(0, newWW.length - 1);
+        }
+      } else if (newWW[newWW.length - 1][newWW.length] === 2) {
+        if (currentPage === newWW.length - 1) {
+          newWW[newWW.length - 2] = {
+            [newWW.length - 1]: prev[newWW.length - 2][newWW.length - 1] + 2,
+          };
+        } else {
+          newWW[newWW.length - 1] = {
+            [newWW.length]: prev[newWW.length - 1][newWW.length] - 2,
+          };
+          newWW[newWW.length - 2] = {
+            [newWW.length - 1]: prev[newWW.length - 2][newWW.length - 1] - 1,
+          };
+        }
+        newWW = newWW.slice(0, newWW.length - 1);
+      } else if (newWW[newWW.length - 1][newWW.length] === 1) {
+        if (currentPage === newWW.length - 1) {
+          newWW[newWW.length - 2] = {
+            [newWW.length - 1]: prev[newWW.length - 2][newWW.length - 1] + 1,
+          };
+        } else {
+          newWW[newWW.length - 1] = {
+            [newWW.length]: prev[newWW.length - 1][newWW.length] - 1,
+          };
+          newWW[newWW.length - 2] = {
+            [newWW.length - 1]: prev[newWW.length - 2][newWW.length - 1] - 2,
+          };
+        }
+        newWW = newWW.slice(0, newWW.length - 1);
+      } else {
+        newWW[newWW.length - 2] = {
+          [newWW.length - 1]: prev[newWW.length - 2][newWW.length - 1] - 3,
+        };
+        newWW = newWW.slice(0, newWW.length - 2);
+      }
+
+      return newWW;
+    });
+  };
+
+  const [currentProduct, setCurrentProduct] = useState<IProduct[]>([]);
 
   useEffect(() => {
     const ppp = document.querySelectorAll('.product article');
     if (
-      +ppp[ppp.length - 1]?.getAttribute('data-id') === allProductsX80Length
+      ppp.length > 0 &&
+      +ppp[ppp.length - 1]?.getAttribute('data-id')! === allProductsX80Length
     ) {
       setIsShowed(false);
     } else {
@@ -129,61 +207,25 @@ export const AllProducts: FC = () => {
     }
   });
 
+  const currentShowedProduct = +Object.values(ww[currentPage - 1]);
+
   useEffect(() => {
-    let oo = (currentPage - 1) * productsPerPage;
+    const a1 = ww.slice(0, currentPage - 1);
+    const a2 = a1.reduce((total, el) => {
+      return total + Number(Object.values(el));
+    }, 0);
+    const a3 = a2 + currentShowedProduct;
+    const result = allProductsX80.slice(a2, a3);
+    setCurrentProduct(result);
+  }, [currentPage, currentShowedProduct]);
 
-    cache.current = oo;
-    prevValue = oo;
-
-    if (cache.current === (currentPage - 1) * productsPerPage) {
-      const currentProducts = allProductsX80.slice(
-        cache.current,
-        cache.current + visibleProductsCount >= allProductsX80Length
-          ? allProductsX80Length
-          : cache.current + visibleProductsCount
-      );
-      setCurrentP(currentProducts);
-    }
-  }, [currentPage]);
-
-  const handlePageClick = data => {
-    setCurrentPage(data.selected + 1);
+  const handlePageClick = ({ selected }: { selected: number }) => {
+    setCurrentPage(selected + 1);
   };
 
   useEffect(() => {
-    let oo =
-      (currentPage - 1) * productsPerPage >= allProductsX80Length
-        ? cache.current
-        : (currentPage - 1) * productsPerPage;
-
-    cache.current = oo;
-    console.log(cache);
-
-    if (cache.current === (currentPage - 1) * productsPerPage) {
-      console.log(cache.current);
-      console.log(visibleProductsCount);
-
-      const currentProducts = allProductsX80.slice(
-        cache.current,
-        cache.current + visibleProductsCount >= allProductsX80Length
-          ? allProductsX80Length
-          : cache.current + visibleProductsCount
-      );
-
-      setCurrentP(currentProducts);
-    }
-  }, [visibleProductsCount]);
-
-  const er = allProductsX80Length / productsPerPage;
-
-  const ee = Array(Math.round(er))
-    .fill()
-    .map((_, i) => {
-      return { [i + 1]: 9 };
-    });
-  console.log(ee);
-
-  const aa = {};
+    setVisibleProductsCount(currentShowedProduct);
+  }, [currentShowedProduct]);
 
   return (
     <main>
@@ -194,8 +236,8 @@ export const AllProducts: FC = () => {
           <Dropdown2
             isSidebarDropdown={false}
             isOpen={false}
-            selectedFilters={selectedFilters}
-            setSelectedFilters={setSelectedFilters}
+            selectedFilters={sortByFilter}
+            setSelectedFilters={setSortByFilter}
           />
         </div>
       </div>
@@ -230,8 +272,11 @@ export const AllProducts: FC = () => {
       </div>
 
       <div className={c['all-products-box']}>
+        <p style={{ marginBottom: '10px', color: 'blue' }}>
+          Listed {visibleProductsCount} products
+        </p>
         <div className={c['all-products']}>
-          {currentP?.map(product => (
+          {currentProduct?.map(product => (
             <Link to={product?.href} key={product?.id} className="product">
               <article className={c['product-card']} data-id={product?.id}>
                 <div className={c['product-card_img-section']}>
@@ -314,10 +359,7 @@ export const AllProducts: FC = () => {
 
         {isShowed && <ButtonShowMore handleShowMore={handleShowMore} />}
 
-        <Pagination
-          handlePageClick={handlePageClick}
-          pageCount={Math.ceil(allProductsX80Length / productsPerPage)}
-        />
+        <Pagination handlePageClick={handlePageClick} pageCount={ww.length} />
       </div>
     </main>
   );

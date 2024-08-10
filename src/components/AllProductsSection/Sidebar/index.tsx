@@ -13,10 +13,9 @@ import {
   TCatalogContext,
 } from '../../../pages/Catalog/Catalog';
 import rangeStat from '../../../assets/catalog/sidebar/price_range_stat.svg';
+
 export const FilterProducts: FC = () => {
   const test2 = useRef<HTMLInputElement>(null);
-
-  const [selectedFilters, setSelectedFilters] = useState<string[]>(['Drone']);
 
   const minPrice = 8000;
   const [maxPrice, setMaxPrice] = useState({
@@ -25,6 +24,8 @@ export const FilterProducts: FC = () => {
     value: 100,
   });
   const {
+    selectedCategories,
+    setSelectedCategories,
     isAvailabilityChecked,
     setIsAvailabilityChecked,
     isTypeChecked,
@@ -65,14 +66,11 @@ export const FilterProducts: FC = () => {
     });
   };
   const handleClear = () => {
-    setSelectedFilters([]);
+    setSelectedCategories([]);
     setMaxPrice({ isTrigged: true, price: 200000, value: 100 });
     setIsAvailabilityChecked({ 'In stock': false, 'Not available': false });
     setIsTypeChecked({ 'Model Drone': false, 'Ready-Solution Drone': false });
   };
-
-  console.log(isTypeChecked);
-  console.log(selectedFilters.length > 1);
 
   useEffect(() => {
     (function () {
@@ -112,8 +110,8 @@ export const FilterProducts: FC = () => {
           <Dropdown2
             isSidebarDropdown={true}
             isOpen={true}
-            selectedFilters={selectedFilters}
-            setSelectedFilters={setSelectedFilters}
+            selectedFilters={selectedCategories}
+            setSelectedFilters={setSelectedCategories}
           />
           <div className={c.price_range}>
             <h3>Price range</h3>

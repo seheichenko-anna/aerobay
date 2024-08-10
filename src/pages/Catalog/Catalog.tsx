@@ -4,9 +4,10 @@ import { CategoryOfDrones } from '../../components/CategoryOfDrones';
 import { FilterProducts } from '../../components/AllProductsSection/Sidebar';
 import { AllProducts } from '../../components/AllProductsSection/AllProducts';
 import { Dispatch, FC, createContext, useState } from 'react';
-import Productss from '../../components/AllProductsSection/AllProducts/hh/HH';
 
 export type TCatalogContext = {
+  selectedCategories: string[];
+  setSelectedCategories: Dispatch<React.SetStateAction<string[]>>;
   isAvailabilityChecked: {
     'In stock': boolean;
     'Not available': boolean;
@@ -32,6 +33,10 @@ export type TCatalogContext = {
 export const CatalogContext = createContext<TCatalogContext | null>(null);
 
 const Catalog: FC = () => {
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([
+    'Drone',
+    'Accessories',
+  ]);
   const [isAvailabilityChecked, setIsAvailabilityChecked] = useState({
     'In stock': true,
     'Not available': false,
@@ -45,6 +50,8 @@ const Catalog: FC = () => {
     <>
       <CatalogContext.Provider
         value={{
+          selectedCategories,
+          setSelectedCategories,
           isAvailabilityChecked,
           setIsAvailabilityChecked,
           isTypeChecked,
