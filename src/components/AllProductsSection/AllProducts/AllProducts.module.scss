@@ -85,6 +85,15 @@ main {
 }
 
 // All Products section ---------
+@keyframes show-more-btn {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .all-products-box {
   .all-products {
     display: grid;
@@ -263,6 +272,9 @@ main {
     transition: 0.3s linear;
     &:hover {
       background-color: #e4dbdb;
+    }
+    &:hover img {
+      animation: show-more-btn 1s;
     }
     &:focus-visible {
       border: none;
