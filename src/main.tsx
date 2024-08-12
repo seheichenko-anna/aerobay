@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <HashRouter basename="aerobay">
+    <HashRouter>
       <Provider store={store}>
         <App />
         <ToastContainer autoClose={1500} />
