@@ -14,19 +14,23 @@ const user = {
     'https://plus.unsplash.com/premium_photo-1673967792498-b8db6df56fb4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
 };
 const navigation = [
-  { name: 'Dashboard', href: '/aerobay/admin', current: false },
-  { name: 'Accessory', href: '/aerobay/admin/accessory', current: false },
-  { name: 'Category', href: '/aerobay/admin/category', current: false },
-  { name: 'Drone', href: '/aerobay/admin/drone', current: false },
-  { name: 'Manufacturer', href: '/aerobay/admin/manufacturer', current: false },
+  { name: 'Dashboard', href: '#/admin', current: false },
+  { name: 'Accessory', href: '#/admin/accessory', current: false },
+  { name: 'Category', href: '#/admin/category', current: false },
+  { name: 'Drone', href: '#/admin/drone', current: false },
+  {
+    name: 'Manufacturer',
+    href: '#/admin/manufacturer',
+    current: false,
+  },
   {
     name: 'Group for drones',
-    href: '/aerobay/admin/group-for-drones',
+    href: '#/admin/group-for-drones',
     current: false,
   },
   {
     name: 'Subcategory',
-    href: '/aerobay/admin/subcategory',
+    href: '#/admin/subcategory',
     current: false,
   },
 ];
