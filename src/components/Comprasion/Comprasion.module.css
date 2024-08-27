@@ -1,0 +1,12 @@
+.title {
+    font-size: 48px;
+    line-height: 58.22px;
+    margin: 30px 0 18px;
+}
+
+.products_list {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+}
