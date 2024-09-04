@@ -20,6 +20,7 @@ import GroupForDrones from './pages/AdminPanel/GroupForDrones';
 import Subcategory from './pages/AdminPanel/Subcategory';
 import Drone from './pages/AdminPanel/Drone';
 import Catalog from './pages/Catalog/Catalog';
+import Comprasion from './components/Comprasion/Comprasion';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="about-us" element={<AboutUs />} />
           <Route path="contact-us" element={<ContactUs />} />
           <Route path="cookies-policy" element={<CookiesPolicy />} />
+          <Route path="comprasion" element={<Comprasion />} />
           <Route
             path="delivery-and-payments"
             element={<DeliveryAndPayments />}

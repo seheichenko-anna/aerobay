@@ -7,6 +7,7 @@ import { subcategoriesReducer } from './subcategories/subcategoriesSlice';
 import { dronesReducer } from './drones/dronesSlice';
 import { loadingReducer } from './loadingSlice';
 import { errorReducer } from './errorSlice';
+import { comprasionProductsReducer } from './comprasionProducts/comprasionProductsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     drones: dronesReducer,
     loading: loadingReducer,
     error: errorReducer,
+    comprasionProducts: comprasionProductsReducer,
   },
 });
 
