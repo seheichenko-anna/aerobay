@@ -2,23 +2,19 @@ import imagePlaceholder from '../../../assets/placeholders/image-placeholder.png
 import { getPriceWithDiscount } from './getPriceWithDiscount';
 import s from './ProductCard.module.css';
 import svg from '../../../assets/sprite.svg';
+import { Drone } from '../../../redux/drones/dronesOperations';
 
 interface ProductCardProps {
-  item: {
-    title: string;
-    price: number;
-    discount: number;
-    photo: string;
-  };
+  item: Partial<Drone>;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
-  const { title, price, discount, photo } = item;
+  const { title, price = 0, discount = 0, image_url } = item;
   return (
     <li className={s.product}>
       <div className={s.photo_wrapper}>
         <img
-          src={photo ? photo : imagePlaceholder}
+          src={image_url ? image_url : imagePlaceholder}
           alt={title}
           className={s.photo}
         />

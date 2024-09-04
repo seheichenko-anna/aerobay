@@ -1,14 +1,13 @@
 import { Breadcrumbs } from '../Breadcrumbs';
 import ProductCard from './ProductCard/ProductCard';
 import s from './Comprasion.module.css';
+import { useDashboard } from '../../hooks/useDashboard';
+import { selectComprasionProducts } from '../../redux/comprasionProducts/comprasionProductsSlice';
+import { useAppSelector } from '../../redux/hooks/useAppSelector';
 
 const Comprasion = () => {
-  const comprasionProducts = [
-    { title: 'LIDAR Drone 200 IO', price: 12500, discount: 20, photo: '' },
-    { title: 'LIDAR Drone 2500 AM', price: 17000, discount: 0, photo: '' },
-    { title: 'LIDAR Drone 3100 PR', price: 30000, discount: 10, photo: '' },
-    { title: 'LIDAR Drone 480 SM', price: 9800, discount: 0, photo: '' },
-  ];
+  const comprasionProducts = useAppSelector(selectComprasionProducts);
+  const { isBigScreenOrTablet } = useDashboard();
 
   return (
     <>
@@ -19,6 +18,43 @@ const Comprasion = () => {
           <ProductCard item={item} />
         ))}
       </ul>
+      {isBigScreenOrTablet && (
+        <div className={s.comprasion_data_wrapper}>
+          <div className={s.comprasion_data}>
+            <h3 className={s.comprasion_data_title}>
+              Remote control battery capacity
+            </h3>
+            <ul className={s.comprasion_data_list}>
+              <li>3930 mAh</li>
+              <li>5000 mAh</li>
+              <li>3930 mAh</li>
+              <li>3930 mAh</li>
+            </ul>
+          </div>
+          <div className={s.comprasion_data}>
+            <h3 className={s.comprasion_data_title}>
+              Remote control battery capacity
+            </h3>
+            <ul className={s.comprasion_data_list}>
+              <li>3930 mAh</li>
+              <li>5000 mAh</li>
+              <li>3930 mAh</li>
+              <li>3930 mAh</li>
+            </ul>
+          </div>
+          <div className={s.comprasion_data}>
+            <h3 className={s.comprasion_data_title}>
+              Remote control battery capacity
+            </h3>
+            <ul className={s.comprasion_data_list}>
+              <li>3930 mAh</li>
+              <li>5000 mAh</li>
+              <li>3930 mAh</li>
+              <li>3930 mAh</li>
+            </ul>
+          </div>
+        </div>
+      )}
     </>
   );
 };

@@ -1,15 +1,14 @@
 .product {
     width: 343px;
-    height: 144px;
     border: 1px solid #EAECF0;
     border-radius: 10px;
     background-color: #FAFAFA;
     display: flex;
+    position: relative;
 
     @media screen and (min-width:768px) {
         flex-direction: column;
         width: 310px;
-        height: 450px;
     }
 }
 
@@ -37,16 +36,13 @@
     }
 }
 
-.photo_wrapper {
-    position: relative;
-}
 
 .delete_btn {
     position: absolute;
     width: 36px;
     height: 36px;
-    top: 10px;
-    left: 291px;
+    top: 8px;
+    right: 10px;
     background-color: #FFFFFF;
     border-radius: 50%;
     cursor: pointer;
@@ -58,16 +54,16 @@
         width: 40px;
         height: 40px;
         top: 14px;
-        left: 256px;
     }
 }
 
 .photo {
-    width: 130px;
+    max-width: 130px;
     height: 100%;
+    width: 100%;
 
     @media screen and (min-width:768px) {
-        width: 100%;
+        max-width: 310px;
     }
 
 }

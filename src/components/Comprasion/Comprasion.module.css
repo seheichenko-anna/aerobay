@@ -10,3 +10,31 @@
     gap: 32px;
     flex-wrap: wrap;
 }
+
+.comprasion_data_title {
+    font-size: 18px;
+    line-height: 22.05px;
+    color: #101828;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.comprasion_data_list {
+    width: 100%;
+    background: #F5F5F5;
+    display: flex;
+    gap: 32px;
+
+
+}
+
+.comprasion_data_list>li {
+    color: #475467;
+    flex: 1;
+    padding: 15px 5px;
+}
+
+.comprasion_data_wrapper {
+    padding: 64px 0 96px;
+}
