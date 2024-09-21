@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import s from './Header.module.css';
 import { IoIosArrowDown } from 'react-icons/io';
+import { IoIosArrowUp } from 'react-icons/io';
 import { LuShoppingBag } from 'react-icons/lu';
 import { MdOutlineArrowOutward } from 'react-icons/md';
 import srcLogo from './images/Icon_drone.png';
@@ -11,15 +12,24 @@ import useScreenSize from '../../hooks/useScreenSize';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 import Search from '../Search/Search';
 import { accessories } from './products';
+import DropDown from '../DropDown/Dropdown';
+import AccordionMobileMenu from './AccordionMobileMenu';
+import ComprasionIcon from './ComprasionIcon';
 
 type DropdownType = 'products' | 'company' | 'solutions' | null;
 type ProductType = 'drones' | 'accessories' | null;
 
 const Header = () => {
+  const location = useLocation();
   const screenSize = useScreenSize();
   const [isOpen, setOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState<DropdownType>(null);
   const [selectedProduct, setSelectedProduct] = useState<ProductType>(null);
+
+  const [openDropdownSolutions, setOpenDropdownSolutions] =
+    useState<boolean>(false);
+  const [openDropdownCompany, setOpenDropdownCompany] =
+    useState<boolean>(false);
 
   const handleToggleDropdown = (dropdown: DropdownType) => {
     setShowDropdown(showDropdown === dropdown ? null : dropdown);
@@ -30,13 +40,34 @@ const Header = () => {
     }
   };
 
+  const handleToggleDropDownStyle = (dropdownName: string, isOpen: boolean) => {
+    if (dropdownName === 'solutions') setOpenDropdownSolutions(isOpen);
+    if (dropdownName === 'company') setOpenDropdownCompany(isOpen);
+  };
+
   const handleProductSelection = (product: ProductType) => {
     setSelectedProduct(selectedProduct === product ? null : product);
   };
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [location]);
+
   return (
     <>
-      {screenSize.width > 375 ? (
+      {screenSize.width > 768 ? (
         <div className={s.headerWrapper}>
           <header className={s.header}>
             <nav className={s.nav}>
@@ -128,62 +159,67 @@ const Header = () => {
                 </nav>
               )}
               <div className={s.navItemWrapper}>
-                {' '}
-                <button
-                  className={s.navButton}
-                  onClick={() => handleToggleDropdown('company')}
-                >
-                  Company{' '}
-                  <span className={s.arrowDown}>
-                    <IoIosArrowDown size={20} />
-                  </span>
-                  {showDropdown === 'company' && (
-                    <nav className={s.dropdown}>
-                      <ul className={s.dropdownList}>
-                        <li>
-                          <Link to="about-us">About us</Link>
-                        </li>
-                        <li>
-                          <Link to="contact-us">Contact</Link>
-                        </li>
-                        <li>
-                          <Link to="delivery-and-payments">
-                            Delivery&Payments
-                          </Link>
-                        </li>
-                      </ul>
-                    </nav>
-                  )}
-                </button>
+                <DropDown
+                  icon={
+                    <div
+                      className={
+                        openDropdownCompany ? s.navButtonActive : s.navButton
+                      }
+                    >
+                      <span>Company</span>{' '}
+                      <span className={s.arrowDown}>
+                        {openDropdownCompany ? (
+                          <IoIosArrowUp size={20} />
+                        ) : (
+                          <IoIosArrowDown size={20} />
+                        )}
+                      </span>
+                    </div>
+                  }
+                  items={[
+                    { value: '/about-us', label: 'About us' },
+                    { value: '/contact-us', label: 'Contact' },
+                    {
+                      value: '/delivery-and-payments',
+                      label: 'Delivery & Payments',
+                    },
+                  ]}
+                  size="191px"
+                  handleToggleDropDownStyle={handleToggleDropDownStyle}
+                  dropdownName="company"
+                />
               </div>
 
               <div className={s.navItemWrapper}>
-                <button
-                  className={s.navButton}
-                  onClick={() => handleToggleDropdown('solutions')}
-                >
-                  Solutions{' '}
-                  <span className={s.arrowDown}>
-                    <IoIosArrowDown size={20} />
-                  </span>
-                </button>
-                {showDropdown === 'solutions' && (
-                  <nav className={s.dropdown}>
-                    <ul className={s.dropdownList}>
-                      <li>
-                        <Link to="lidar-drone">LiDAR research</Link>
-                      </li>
-                      <li>
-                        <Link to="agriculture-drone">Agribusiness</Link>
-                      </li>
-                      <li>
-                        <Link to="drone-viewer">
-                          Documentation(photo/video shooting)
-                        </Link>
-                      </li>
-                    </ul>
-                  </nav>
-                )}
+                <DropDown
+                  icon={
+                    <div
+                      className={
+                        openDropdownSolutions ? s.navButtonActive : s.navButton
+                      }
+                    >
+                      <span>Solutions</span>{' '}
+                      <span className={s.arrowDown}>
+                        {openDropdownSolutions ? (
+                          <IoIosArrowUp size={20} />
+                        ) : (
+                          <IoIosArrowDown size={20} />
+                        )}
+                      </span>
+                    </div>
+                  }
+                  items={[
+                    { value: '/lidar-drone', label: 'LiDAR research' },
+                    { value: '/agriculture-drone', label: 'Agribusiness' },
+                    {
+                      value: '/drone-viewer',
+                      label: 'Documentation (photo/video shooting)',
+                    },
+                  ]}
+                  size="227px"
+                  handleToggleDropDownStyle={handleToggleDropDownStyle}
+                  dropdownName="solutions"
+                />
               </div>
             </nav>
 
@@ -200,8 +236,7 @@ const Header = () => {
               <Search />
               <div className={`${s.navButton} ${s.btnGlobalLine}`}>
                 <span className={`${s.arrowDown} ${s.arrSearch}`}>
-                  {' '}
-                  <LanguageSelector />
+                  <LanguageSelector positionY="top" />
                 </span>
               </div>
               <button className={`${s.navButton} ${s.cartButton}`}>
@@ -219,11 +254,16 @@ const Header = () => {
             <Link to="/">
               <div className={s.logo}>
                 <img src={srcLogo} alt="Logo-dron" />
-                <svg>
-                  <use xlinkHref={`${svg}#icon-logo`} />
-                </svg>
               </div>
             </Link>
+            <div className={s.headerActions}>
+              <Search />
+              <button className={`${s.navButton} ${s.cartButton}`}>
+                <span className={s.arrowDown}>
+                  <LuShoppingBag size={20} />
+                </span>
+              </button>
+            </div>
             <button className={`${s.navButton} ${s.menuButton}`}>
               <Hamburger
                 color="black"
@@ -236,21 +276,28 @@ const Header = () => {
 
           {isOpen && (
             <nav className={s.mobileNav}>
-              {
-                <div className={s.mobileNavContainer}>
-                  <button className={`${s.navButton} ${s.navItem}`}>
-                    Products{' '}
-                  </button>
-
-                  <button className={`${s.navButton} ${s.navItem}`}>
-                    Company
-                  </button>
-
-                  <button className={`${s.navButton} ${s.navItem}`}>
-                    Solutions
-                  </button>
-                </div>
-              }
+              <AccordionMobileMenu />
+              <ul className={s.mobileNavList}>
+                <li className={s.mobileNavItem}>
+                  <span>Language</span>
+                  <div className={`${s.navButton} ${s.btnGlobalLine}`}>
+                    <span className={`${s.arrowDown} ${s.arrSearch}`}>
+                      <LanguageSelector
+                        positionY="bottom"
+                        positionX="right-0"
+                      />
+                    </span>
+                  </div>
+                </li>
+                <li className={s.mobileNavItem}>
+                  <span>Comprasion</span>
+                  <div className={`${s.navButton} ${s.btnGlobalLine}`}>
+                    <span className={`${s.arrowDown} ${s.arrSearch}`}>
+                      <ComprasionIcon />
+                    </span>
+                  </div>
+                </li>
+              </ul>
             </nav>
           )}
         </>

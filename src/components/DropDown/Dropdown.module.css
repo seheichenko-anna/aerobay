@@ -1,0 +1,71 @@
+.dropdown_menu_item {
+    margin: 16px 0;
+    font-family: inherit;
+    color: #475467;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+    padding: 14px 12px;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+}
+
+.dropdown_menu_item:first-child {
+    margin-bottom: 0;
+}
+
+.dropdown_menu_item:last-child {
+    margin-top: 0;
+}
+
+.dropdown_menu_item:hover,
+.dropdown_menu_item:active,
+.dropdown_menu_item:focus {
+    background-color: #F9FAFB;
+    color: #101828;
+}
+
+.dropdown_menu_text {
+    font-family: inherit;
+    width: 100%;
+}
+
+.icon_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #fff;
+    width: 30px;
+    height: 30px;
+    border: none;
+    position: relative;
+    fill: #667085;
+    transition: fill 0.4s ease-in-out;
+}
+
+.icon_wrapper:active,
+.icon_wrapper:focus,
+.icon_wrapper:hover {
+    fill: #101828;
+}
+
+.icon_globe {
+    width: 20px;
+    height: 20px;
+    fill: inherit;
+}
+
+.dropdownCompany {
+    width: 191px;
+    width: 100%;
+}
+
+.dropdownSolutions {
+    max-width: 227px;
+    width: 100%;
+}
