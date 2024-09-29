@@ -260,6 +260,7 @@
 }
 
 .prodictsList {
+
     max-width: 156px;
     width: 100%;
 }
@@ -281,6 +282,13 @@
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
+    overflow-y: auto;
+    max-height: 400px;
+
+    @media screen and (min-width:1440px) {
+        max-height: 740px;
+    }
+
 }
 
 .droneItem {
