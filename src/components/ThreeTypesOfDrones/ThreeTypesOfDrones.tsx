@@ -35,7 +35,9 @@ const ThreeTypesOfDrones = () => {
   ];
 
   const updatePagination = (index: number) => {
-    const bullets = document.querySelectorAll('.swiper-pagination-bullet');
+    const bullets = document.querySelectorAll(
+      '.swiper_pagination_bullet_types_of_drones'
+    );
     bullets.forEach((bullet, i) => {
       if (i === index) {
         bullet.classList.add('swiper-pagination-bullet-active');

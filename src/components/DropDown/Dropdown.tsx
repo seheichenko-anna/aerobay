@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 
 interface DropDownProps {
   icon?: JSX.Element;
-  items: { value: string; label: string }[];
+  items: { value: string; label: string | JSX.Element }[];
   onSelect?: (value: string) => void;
   size?: string;
   positionX?: string;
@@ -26,7 +26,7 @@ const DropDown = ({
   positionY,
 }: DropDownProps) => {
   const widthSize = size ? size : '128px';
-  const [isOpen, setIsOpen] = useState(false);
+  const [_, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     const buttonElement = buttonRef.current;
@@ -70,23 +70,25 @@ const DropDown = ({
           'data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in'
         )}
       >
-        {items.map((item, index) => (
-          <MenuItem key={index}>
-            {onSelect ? (
-              <a
-                href="#"
-                onClick={() => onSelect(item.value)}
-                className={s.dropdown_menu_item}
-              >
-                <p className={s.dropdown_menu_text}>{item.label}</p>
-              </a>
-            ) : (
-              <Link to={item.value} className={s.dropdown_menu_item}>
-                <p className={s.dropdown_menu_text}>{item.label}</p>
-              </Link>
-            )}
-          </MenuItem>
-        ))}
+        <div>
+          {items.map((item, index) => (
+            <MenuItem key={index}>
+              {onSelect ? (
+                <a
+                  href="#"
+                  onClick={() => onSelect(item.value)}
+                  className={s.dropdown_menu_item}
+                >
+                  <div className={s.dropdown_menu_text}>{item.label}</div>
+                </a>
+              ) : (
+                <Link to={item.value} className={s.dropdown_menu_item}>
+                  <div className={s.dropdown_menu_text}>{item.label}</div>
+                </Link>
+              )}
+            </MenuItem>
+          ))}
+        </div>
       </MenuItems>
     </Menu>
   );

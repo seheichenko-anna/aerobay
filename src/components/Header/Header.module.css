@@ -1,8 +1,10 @@
 .headerWrapper {
     width: 100%;
     border-bottom: 3px solid rgb(230, 230, 230);
-    padding: 20px 16px;
-    margin: 10px 0px;
+    position: fixed;
+    z-index: 999;
+    background-color: #fff;
+    top: 0;
 
     @media screen and (min-width:768px) {
         padding: 20px 32px;
@@ -22,12 +24,11 @@
     margin-left: auto;
     margin-right: auto;
     position: relative;
+    row-gap: 8px;
 
     @media screen and (max-width:768px) {
         flex-wrap: nowrap;
-        border-bottom: 1px solid #F2F4F7
     }
-
 
     @media screen and (min-width:1440px) {
         max-width: 1336px;
@@ -38,10 +39,15 @@
 
 .nav {
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
+    margin-right: auto;
+
+    @media screen and (min-width:768px) and (max-width:1200px) {
+        width: 100%;
+        order: 2
+    }
 }
 
 .navButton {
@@ -100,6 +106,7 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+    margin-left: auto;
 
     @media screen and (max-width:768px) {
         gap: 4px;
@@ -184,8 +191,6 @@
     }
 }
 
-
-
 .navItemWrapper {
     position: relative;
     display: inline-block;
@@ -193,7 +198,7 @@
 
 .dropdown {
     position: absolute;
-    top: 42px;
+    top: 46px;
     right: 50%;
     transform: translateX(50%);
     padding: 20px 16px;
@@ -210,6 +215,10 @@
     align-items: center;
     z-index: 10;
 
+
+    @media screen and (min-width:768px) and (max-width:1200px) {
+        top: 95px;
+    }
 }
 
 .dropdownProducts {
@@ -222,6 +231,8 @@
     padding-left: 0;
     max-width: 1336px;
     width: 100%;
+
+
 }
 
 .dropdownList {
@@ -245,6 +256,12 @@
     align-items: center;
     gap: 16px;
     padding: 14px 12px;
+
+}
+
+.prodictsList {
+    max-width: 156px;
+    width: 100%;
 }
 
 .productIcon {
@@ -264,7 +281,6 @@
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
-
 }
 
 .droneItem {
@@ -499,4 +515,11 @@
     text-align: left;
     color: #101828;
     border: 2px solid #EAECF0
+}
+
+.productsDropdown {
+    display: flex;
+    max-width: 1335px;
+    width: 100%;
+    justify-content: space-between;
 }

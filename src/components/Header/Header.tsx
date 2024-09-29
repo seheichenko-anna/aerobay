@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import s from './Header.module.css';
 import { IoIosArrowDown } from 'react-icons/io';
@@ -20,16 +20,9 @@ type DropdownType = 'products' | 'company' | 'solutions' | null;
 type ProductType = 'drones' | 'accessories' | null;
 
 const Header = () => {
-  const location = useLocation();
-  const screenSize = useScreenSize();
-  const [isOpen, setOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState<DropdownType>(null);
   const [selectedProduct, setSelectedProduct] = useState<ProductType>(null);
-
-  const [openDropdownSolutions, setOpenDropdownSolutions] =
-    useState<boolean>(false);
-  const [openDropdownCompany, setOpenDropdownCompany] =
-    useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleToggleDropdown = (dropdown: DropdownType) => {
     setShowDropdown(showDropdown === dropdown ? null : dropdown);
@@ -40,13 +33,22 @@ const Header = () => {
     }
   };
 
+  const handleProductSelection = (product: ProductType) => {
+    setSelectedProduct(selectedProduct === product ? null : product);
+  };
+
+  const location = useLocation();
+  const screenSize = useScreenSize();
+  const [isOpen, setOpen] = useState(false);
+
+  const [openDropdownSolutions, setOpenDropdownSolutions] =
+    useState<boolean>(false);
+  const [openDropdownCompany, setOpenDropdownCompany] =
+    useState<boolean>(false);
+
   const handleToggleDropDownStyle = (dropdownName: string, isOpen: boolean) => {
     if (dropdownName === 'solutions') setOpenDropdownSolutions(isOpen);
     if (dropdownName === 'company') setOpenDropdownCompany(isOpen);
-  };
-
-  const handleProductSelection = (product: ProductType) => {
-    setSelectedProduct(selectedProduct === product ? null : product);
   };
 
   useEffect(() => {
@@ -65,6 +67,35 @@ const Header = () => {
     setOpen(false);
   }, [location]);
 
+  const closeDropdown = () => {
+    setShowDropdown(null);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        closeDropdown();
+      }
+    };
+
+    const handleEscPress = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeDropdown();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscPress);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscPress);
+    };
+  }, []);
+
   return (
     <>
       {screenSize.width > 768 ? (
@@ -73,22 +104,31 @@ const Header = () => {
             <nav className={s.nav}>
               <div className={s.navItemWrapper}>
                 <button
-                  className={s.navButton}
+                  aria-label="Products menu"
+                  className={showDropdown ? s.navButtonActive : s.navButton}
                   onClick={() => handleToggleDropdown('products')}
                 >
                   Products
                   <span className={s.arrowDown}>
-                    <IoIosArrowDown size={20} />
+                    {showDropdown ? (
+                      <IoIosArrowUp size={20} />
+                    ) : (
+                      <IoIosArrowDown size={20} />
+                    )}
                   </span>
                 </button>
               </div>
               {showDropdown === 'products' && (
-                <nav className={`${s.dropdown} ${s.dropdownProducts}`}>
+                <nav
+                  className={`${s.dropdown} ${s.dropdownProducts}`}
+                  ref={dropdownRef}
+                >
                   <ul className={s.productList}>
                     <li
                       className={` ${selectedProduct === 'drones' ? s.activeProduct : null}`}
                     >
                       <button
+                        aria-label="Drones"
                         className={`${s.productItemBtn} ${selectedProduct === 'drones' ? s.active : null}`}
                         onClick={() => handleProductSelection('drones')}
                       >
@@ -102,6 +142,7 @@ const Header = () => {
                       className={`${selectedProduct === 'accessories' ? s.activeProduct : null}`}
                     >
                       <button
+                        aria-label="Accessories"
                         className={`${s.productItemBtn} ${selectedProduct === 'accessories' ? s.active : null}`}
                         onClick={() => handleProductSelection('accessories')}
                       >
@@ -148,9 +189,9 @@ const Header = () => {
                       ))}
                       <li className={s.accessoryItem}>
                         <Link to={'/'} className={s.linkStyle}>
-                          <button className={s.btnArrow}>
+                          <span className={s.btnArrow}>
                             <MdOutlineArrowOutward size={24} />
-                          </button>
+                          </span>
                           <h5 className={s.titleCart}>View all</h5>
                         </Link>
                       </li>
@@ -161,7 +202,8 @@ const Header = () => {
               <div className={s.navItemWrapper}>
                 <DropDown
                   icon={
-                    <div
+                    <button
+                      aria-label="Company menu"
                       className={
                         openDropdownCompany ? s.navButtonActive : s.navButton
                       }
@@ -174,7 +216,7 @@ const Header = () => {
                           <IoIosArrowDown size={20} />
                         )}
                       </span>
-                    </div>
+                    </button>
                   }
                   items={[
                     { value: '/about-us', label: 'About us' },
@@ -193,7 +235,8 @@ const Header = () => {
               <div className={s.navItemWrapper}>
                 <DropDown
                   icon={
-                    <div
+                    <button
+                      aria-label="Solutions menu"
                       className={
                         openDropdownSolutions ? s.navButtonActive : s.navButton
                       }
@@ -206,7 +249,7 @@ const Header = () => {
                           <IoIosArrowDown size={20} />
                         )}
                       </span>
-                    </div>
+                    </button>
                   }
                   items={[
                     { value: '/lidar-drone', label: 'LiDAR research' },
@@ -239,7 +282,10 @@ const Header = () => {
                   <LanguageSelector positionY="top" />
                 </span>
               </div>
-              <button className={`${s.navButton} ${s.cartButton}`}>
+              <button
+                className={`${s.navButton} ${s.cartButton}`}
+                aria-label="Cart"
+              >
                 Cart{' '}
                 <span className={s.arrowDown}>
                   <LuShoppingBag size={20} />
@@ -249,7 +295,7 @@ const Header = () => {
           </header>
         </div>
       ) : (
-        <>
+        <div className={s.headerWrapper}>
           <header className={s.header}>
             <Link to="/">
               <div className={s.logo}>
@@ -258,13 +304,19 @@ const Header = () => {
             </Link>
             <div className={s.headerActions}>
               <Search />
-              <button className={`${s.navButton} ${s.cartButton}`}>
+              <button
+                className={`${s.navButton} ${s.cartButton}`}
+                aria-label="Cart"
+              >
                 <span className={s.arrowDown}>
                   <LuShoppingBag size={20} />
                 </span>
               </button>
             </div>
-            <button className={`${s.navButton} ${s.menuButton}`}>
+            <button
+              className={`${s.navButton} ${s.menuButton}`}
+              aria-label="Open or hide menu"
+            >
               <Hamburger
                 color="black"
                 toggled={isOpen}
@@ -300,7 +352,7 @@ const Header = () => {
               </ul>
             </nav>
           )}
-        </>
+        </div>
       )}
     </>
   );
