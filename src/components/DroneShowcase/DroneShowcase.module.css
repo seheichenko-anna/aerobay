@@ -4,16 +4,9 @@
     display: flex;
     justify-content: center;
     border-radius: 30px;
-    margin-top: 83px;
+
     position: relative;
 
-    @media screen and (max-width:1200px) and (min-width:769px) {
-        margin-top: 131px;
-    }
-
-    @media screen and (max-width:768px) {
-        margin-top: 72px;
-    }
 }
 
 .video {

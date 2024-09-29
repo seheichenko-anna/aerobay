@@ -34,7 +34,7 @@ const Header = () => {
   };
 
   const handleProductSelection = (product: ProductType) => {
-    setSelectedProduct(selectedProduct === product ? null : product);
+    setSelectedProduct(product);
   };
 
   const location = useLocation();
