@@ -87,14 +87,24 @@ const Header = () => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('keydown', handleEscPress);
+    if (showDropdown) {
+      document.body.style.pointerEvents = 'none';
+      if (dropdownRef.current) {
+        dropdownRef.current.style.pointerEvents = 'auto';
+      }
+
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscPress);
+    } else {
+      document.body.style.pointerEvents = 'auto';
+    }
 
     return () => {
+      document.body.style.pointerEvents = 'auto';
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleEscPress);
     };
-  }, []);
+  }, [showDropdown]);
 
   return (
     <>
