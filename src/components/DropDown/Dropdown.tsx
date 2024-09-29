@@ -66,7 +66,7 @@ const DropDown = ({
       <MenuItems
         style={{ width: widthSize }}
         className={classNames(
-          `absolute ${positionX ? positionX : 'left-1/2 transform -translate-x-1/2'} z-10 mt-2 mb-2 ${positionY}-full  rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none`,
+          `absolute  z-10 ${positionX ? positionX : 'left-1/2 transform -translate-x-1/2'} z-10 mt-2 mb-2 ${positionY === 'bottom' ? 'bottom-0 -translate-y-10' : 'top-full'}  rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none`,
           'data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in'
         )}
       >
