@@ -111,11 +111,6 @@ body {
   display: none !important;
 }
 
-@media screen and (max-width: 375px) {
-  .swiper-slide {
-    height: 80%;
-  }
-}
 
 /* src/App.css */
 .App {
