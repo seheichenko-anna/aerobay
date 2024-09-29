@@ -279,7 +279,7 @@ const Header = () => {
               <Search />
               <div className={`${s.navButton} ${s.btnGlobalLine}`}>
                 <span className={`${s.arrowDown} ${s.arrSearch}`}>
-                  <LanguageSelector positionY="top" />
+                  <LanguageSelector />
                 </span>
               </div>
               <button

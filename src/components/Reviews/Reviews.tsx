@@ -93,6 +93,7 @@ const Reviews = () => {
             {currentIndex === 0 ? 1 : currentIndex + 1}/{reviews.length}
           </span>
           <button
+            aria-label="Previous Review"
             className={
               currentIndex !== 0 ? `${s.activeButton} ${s.button}` : s.button
             }
@@ -102,6 +103,7 @@ const Reviews = () => {
             <LuArrowLeft size={20} />
           </button>
           <button
+            aria-label="Next Review"
             className={
               currentIndex !== reviews.length - 1
                 ? `${s.activeButton} ${s.button}`
