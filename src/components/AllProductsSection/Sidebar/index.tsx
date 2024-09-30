@@ -1,5 +1,3 @@
-
-
 import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
 import c from './FilterProduct.module.scss';
 import classNames from 'classnames';
@@ -214,4 +212,3 @@ export const FilterProducts = () => {
     </aside>
   );
 };
-  
