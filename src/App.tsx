@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
-
 import HomePage from './pages/HomePage';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
@@ -12,7 +11,6 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import AgricultureDrone from './pages/DronesBuisnessCards/AgricultureDrone';
 import LiDARDrone from './pages/DronesBuisnessCards/LiDARDrone';
 import DroneViewer from './pages/DronesBuisnessCards/DroneViewer';
-
 import AdminPanel from './pages/AdminPanel/AdminPanel';
 import Dashboard from './pages/AdminPanel/Dashboard';
 import Accessory from './pages/AdminPanel/Accessory';
@@ -21,7 +19,6 @@ import Category from './pages/AdminPanel/Category';
 import GroupForDrones from './pages/AdminPanel/GroupForDrones';
 import Subcategory from './pages/AdminPanel/Subcategory';
 import Drone from './pages/AdminPanel/Drone';
-
 import Catalog from './pages/Catalog/Catalog';
 
 function App() {
