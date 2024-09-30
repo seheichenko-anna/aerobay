@@ -55,16 +55,7 @@ export const Dropdown2: FC<IDropdown2Props> = ({
             ))}
           </p>
         ) : selectedFilters?.length >= 1 && !isSidebarDropdown ? (
-          <p
-            style={{
-              width: 'max-content',
-              color: '#667085',
-              fontSize: '14px',
-              display: 'block',
-            }}
-          >
-            {selectedFilters[0]}
-          </p>
+          <p className={c.dropdown_text}>{selectedFilters[0]}</p>
         ) : (
           <p style={{ color: '#667085' }}>Select</p>
         )}

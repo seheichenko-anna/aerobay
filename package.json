@@ -27,6 +27,7 @@
     "@react-spring/web": "^9.7.3",
     "@reduxjs/toolkit": "^2.2.5",
     "axios": "^1.7.2",
+    "classnames": "^2.5.1",
     "dompurify": "^3.1.5",
     "hamburger-react": "^2.5.1",
     "i18next": "^23.12.2",
@@ -41,8 +42,8 @@
     "react-responsive": "^10.0.0",
     "react-router-dom": "^6.23.0",
     "react-select": "^5.8.0",
-    "react-tippy": "^1.4.0",
     "react-toastify": "^10.0.5",
+    "react-tooltip": "^5.28.0",
     "redux": "^5.0.1",
     "sass": "^1.77.6",
     "swiper": "^11.1.1"

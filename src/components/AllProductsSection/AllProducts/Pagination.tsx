@@ -21,6 +21,8 @@ export const Pagination: FC<IPaginationProps> = ({
         pageLinkClassName="pagenation-page-link"
         activeLinkClassName="pagenation-active-link"
         prevPageRel="none"
+        pageRangeDisplayed={1}
+        marginPagesDisplayed={3}
       />
     </>
   );

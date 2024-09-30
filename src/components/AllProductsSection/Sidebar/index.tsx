@@ -1,20 +1,15 @@
-import {
-  ChangeEvent,
-  FC,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
 import c from './FilterProduct.module.scss';
+import classNames from 'classnames';
 import { Dropdown2 } from '../Dropdown2';
 import {
   CatalogContext,
   TCatalogContext,
 } from '../../../pages/Catalog/Catalog';
 import rangeStat from '../../../assets/catalog/sidebar/price_range_stat.svg';
+import { IoIosClose } from 'react-icons/io';
 
-export const FilterProducts: FC = () => {
+export const FilterProducts = () => {
   const test2 = useRef<HTMLInputElement>(null);
 
   const minPrice = 8000;
@@ -30,6 +25,8 @@ export const FilterProducts: FC = () => {
     setIsAvailabilityChecked,
     isTypeChecked,
     setIsTypeChecked,
+    isMobileFilterVisible,
+    setIsMobileFilterVisible,
   } = useContext(CatalogContext) as TCatalogContext;
 
   const minPricewithDot = `${String(minPrice).slice(0, -3)}.${String(minPrice).slice(-3)}`;
@@ -102,9 +99,27 @@ export const FilterProducts: FC = () => {
     })();
   }, [maxPrice]);
 
+  const handleCloseSidebar = () => {
+    setIsMobileFilterVisible(false);
+    document.body.style.overflow = '';
+  };
+
   return (
-    <aside className={c.filter_product}>
+    <aside
+      className={classNames(c.filter_product, {
+        [c.filter_product_active]: isMobileFilterVisible,
+      })}
+    >
+      {isMobileFilterVisible && <div className={c.overlay}></div>}
+
       <div className={c.filter_product__wrap}>
+        {isMobileFilterVisible && (
+          <div className={c.close_sidebar} onClick={handleCloseSidebar}>
+            <div>
+              <IoIosClose size="30px" />
+            </div>
+          </div>
+        )}
         <h2>Filter Product</h2>
         <div className={c.filters}>
           <Dropdown2

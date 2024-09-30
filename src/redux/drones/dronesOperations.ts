@@ -20,7 +20,6 @@ export const fetchDronesThunk = createAsyncThunk<Drone[]>(
   async (_, thunkAPI) => {
     try {
       const response = await dronesApi.get('drones');
-      console.log(response.data.drones);
       return response.data.drones;
     } catch (error) {
       if (error instanceof AxiosError) {

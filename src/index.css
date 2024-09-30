@@ -104,7 +104,28 @@ body {
   display: none !important;
 }
 
+@media screen and (max-width: 500px) {
+  .pagenation-container li a {
+    width: 34px;
+    height: 34px;
+  }
+  .pagenation-container .selected {
+    width: 34px;
+    height: 34px;
+  }
+}
 @media screen and (max-width: 375px) {
+  .pagenation-container {
+    gap: 2px;
+  }
+  .pagenation-container li a {
+    width: 30px;
+    height: 30px;
+  }
+  .pagenation-container .selected {
+    width: 30px;
+    height: 30px;
+  }
   .swiper-slide {
     height: 80%;
   }
