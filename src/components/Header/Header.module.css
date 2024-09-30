@@ -1,8 +1,10 @@
 .headerWrapper {
     width: 100%;
     border-bottom: 3px solid rgb(230, 230, 230);
-    padding: 20px 16px;
-    margin: 10px 0px;
+    position: fixed;
+    z-index: 999;
+    background-color: #fff;
+    top: 0;
 
     @media screen and (min-width:768px) {
         padding: 20px 32px;
@@ -22,23 +24,35 @@
     margin-left: auto;
     margin-right: auto;
     position: relative;
+    row-gap: 8px;
+
+    @media screen and (max-width:768px) {
+        flex-wrap: nowrap;
+    }
 
     @media screen and (min-width:1440px) {
         max-width: 1336px;
     }
 }
 
+
+
 .nav {
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
+    margin-right: auto;
+
+    @media screen and (min-width:768px) and (max-width:1200px) {
+        width: 100%;
+        order: 2
+    }
 }
 
 .navButton {
     height: 40px;
-    border: none;
+    border: 2px solid transparent;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,13 +60,11 @@
     gap: 10px;
     margin: 0px 0px;
     border-radius: 50px;
-    background: rgb(250, 250, 250);
-    color: rgb(102, 112, 133);
-    font-family: "Gilroy" sans-serif;
+    background: #fafafa;
+    color: #667085;
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
-    letter-spacing: 0%;
     text-align: left;
 }
 
@@ -74,6 +86,19 @@
     max-width: 150px;
     height: 30.77px;
     margin: 0 auto;
+
+
+    @media screen and (min-width:1200px) {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+
+
+    @media screen and (max-width:768px) {
+        margin-right: 4px;
+    }
 }
 
 .headerActions {
@@ -81,6 +106,13 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+    margin-left: auto;
+
+    @media screen and (max-width:768px) {
+        gap: 4px;
+        margin-right: 4px;
+        margin-left: auto;
+    }
 }
 
 .searchContainer {
@@ -152,6 +184,11 @@
 .cartButton {
     color: rgb(16, 24, 40);
     line-height: 19px;
+
+    @media screen and (max-width:768px) {
+        width: 40px;
+        padding: 10px;
+    }
 }
 
 .navItemWrapper {
@@ -161,7 +198,7 @@
 
 .dropdown {
     position: absolute;
-    top: 42px;
+    top: 46px;
     right: 50%;
     transform: translateX(50%);
     padding: 20px 16px;
@@ -178,6 +215,10 @@
     align-items: center;
     z-index: 10;
 
+
+    @media screen and (min-width:768px) and (max-width:1200px) {
+        top: 95px;
+    }
 }
 
 .dropdownProducts {
@@ -190,6 +231,8 @@
     padding-left: 0;
     max-width: 1336px;
     width: 100%;
+
+
 }
 
 .dropdownList {
@@ -213,6 +256,13 @@
     align-items: center;
     gap: 16px;
     padding: 14px 12px;
+
+}
+
+.prodictsList {
+
+    max-width: 156px;
+    width: 100%;
 }
 
 .productIcon {
@@ -232,6 +282,13 @@
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
+    overflow-y: auto;
+    max-height: 400px;
+
+    @media screen and (min-width:1440px) {
+        max-height: 740px;
+    }
+
 }
 
 .droneItem {
@@ -247,6 +304,12 @@
     justify-content: flex-start;
     gap: 10px;
     align-items: center;
+
+    @media screen and (max-width:768px) {
+        width: 254px;
+        height: 170px;
+
+    }
 }
 
 .linkStyle {
@@ -259,20 +322,23 @@
 
 .bigfotoDrone {
     width: 100%;
-    height: 268px;
+    aspect-ratio: 2/1;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .titleCart {
     color: rgb(0, 0, 0);
-    font-family: "Gilroy" sans-serif;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 21px;
-    letter-spacing: 0%;
     text-align: left;
     text-transform: capitalize;
+
+    @media screen and (max-width:768px) {
+        font-size: 14px;
+    }
+
 }
 
 .electricalDrone {
@@ -291,12 +357,27 @@
     width: 250px;
     height: 330px;
     background-color: rgb(236, 236, 236);
+
+
+    @media screen and (max-width:768px) {
+        width: 125px;
+        height: 165px;
+
+    }
 }
 
 .accessoryItem:last-child {
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    position: relative;
+    padding-bottom: 38px;
+
+    @media screen and (max-width:768px) {
+        width: 125px;
+        height: 165px;
+        padding-bottom: 11px;
+    }
 }
 
 .photo_antenna {
@@ -332,6 +413,11 @@
     height: 268px;
     background-repeat: no-repeat;
     background-size: cover;
+
+    @media screen and (max-width:768px) {
+        width: 114px;
+        height: 134px;
+    }
 }
 
 .btnArrow {
@@ -344,11 +430,16 @@
     border-radius: 50px;
     border: none;
     background: rgb(186, 252, 80);
-}
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-.btnArrow+.titleCart {
-    margin-top: 88px;
-    margin-bottom: 43px;
+    @media screen and (max-width:768px) {
+        width: 46px;
+        height: 46px;
+    }
+
 }
 
 .menuButton {
@@ -360,8 +451,26 @@
     top: 1;
     left: 0;
     width: 100vw;
-    backdrop-filter: blur(10px);
+    height: calc(100vh - 73px);
     z-index: 2;
+    background-color: #ffffff;
+    padding: 0 10px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.mobileNavItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 8px 20px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #667085;
+
 }
 
 .mobileNavContainer {
@@ -373,7 +482,6 @@
 
 .navItem {
     color: rgb(102, 112, 133);
-    font-family: "Gilroy" sans-serif;
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
@@ -393,10 +501,33 @@
     border-bottom: 1px solid #b6b6b6;
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 768px) {
     .header {
         padding: 16px 12px 16px 16px;
-        border: none;
-
     }
+}
+
+.navButtonActive {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px 10px 20px;
+    gap: 10px;
+    margin: 0px 0px;
+    border-radius: 50px;
+    background: #fafafa;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+    color: #101828;
+    border: 2px solid #EAECF0
+}
+
+.productsDropdown {
+    display: flex;
+    max-width: 1335px;
+    width: 100%;
+    justify-content: space-between;
 }
