@@ -97,7 +97,7 @@ const AdminDataTable = <T extends { id: string | number }>({
                           {columns.map((column, index) => (
                             <td
                               key={index}
-                              className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap"
+                              className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap truncate max-w-xs"
                             >
                               {String(item[column.accessor])}
                             </td>

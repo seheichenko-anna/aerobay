@@ -95,6 +95,7 @@ export const AllProducts = () => {
     }))
   ).flat();
 
+  console.log(selectedCategories);
   if (selectedCategories?.length) {
     allProductsX80 = allProductsX80.filter(el => {
       return selectedCategories.some(category => category === el.category);
@@ -184,8 +185,6 @@ export const AllProducts = () => {
         };
         newWW = newWW.slice(0, newWW.length - 2);
       }
-
-      return newWW;
     });
   };
 
