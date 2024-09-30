@@ -46,8 +46,7 @@
     "react-tooltip": "^5.28.0",
     "redux": "^5.0.1",
     "sass": "^1.77.6",
-    "swiper": "^11.1.1",
-    "tw-elements-react": "^1.0.0-alpha-end"
+    "swiper": "^11.1.1"
   },
   "devDependencies": {
     "@types/dompurify": "^3.0.5",
@@ -57,15 +56,15 @@
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.2.1",
-    "autoprefixer": "^10.4.20",
+    "autoprefixer": "^10.4.19",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
-    "postcss": "^8.4.47",
+    "postcss": "^8.4.38",
     "prettier": "^3.2.5",
-    "tailwindcss": "^3.4.12",
+    "tailwindcss": "^3.4.4",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
   }

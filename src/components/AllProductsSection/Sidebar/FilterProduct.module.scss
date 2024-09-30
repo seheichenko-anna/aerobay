@@ -222,3 +222,75 @@
     }
   }
 }
+@media screen and (max-width: 1065px) {
+  .filter_product {
+    &__wrap {
+      padding: 15px;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .filter_product {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: -100%;
+  }
+  .filter_product_active {
+    width: 330px;
+    padding: 10px;
+    visibility: visible;
+    position: fixed;
+    left: 0;
+    background-color: #fff;
+    transition: 0.04s linear;
+    z-index: 99999;
+
+    .filter_product__wrap {
+      position: relative;
+      max-width: 310px;
+      width: 100%;
+      padding: 33.5px 52.5px 30px 32px;
+      border-radius: 10px;
+      border: 1px solid #eaecf0;
+      background-color: #fff;
+      height: 100svh;
+      overflow-y: scroll;
+    }
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 329px;
+    width: calc(100vw - 330px);
+    height: 100%;
+    backdrop-filter: brightness(0.5);
+    z-index: 2;
+  }
+  .close_sidebar {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #fafafa;
+    transition: 0.3s linear;
+    &:hover {
+      background-color: #dbe3f3;
+    }
+    > div {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+    }
+  }
+}

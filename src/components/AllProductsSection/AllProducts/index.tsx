@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import c from './AllProducts.module.scss';
 import img_1 from '../../../assets/catalog/all-products/image_2.png';
 import img_2 from '../../../assets/catalog/all-products/image.png';
@@ -13,6 +13,7 @@ import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 import { Pagination } from './Pagination';
 import { ButtonShowMore } from './ButtonShowMore';
+import { mobileFilter } from '../../../assets/catalog/index';
 
 const allProducts = [
   {
@@ -54,16 +55,16 @@ interface IProduct {
   hasColorGroups: boolean;
 }
 
-export const AllProducts: FC = () => {
+export const AllProducts = () => {
   const [sortByFilter, setSortByFilter] = useState<string[]>(['Low To High']);
 
   const {
     selectedCategories,
-
     isAvailabilityChecked,
     setIsAvailabilityChecked,
     isTypeChecked,
     setIsTypeChecked,
+    setIsMobileFilterVisible,
   } = useContext(CatalogContext) as TCatalogContext;
 
   const filteredValues = Object.entries({
@@ -100,7 +101,6 @@ export const AllProducts: FC = () => {
       return selectedCategories.some(category => category === el.category);
     });
   }
-  console.log(allProductsX80);
 
   const allProductsX80Length = allProductsX80?.length;
   const [currentPage, setCurrentPage] = useState(1);
@@ -121,11 +121,8 @@ export const AllProducts: FC = () => {
         return { [i + 1]: 9 };
       })
   );
-  console.log(ww);
 
   useEffect(() => {
-    console.log(8888888888888);
-
     setWW(
       Array(Math.ceil(er))
         .fill(0)
@@ -188,8 +185,6 @@ export const AllProducts: FC = () => {
         };
         newWW = newWW.slice(0, newWW.length - 2);
       }
-
-      return newWW;
     });
   };
 
@@ -227,6 +222,11 @@ export const AllProducts: FC = () => {
     setVisibleProductsCount(currentShowedProduct);
   }, [currentShowedProduct]);
 
+  const handleVisibleFilter = () => {
+    setIsMobileFilterVisible(true);
+    document.body.style.overflow = 'hidden';
+  };
+
   return (
     <main>
       <div className={c.title_and_sortBy_section}>
@@ -240,6 +240,15 @@ export const AllProducts: FC = () => {
             setSelectedFilters={setSortByFilter}
           />
         </div>
+      </div>
+      <div className={c.mobile_devider}></div>
+      <div className={c.mobile_filter}>
+        <span>Filter:</span>
+        <img
+          src={mobileFilter}
+          alt="mobile filter icon"
+          onClick={handleVisibleFilter}
+        />
       </div>
       <div className={c.filtered_values_section}>
         {filteredValues?.map((value, i) => (
@@ -272,9 +281,6 @@ export const AllProducts: FC = () => {
       </div>
 
       <div className={c['all-products-box']}>
-        <p style={{ marginBottom: '10px', color: 'blue' }}>
-          Listed {visibleProductsCount} products
-        </p>
         <div className={c['all-products']}>
           {currentProduct?.map(product => (
             <Link to={product?.href} key={product?.id} className="product">
@@ -349,9 +355,6 @@ export const AllProducts: FC = () => {
                     </>
                   )}
                 </div>
-                <span className={c['product-card_number-of-card']}>
-                  {product?.id}
-                </span>
               </article>
             </Link>
           ))}

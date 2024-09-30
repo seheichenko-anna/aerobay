@@ -3,7 +3,7 @@ import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { CategoryOfDrones } from '../../components/CategoryOfDrones';
 import { FilterProducts } from '../../components/AllProductsSection/Sidebar';
 import { AllProducts } from '../../components/AllProductsSection/AllProducts';
-import { Dispatch, FC, createContext, useState } from 'react';
+import { Dispatch, createContext, useState } from 'react';
 
 export type TCatalogContext = {
   selectedCategories: string[];
@@ -28,11 +28,13 @@ export type TCatalogContext = {
       'Ready-Solution Drone': boolean;
     }>
   >;
+  isMobileFilterVisible: boolean;
+  setIsMobileFilterVisible: Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const CatalogContext = createContext<TCatalogContext | null>(null);
 
-const Catalog: FC = () => {
+const Catalog = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([
     'Drone',
     'Accessories',
@@ -45,29 +47,30 @@ const Catalog: FC = () => {
     'Model Drone': true,
     'Ready-Solution Drone': true,
   });
+  const [isMobileFilterVisible, setIsMobileFilterVisible] = useState(false);
 
   return (
-    <>
-      <CatalogContext.Provider
-        value={{
-          selectedCategories,
-          setSelectedCategories,
-          isAvailabilityChecked,
-          setIsAvailabilityChecked,
-          isTypeChecked,
-          setIsTypeChecked,
-        }}
-      >
-        <Breadcrumbs />
-        <section>
-          <CategoryOfDrones />
-        </section>
-        <section className={c.all_products_wrap}>
-          <FilterProducts />
-          <AllProducts />
-        </section>
-      </CatalogContext.Provider>
-    </>
+    <CatalogContext.Provider
+      value={{
+        selectedCategories,
+        setSelectedCategories,
+        isAvailabilityChecked,
+        setIsAvailabilityChecked,
+        isTypeChecked,
+        setIsTypeChecked,
+        isMobileFilterVisible,
+        setIsMobileFilterVisible,
+      }}
+    >
+      <Breadcrumbs />
+
+      <CategoryOfDrones />
+
+      <section className={c.all_products_wrap}>
+        <FilterProducts />
+        <AllProducts />
+      </section>
+    </CatalogContext.Provider>
   );
 };
 
