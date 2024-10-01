@@ -66,11 +66,9 @@ body {
   gap: 10px;
   list-style: none;
 }
-
 .pagenation-container li:focus-visible {
   outline: none;
 }
-
 .pagenation-container li a {
   width: 46px;
   height: 46px;
@@ -80,17 +78,14 @@ body {
   border-radius: 50%;
   transition: 0.3s linear;
 }
-
 .pagenation-container li a:focus-visible {
   outline: none;
 }
-
 .pagenation-container li a:not(.break):hover {
   cursor: pointer;
   background-color: #e4dbdb;
   border-radius: 50%;
 }
-
 .pagenation-page-link {
   font-size: 18px;
   color: #3e3e59;
