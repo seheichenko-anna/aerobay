@@ -184,6 +184,7 @@ export const AllProducts = () => {
         };
         newWW = newWW.slice(0, newWW.length - 2);
       }
+      return newWW;
     });
   };
 
