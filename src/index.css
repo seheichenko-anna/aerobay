@@ -53,6 +53,11 @@ body {
   font-family: 'Gilroy', sans-serif;
   margin: 0;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .pagenation-container {
   margin: 20px 0 15px 0;
   display: flex;
@@ -109,23 +114,28 @@ body {
     width: 34px;
     height: 34px;
   }
+
   .pagenation-container .selected {
     width: 34px;
     height: 34px;
   }
 }
+
 @media screen and (max-width: 375px) {
   .pagenation-container {
     gap: 2px;
   }
+
   .pagenation-container li a {
     width: 30px;
     height: 30px;
   }
+
   .pagenation-container .selected {
     width: 30px;
     height: 30px;
   }
+
   .swiper-slide {
     height: 80%;
   }
