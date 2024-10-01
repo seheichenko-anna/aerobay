@@ -1,4 +1,3 @@
-
 import c from './CategoryOfDrones.module.scss';
 import {
   dronesImg,
@@ -56,4 +55,3 @@ export const CategoryOfDrones = () => {
     </section>
   );
 };
-

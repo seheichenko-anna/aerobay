@@ -1,4 +1,3 @@
-
 import { FC, ChangeEvent, Dispatch, useState } from 'react';
 import c from './Dropdown2.module.scss';
 import dropdownArrow from '../../assets/catalog/sidebar/top_arrow.svg';
