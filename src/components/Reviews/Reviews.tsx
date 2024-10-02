@@ -76,9 +76,7 @@ const Reviews = () => {
           </div>
           <div className={s.videoPlayer}>
             <video src={srcVideo} loop muted autoPlay className={s.video} />
-            {isBigScreenOrTablet && (
-              <p className={s.droneName}>{reviews[currentIndex].drone}</p>
-            )}
+            <p className={s.droneName}>{reviews[currentIndex].drone}</p>
           </div>
         </div>
 
