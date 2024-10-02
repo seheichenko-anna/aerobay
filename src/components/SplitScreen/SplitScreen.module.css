@@ -1,5 +1,5 @@
 .split_screen {
-    padding: 48px 16px;
+    padding: 48px 0;
 }
 
 .benefits_list {
@@ -37,14 +37,14 @@
 
 @media screen and (min-width:768px) {
     .split_screen {
-        padding: 32px;
+        padding: 32 0px;
     }
 
 }
 
 @media screen and (min-width:1400px) {
     .split_screen {
-        padding: 52px;
+        padding: 52px 0;
     }
 
     .benefits_list li:nth-child(odd) {

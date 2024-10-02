@@ -3,7 +3,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
-
 import { Link } from 'react-router-dom';
 import stcViewer from './videos/DJI AVATA 2 - The FPV drone without limits _ Cinematic trailer.mp4';
 import srcLiDAR from './videos/Meet DJI Matrice 350 RTK.mp4';
@@ -30,7 +29,6 @@ const DroneShowcase = () => {
   };
   const handleFocus = (index: number) => {
     swiper.slideTo(index);
-    swiper.update();
     updatePagination(index);
   };
 
