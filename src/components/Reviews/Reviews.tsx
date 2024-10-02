@@ -6,7 +6,7 @@ import { useDashboard } from '../../hooks/useDashboard';
 
 const Reviews = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { isBigScreen, isBigScreenOrTablet } = useDashboard();
+  const { isBigScreen } = useDashboard();
   const reviews = [
     {
       name: 'John Smith',
