@@ -278,9 +278,8 @@ const Header = () => {
 
             <Link to="/">
               <div className={s.logo}>
-                <img src={srcLogo} alt="Logo-dron" />
                 <svg>
-                  <use xlinkHref={`${svg}#icon-logo`} />
+                  <use xlinkHref={`${svg}#icon-logo_aeroBay`} />
                 </svg>
               </div>
             </Link>
@@ -309,7 +308,9 @@ const Header = () => {
           <header className={s.header}>
             <Link to="/">
               <div className={s.logo}>
-                <img src={srcLogo} alt="Logo-dron" />
+                <svg>
+                  <use xlinkHref={`${svg}#icon-logo_aeroBay`} />
+                </svg>
               </div>
             </Link>
             <div className={s.headerActions}>

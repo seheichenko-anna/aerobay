@@ -67,12 +67,10 @@ const Reviews = () => {
           <div className={s.reviewText}>
             <div>
               <h4 className={s.author}>{reviews[currentIndex].name}</h4>
+              <p className={s.date}>{reviews[currentIndex].date}</p>
               <p className={s.reviewBody}>{reviews[currentIndex].review}</p>
             </div>
-            <div className={s.locationAndDateWrapper}>
-              <p className={s.location}>Sydney, Australia</p>
-              <p className={s.date}>{reviews[currentIndex].date}</p>
-            </div>
+            <p className={s.location}>Sydney, Australia</p>
           </div>
           <div className={s.videoPlayer}>
             <video src={srcVideo} loop muted autoPlay className={s.video} />

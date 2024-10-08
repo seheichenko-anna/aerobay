@@ -97,7 +97,7 @@
     .icon_arrow {
         width: 24px;
         height: 24px;
-        stroke: #121212;
+        stroke: #101828;
         transition: stroke 0.4s ease-in-out;
     }
 
@@ -111,21 +111,22 @@
         justify-content: center;
         cursor: pointer;
         z-index: 1;
-        stroke: #121212;
-        background-color: #fff;
-        border: 1px solid transparent;
+        stroke: #101828;
+        background-color: #BAFC50;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
         transition: background-color 0.4s ease-in-out, border-color 0.4s ease-in-out;
 
-        &&:hover {
-            border-color: #ffffff;
-            background-color: transparent;
+        &&:hover,
+        &&:focus {
+            background-color: #101828;
         }
+
     }
 
-    .swiper_button_arrow:hover .icon_arrow {
+    .swiper_button_arrow:hover .icon_arrow,
+    .swiper_button_arrow:focus .icon_arrow {
         stroke: #ffffff;
     }
 

@@ -9,10 +9,11 @@ import agroDrone from '../../assets/three-drones/Agribusiness.webp';
 import droneViewer from '../../assets/three-drones/Photo-video-production.webp';
 import './swiperStylesTypesOfDrones.css';
 import s from './ThreeTypesOfDrones.module.css';
+import { useDashboard } from '../../hooks/useDashboard';
 
 const ThreeTypesOfDrones = () => {
   const [swiper, setSwiper] = useState<any>(null);
-
+  const { isBigScreen } = useDashboard();
   const drones = [
     {
       linkTo: 'lidar-drone',
@@ -63,8 +64,8 @@ const ThreeTypesOfDrones = () => {
         <Swiper
           onSwiper={setSwiper}
           spaceBetween={16}
-          slidesPerView={'auto'}
-          centeredSlides={true}
+          slidesPerView={isBigScreen ? 3 : 'auto'}
+          centeredSlides={!isBigScreen && true}
           initialSlide={1}
           className={s.swiper}
           autoHeight={true}
