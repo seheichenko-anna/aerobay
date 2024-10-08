@@ -1,11 +1,5 @@
 @import '../../assets/sass-functions/functions';
 
-.main_title {
-  margin: 30px 0 20px 0;
-  font-size: rem(48px);
-  font-weight: 400;
-  line-height: 58.22px;
-}
 .category_of_drones {
   display: flex;
   justify-content: space-between;
@@ -42,9 +36,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .main_title {
-    display: none;
-  }
   .category_of_drones {
     margin-top: 24px;
     gap: 10px;
