@@ -156,15 +156,15 @@
     font-weight: 500;
 }
 
-.locationAndDateWrapper {
+.location,
+.date {
     color: #667085;
     line-height: 19px;
-    margin-top: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }
 
+.date {
+    margin-top: 10px;
+}
 
 @media screen and (min-width:1200px) and (max-width: 1439px) {
     .reviewContent {

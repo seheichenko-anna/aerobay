@@ -31,7 +31,7 @@ const Subcategory = () => {
 
   return (
     <AdminDataTable
-      title="Subcategory"
+      title="Filters"
       items={subcategories}
       columns={[
         { header: 'ID', accessor: 'id' },

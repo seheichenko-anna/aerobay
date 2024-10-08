@@ -1,6 +1,6 @@
 .headerWrapper {
     width: 100%;
-    border-bottom: 3px solid rgb(230, 230, 230);
+    border-bottom: 1px solid rgb(230, 230, 230);
     position: fixed;
     z-index: 999;
     background-color: #fff;

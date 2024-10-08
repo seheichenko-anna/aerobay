@@ -29,8 +29,8 @@ const navigation = [
     current: false,
   },
   {
-    name: 'Subcategory',
-    href: '#/admin/subcategory',
+    name: 'Filters',
+    href: '#/admin/filters',
     current: false,
   },
 ];

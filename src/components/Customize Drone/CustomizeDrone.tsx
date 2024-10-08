@@ -30,7 +30,7 @@ const CustomizeDrone = () => {
       tips: [
         {
           text: 'Downlink antenna',
-          position: { top: '30%', left: '2%' },
+          position: { top: '30%', left: '0%' },
         },
         {
           text: 'Battery',
@@ -38,7 +38,7 @@ const CustomizeDrone = () => {
         },
         {
           text: 'Camera',
-          position: { top: '60%', left: '29%' },
+          position: { top: '60%', left: '27%' },
         },
       ],
     },
@@ -51,11 +51,11 @@ const CustomizeDrone = () => {
       tips: [
         {
           text: 'Battery',
-          position: { top: '38%', left: '50%' },
+          position: { top: '38%', left: '52%' },
         },
         {
           text: 'Camera',
-          position: { top: '60%', left: '34%' },
+          position: { top: '60%', left: '32%' },
         },
       ],
     },
@@ -68,15 +68,15 @@ const CustomizeDrone = () => {
       tips: [
         {
           text: 'Downlink antenna',
-          position: { top: '33%', left: '4%' },
+          position: { top: '33%', left: '2%' },
         },
         {
           text: 'Battery',
-          position: { top: '39%', left: '50%' },
+          position: { top: '39%', left: '52%' },
         },
         {
           text: 'Tank',
-          position: { top: '42%', left: '30%' },
+          position: { top: '42%', left: '28%' },
         },
       ],
     },
