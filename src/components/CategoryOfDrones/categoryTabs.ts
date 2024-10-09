@@ -7,15 +7,7 @@ import {
   dronesSmallImg,
 } from '../../assets/catalog/index';
 
-export type CategoryType = {
-  id: number;
-  title: string;
-  href: string;
-  imagePath: string;
-  smallImagePath: string;
-};
-
-const categoryTabs: CategoryType[] = [
+const categoryTabs = [
   {
     id: 1,
     title: 'Drones',

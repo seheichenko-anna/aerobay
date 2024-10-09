@@ -1,5 +1,13 @@
 import styles from './CategoryOfDrones.module.scss';
-import { CategoryTabType, CategoryType } from './categoryTabs';
+import { CategoryTabType } from './categoryTabs';
+
+type CategoryType = {
+  id: number;
+  title: CategoryTabType;
+  href: string;
+  imagePath: string;
+  smallImagePath: string;
+};
 
 type CategoryTabProps = {
   /** The category object containing details about the category. */
