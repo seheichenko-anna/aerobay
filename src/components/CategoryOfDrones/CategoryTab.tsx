@@ -2,17 +2,30 @@ import styles from './CategoryOfDrones.module.scss';
 import { CategoryTabType, CategoryType } from './categoryTabs';
 
 type CategoryTabProps = {
+  /** The category object containing details about the category. */
   category: CategoryType;
+
+  /** An array containing the current selected category state. **/
   selectedCategoryState: [
     CategoryTabType | undefined,
     React.Dispatch<CategoryTabType | undefined>,
   ];
 };
 
+/**
+ * A component that renders a category tab for selecting different categories of products on site.
+ * It displays the category's image and title, and highlights the active category.
+ */
 const CategoryTab = (props: CategoryTabProps) => {
   const { category, selectedCategoryState } = props;
   const [selectedCategory, setSelectedCategory] = selectedCategoryState;
 
+  /**
+   * Changes the currently selected category tab.
+   * If the provided `categoryTitle` matches the current `selectedCategory`,
+   * it will deselect the category by setting it to `undefined`.
+   * Otherwise, it will set the selected category to the provided `categoryTitle`.
+   */
   const changeCategoryTab = (categoryTitle: CategoryTabType) => () => {
     if (categoryTitle === selectedCategory) {
       setSelectedCategory(undefined);
@@ -22,6 +35,7 @@ const CategoryTab = (props: CategoryTabProps) => {
     setSelectedCategory(categoryTitle);
   };
 
+  /** Returns the CSS class for highlighting the active category tab. */
   const highlightActiveTab = (categoryTitle: CategoryTabType) =>
     selectedCategory === categoryTitle ? styles['category__tab--active'] : '';
 
