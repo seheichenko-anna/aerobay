@@ -20,6 +20,7 @@ $border_active: #bafc50;
         gap: 10px;
         background-color: $bg;
         border-radius: 20px;
+        cursor: pointer;
 
         &--active {
             border: 2px solid $border_active;
