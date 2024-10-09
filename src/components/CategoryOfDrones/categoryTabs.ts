@@ -7,31 +7,39 @@ import {
   dronesSmallImg,
 } from '../../assets/catalog/index';
 
-const categoryTabs = [
+export type CategoryType = {
+  id: number;
+  title: string;
+  href: string;
+  imagePath: string;
+  smallImagePath: string;
+};
+
+const categoryTabs: CategoryType[] = [
   {
     id: 1,
     title: 'Drones',
-    href: '/',
+    href: '/drones',
     imagePath: dronesImg,
     smallImagePath: dronesSmallImg,
   },
   {
     id: 2,
     title: 'Accessories',
-    href: '/',
+    href: '/accessories',
     imagePath: accessoriesImg,
     smallImagePath: accessoriesSmallImg,
   },
   {
     id: 3,
     title: 'Customize drone',
-    href: '/',
+    href: '/customize_drone',
     imagePath: customizeDroneImg,
     smallImagePath: customizeDroneSmallImg,
   },
 ] as const;
 
 // Extract the type from the 'title' field
-export type CategoryTab = (typeof categoryTabs)[number]['title'];
+export type CategoryTabType = (typeof categoryTabs)[number]['title'];
 
 export default categoryTabs;
