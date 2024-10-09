@@ -39,14 +39,17 @@ const Catalog = () => {
     'Drone',
     'Accessories',
   ]);
+
   const [isAvailabilityChecked, setIsAvailabilityChecked] = useState({
     'In stock': true,
     'Not available': false,
   });
+
   const [isTypeChecked, setIsTypeChecked] = useState({
     'Model Drone': true,
     'Ready-Solution Drone': true,
   });
+
   const [isMobileFilterVisible, setIsMobileFilterVisible] = useState(false);
 
   return (
@@ -63,8 +66,6 @@ const Catalog = () => {
       }}
     >
       <Breadcrumbs />
-
-      <h1 className={styles.main_title}>Catalog</h1>
 
       <CategoryOfDrones />
 

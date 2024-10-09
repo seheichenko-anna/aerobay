@@ -4,15 +4,18 @@ import CategoryTab from './CategoryTab';
 import categoryTabs, { CategoryTabType } from './categoryTabs';
 
 export const CategoryOfDrones = () => {
-  const selectedCategoryState = React.useState<CategoryTabType>();
+  const [selectedCategory, setSelectedCategory] =
+    React.useState<CategoryTabType>();
 
   return (
     <section>
+      <h1 className={styles.main_title}>{selectedCategory || 'Catalog'}</h1>
+
       <div className={styles.category}>
         {categoryTabs?.map(category => (
           <CategoryTab
             category={category}
-            selectedCategoryState={selectedCategoryState}
+            selectedCategoryState={[selectedCategory, setSelectedCategory]}
           />
         ))}
       </div>
