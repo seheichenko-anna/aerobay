@@ -14,6 +14,7 @@ export const CategoryOfDrones = () => {
       <div className={styles.category}>
         {categoryTabs?.map(category => (
           <CategoryTab
+            key={category.id}
             category={category}
             selectedCategoryState={[selectedCategory, setSelectedCategory]}
           />
