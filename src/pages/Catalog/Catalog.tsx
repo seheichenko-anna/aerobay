@@ -1,9 +1,9 @@
-import c from './Catalog.module.scss';
+import { Dispatch, createContext, useState } from 'react';
+import { AllProducts } from '../../components/AllProductsSection/AllProducts';
+import { FilterProducts } from '../../components/AllProductsSection/Sidebar';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { CategoryOfDrones } from '../../components/CategoryOfDrones';
-import { FilterProducts } from '../../components/AllProductsSection/Sidebar';
-import { AllProducts } from '../../components/AllProductsSection/AllProducts';
-import { Dispatch, createContext, useState } from 'react';
+import styles from './Catalog.module.scss';
 
 export type TCatalogContext = {
   selectedCategories: string[];
@@ -39,14 +39,17 @@ const Catalog = () => {
     'Drone',
     'Accessories',
   ]);
+
   const [isAvailabilityChecked, setIsAvailabilityChecked] = useState({
     'In stock': true,
     'Not available': false,
   });
+
   const [isTypeChecked, setIsTypeChecked] = useState({
     'Model Drone': true,
     'Ready-Solution Drone': true,
   });
+
   const [isMobileFilterVisible, setIsMobileFilterVisible] = useState(false);
 
   return (
@@ -66,7 +69,7 @@ const Catalog = () => {
 
       <CategoryOfDrones />
 
-      <section className={c.all_products_wrap}>
+      <section className={styles.all_products_wrap}>
         <FilterProducts />
         <AllProducts />
       </section>
