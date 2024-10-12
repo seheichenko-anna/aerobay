@@ -29,6 +29,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="catalog" element={<Catalog />} />
+          <Route path="catalog/:category" element={<Catalog />} />
           <Route path="lidar-drone" element={<LiDARDrone />} />
           <Route path="agriculture-drone" element={<AgricultureDrone />} />
           <Route path="drone-viewer" element={<DroneViewer />} />
