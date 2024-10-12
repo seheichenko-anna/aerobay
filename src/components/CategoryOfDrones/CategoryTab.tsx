@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './CategoryOfDrones.module.scss';
-import { CategoryTabType } from './categoryTabs';
+import categoryTabs, { CategoryTabType } from './categoryTabs';
 
 type CategoryType = {
   id: number;
@@ -27,6 +29,26 @@ type CategoryTabProps = {
 const CategoryTab = (props: CategoryTabProps) => {
   const { category, selectedCategoryState } = props;
   const [selectedCategory, setSelectedCategory] = selectedCategoryState;
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Listen for changes in the URL and update the selected category
+  useEffect(() => {
+    // Split the pathname and filter out empty strings
+    const path = location.pathname.split('/').filter(Boolean);
+
+    // Check if there's a valid category that matches the second part of the path
+    const matchingCategory = categoryTabs.find(cat => cat.href === path[1]);
+
+    // Ensure the path has exactly two parts: catalog and a category
+    if (matchingCategory && path.length === 2) {
+      setSelectedCategory(matchingCategory.title);
+      return;
+    }
+
+    // Reset if no matching category is found
+    setSelectedCategory(undefined);
+  }, [location.pathname, setSelectedCategory]);
 
   /**
    * Changes the currently selected category tab.
@@ -34,13 +56,16 @@ const CategoryTab = (props: CategoryTabProps) => {
    * it will deselect the category by setting it to `undefined`.
    * Otherwise, it will set the selected category to the provided `categoryTitle`.
    */
-  const changeCategoryTab = (categoryTitle: CategoryTabType) => () => {
-    if (categoryTitle === selectedCategory) {
+  const changeCategoryTab = (category: CategoryType) => () => {
+    if (category.title === selectedCategory) {
       setSelectedCategory(undefined);
+      navigate('/catalog');
       return;
     }
 
-    setSelectedCategory(categoryTitle);
+    navigate(`/catalog/${category.href}`);
+
+    setSelectedCategory(category.title);
   };
 
   /** Returns the CSS class for highlighting the active category tab. */
@@ -51,7 +76,7 @@ const CategoryTab = (props: CategoryTabProps) => {
     <div
       key={category?.id}
       className={`${styles['category__tab']} ${highlightActiveTab(category.title)}`}
-      onClick={changeCategoryTab(category.title)}
+      onClick={changeCategoryTab(category)}
     >
       <div>
         <picture>
