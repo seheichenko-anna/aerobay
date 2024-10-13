@@ -5,29 +5,25 @@ import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { CategoryOfDrones } from '../../components/CategoryOfDrones';
 import styles from './Catalog.module.scss';
 
+export type TAvailabilityChecked = {
+  'In stock': boolean;
+  'Not available': boolean;
+};
+
+export type TTypeChecked = {
+  'Model Drone': boolean;
+  'Ready-Solution Drone': boolean;
+};
+
 export type TCatalogContext = {
   selectedCategories: string[];
   setSelectedCategories: Dispatch<React.SetStateAction<string[]>>;
-  isAvailabilityChecked: {
-    'In stock': boolean;
-    'Not available': boolean;
-  };
+  isAvailabilityChecked: TAvailabilityChecked;
   setIsAvailabilityChecked: Dispatch<
-    React.SetStateAction<{
-      'In stock': boolean;
-      'Not available': boolean;
-    }>
+    React.SetStateAction<TAvailabilityChecked>
   >;
-  isTypeChecked: {
-    'Model Drone': boolean;
-    'Ready-Solution Drone': boolean;
-  };
-  setIsTypeChecked: Dispatch<
-    React.SetStateAction<{
-      'Model Drone': boolean;
-      'Ready-Solution Drone': boolean;
-    }>
-  >;
+  isTypeChecked: TTypeChecked;
+  setIsTypeChecked: Dispatch<React.SetStateAction<TTypeChecked>>;
   isMobileFilterVisible: boolean;
   setIsMobileFilterVisible: Dispatch<React.SetStateAction<boolean>>;
 };
