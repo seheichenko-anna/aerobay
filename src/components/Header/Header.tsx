@@ -1,19 +1,18 @@
+import Hamburger from 'hamburger-react';
 import { useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import s from './Header.module.css';
-import { IoIosArrowDown } from 'react-icons/io';
-import { IoIosArrowUp } from 'react-icons/io';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { LuShoppingBag } from 'react-icons/lu';
 import { MdOutlineArrowOutward } from 'react-icons/md';
+import { Link, useLocation } from 'react-router-dom';
 import svg from '../../assets/sprite.svg';
-import Hamburger from 'hamburger-react';
 import useScreenSize from '../../hooks/useScreenSize';
+import DropDown from '../DropDown/Dropdown';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 import Search from '../Search/Search';
-import { accessories } from './products';
-import DropDown from '../DropDown/Dropdown';
 import AccordionMobileMenu from './AccordionMobileMenu';
 import ComprasionIcon from './ComprasionIcon';
+import s from './Header.module.css';
+import { accessories } from './products';
 
 type DropdownType = 'products' | 'company' | 'solutions' | null;
 type ProductType = 'drones' | 'accessories' | null;
@@ -45,7 +44,10 @@ const Header = () => {
   const [openDropdownCompany, setOpenDropdownCompany] =
     useState<boolean>(false);
 
-  const handleToggleDropDownStyle = (dropdownName: string, isOpen: boolean) => {
+  const handleToggleDropDownStyle = (
+    dropdownName: string,
+    isOpen: boolean,
+  ) => {
     if (dropdownName === 'solutions') setOpenDropdownSolutions(isOpen);
     if (dropdownName === 'company') setOpenDropdownCompany(isOpen);
   };
@@ -275,13 +277,7 @@ const Header = () => {
               </div>
             </nav>
 
-            <Link to="/">
-              <div className={s.logo}>
-                <svg>
-                  <use xlinkHref={`${svg}#icon-logo_aeroBay`} />
-                </svg>
-              </div>
-            </Link>
+            <Logo />
 
             <div className={s.headerActions}>
               <Search />
@@ -305,13 +301,8 @@ const Header = () => {
       ) : (
         <div className={s.headerWrapper}>
           <header className={s.header}>
-            <Link to="/">
-              <div className={s.logo}>
-                <svg>
-                  <use xlinkHref={`${svg}#icon-logo_aeroBay`} />
-                </svg>
-              </div>
-            </Link>
+            <Logo />
+
             <div className={s.headerActions}>
               <Search />
               <button
@@ -365,6 +356,18 @@ const Header = () => {
         </div>
       )}
     </>
+  );
+};
+
+const Logo = () => {
+  return (
+    <Link to="/">
+      <div className={s.logo}>
+        <svg height="50px">
+          <use xlinkHref={`${svg}#icon-logo_aeroBay`} />
+        </svg>
+      </div>
+    </Link>
   );
 };
 
