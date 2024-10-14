@@ -1,61 +1,18 @@
 import { useContext, useEffect, useState } from 'react';
 import c from './AllProducts.module.scss';
-import img_1 from '../../../assets/catalog/all-products/image_2.png';
-import img_2 from '../../../assets/catalog/all-products/image.png';
 import compareImg from '../../../assets/catalog/all-products/compare_arrow.svg';
 import { Dropdown2 } from '../Dropdown2';
-import {
-  CatalogContext,
-  TCatalogContext,
-} from '../../../pages/Catalog/Catalog';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 import { Pagination } from './Pagination';
 import { ButtonShowMore } from './ButtonShowMore';
 import { mobileFilter } from '../../../assets/catalog/index';
+import { IProduct } from './types';
+import { allProducts } from './consts';
+import { CatalogContext, TCatalogContext } from '../../../pages/Catalog/CatalogProvider';
 
-const allProducts = [
-  {
-    id: 1,
-    title: 'Agrodrone Agras',
-    category: 'Drone',
-    newPrice: 800,
-    oldPrice: 1600,
-    isNew: true,
-    isInStock: true,
-    href: '#',
-    imagePath: img_1,
-    hasColorGroups: true,
-  },
-  {
-    id: 2,
-    title: 'Agrodrone Agras',
-    category: 'Accessories',
-    newPrice: 800,
-    oldPrice: 1600,
-    isNew: true,
-    isInStock: false,
-    href: '#',
-    imagePath: img_2,
-    hasColorGroups: false,
-  },
-];
-
-interface IProduct {
-  id: number;
-  title: string;
-  category: string;
-  newPrice: number;
-  oldPrice: number;
-  isNew: boolean;
-  isInStock: boolean;
-  href: string;
-  imagePath: string;
-  hasColorGroups: boolean;
-}
-
-export const AllProducts = () => {
+export const Products = ({ title }: { title: string }) => {
   const [sortByFilter, setSortByFilter] = useState<string[]>(['Low To High']);
 
   const {
@@ -71,13 +28,17 @@ export const AllProducts = () => {
     ...isTypeChecked,
     ...isAvailabilityChecked,
   })
-    .filter(([_, value]) => value === true)
+    .filter(([, value]) => value === true)
     .map(([key, value]) => ({ [key]: value }));
 
   const handleClear = () => {
-    setIsAvailabilityChecked({ 'In stock': false, 'Not available': false });
+    setIsAvailabilityChecked({ 'In Stock': false, 'Not Available': false });
     setIsTypeChecked({ 'Model Drone': false, 'Ready-Solution Drone': false });
   };
+
+  /**
+   * Function to remove specific filters based on user selection
+   */
   const handleRemove = (value: string[]) => () => {
     const valStr = String(value);
     if (isTypeChecked.hasOwnProperty(valStr)) {
@@ -88,20 +49,25 @@ export const AllProducts = () => {
     }
   };
 
-  let allProductsX80 = Array.from({ length: 41 }, (_, index) =>
+  /**
+   * Calculate the total number of products by mapping
+   * the allProducts array and adding unique IDs to each product
+   */
+  let totalProductsCount = Array.from({ length: 41 }, (_, index) =>
     allProducts?.map(product => ({
       ...product,
       id: index * allProducts?.length + product?.id,
-    }))
+    })),
   ).flat();
 
+  // Filter the total products if there are selected categories
   if (selectedCategories?.length) {
-    allProductsX80 = allProductsX80.filter(el => {
+    totalProductsCount = totalProductsCount.filter(el => {
       return selectedCategories.some(category => category === el.category);
     });
   }
 
-  const allProductsX80Length = allProductsX80?.length;
+  const allProductsX80Length = totalProductsCount?.length;
   const [currentPage, setCurrentPage] = useState(1);
   const [visibleProductsCount, setVisibleProductsCount] = useState(9);
 
@@ -118,7 +84,7 @@ export const AllProducts = () => {
           return { [i + 1]: a2 };
         }
         return { [i + 1]: 9 };
-      })
+      }),
   );
 
   useEffect(() => {
@@ -132,9 +98,9 @@ export const AllProducts = () => {
             return { [i + 1]: a2 };
           }
           return { [i + 1]: 9 };
-        })
+        }),
     );
-  }, [allProductsX80?.length]);
+  }, [totalProductsCount?.length]);
 
   const handleShowMore = () => {
     setWW(prev => {
@@ -191,16 +157,17 @@ export const AllProducts = () => {
   const [currentProduct, setCurrentProduct] = useState<IProduct[]>([]);
 
   useEffect(() => {
-    const ppp = document.querySelectorAll('.product article');
-    if (
-      ppp.length > 0 &&
-      +ppp[ppp.length - 1]?.getAttribute('data-id')! === allProductsX80Length
-    ) {
-      setIsShowed(false);
-    } else {
-      setIsShowed(true);
-    }
-  });
+    const productElements = document.querySelectorAll('.product article');
+    const lastProductElement = productElements[productElements.length - 1];
+    const lastProductDataId =
+      lastProductElement?.getAttribute('data-id') ?? '0'; // Fallback to '0' if null
+
+    const totalProductsLength = totalProductsCount.length; // Assuming it's an array
+    const isAllProductsLoaded =
+      productElements.length > 0 && +lastProductDataId === totalProductsLength;
+
+    setIsShowed(!isAllProductsLoaded);
+  }, [totalProductsCount]);
 
   const currentShowedProduct = +Object.values(ww[currentPage - 1]);
 
@@ -210,7 +177,7 @@ export const AllProducts = () => {
       return total + Number(Object.values(el));
     }, 0);
     const a3 = a2 + currentShowedProduct;
-    const result = allProductsX80.slice(a2, a3);
+    const result = totalProductsCount.slice(a2, a3);
     setCurrentProduct(result);
   }, [currentPage, currentShowedProduct]);
 
@@ -227,12 +194,14 @@ export const AllProducts = () => {
     document.body.style.overflow = 'hidden';
   };
 
-  return (
-    <main>
+  const ProductsHeader = ({ title }: { title: string }) => {
+    return (
       <div className={c.title_and_sortBy_section}>
-        <h2>All Products</h2>
+        <h2>{title}</h2>
+
         <div className={c.sort_by}>
           <p>Sort by:</p>
+
           <Dropdown2
             isSidebarDropdown={false}
             isOpen={false}
@@ -241,7 +210,104 @@ export const AllProducts = () => {
           />
         </div>
       </div>
+    );
+  };
+
+  const ProductList = ({ products }: { products: IProduct[] }) => {
+    return (
+      <div className={c['all-products']}>
+        {products.map(product => (
+          <ProductItem product={product} />
+        ))}
+      </div>
+    );
+  };
+
+  const ProductItem = ({ product }: { product: IProduct }) => {
+    return (
+      <Link to={product?.href} key={product?.id} className="product">
+        <article className={c['product-card']} data-id={product?.id}>
+          <div className={c['product-card_img-section']}>
+            <div className={c['product-card_top-section']}>
+              <div className={c['product-card_badges']}>
+                {product?.isNew && (
+                  <div className={c['product-card_budge-new']}>New</div>
+                )}
+                {product?.isInStock && (
+                  <div className={c['product-card_budge-inStock']}>
+                    In Stock
+                  </div>
+                )}
+              </div>
+
+              <div
+                className={c['product-card_compare']}
+                data-tooltip-id="compare-tooltip"
+                data-tooltip-content="Compare"
+              >
+                <img src={compareImg} alt="compare the product" />
+              </div>
+              <Tooltip id="compare-tooltip" place="left" />
+            </div>
+            <img src={product?.imagePath} alt="img 1" />
+          </div>
+
+          <div className={c['product-card_bottom-section']}>
+            <h3 className={c['product-card_title']}>{product?.title}</h3>
+            <div className={c['product-card_price']}>
+              <span>$ {product?.newPrice}</span>
+              <del>{product?.oldPrice}</del>
+            </div>
+            {product?.hasColorGroups && (
+              <>
+                <div className={c['product-card_color-groups']}>
+                  <p
+                    data-tooltip-id="yellow-tooltip"
+                    data-tooltip-content="Yellow"
+                  >
+                    <p>
+                      <div></div>
+                    </p>
+                  </p>
+
+                  <p
+                    data-tooltip-id="green-tooltip"
+                    data-tooltip-content="Green"
+                  >
+                    <p
+                      data-tooltip-id="green-tooltip"
+                      data-tooltip-content="Green"
+                    >
+                      <div></div>
+                    </p>
+                  </p>
+
+                  <p
+                    data-tooltip-id="light-blue-tooltip"
+                    data-tooltip-content="Light Blue"
+                  >
+                    <p>
+                      <div></div>
+                    </p>
+                  </p>
+                </div>
+                <Tooltip id="yellow-tooltip" place="top" />
+                <Tooltip id="green-tooltip" place="top" />{' '}
+                <Tooltip id="light-blue-tooltip" place="top" />
+              </>
+            )}
+          </div>
+        </article>
+      </Link>
+    );
+  };
+
+  return (
+    <main>
+      <ProductsHeader title={title} />
+
       <div className={c.mobile_devider}></div>
+
       <div className={c.mobile_filter}>
         <span>Filter:</span>
         <img
@@ -250,6 +316,7 @@ export const AllProducts = () => {
           onClick={handleVisibleFilter}
         />
       </div>
+
       <div className={c.filtered_values_section}>
         {filteredValues?.map((value, i) => (
           <div key={i} className={c.filtered_value_box}>
@@ -273,6 +340,7 @@ export const AllProducts = () => {
             </button>
           </div>
         ))}
+
         {filteredValues.length >= 1 && (
           <button className={c.clear_all_filters} onClick={handleClear}>
             Clear All Filters
@@ -281,84 +349,7 @@ export const AllProducts = () => {
       </div>
 
       <div className={c['all-products-box']}>
-        <div className={c['all-products']}>
-          {currentProduct?.map(product => (
-            <Link to={product?.href} key={product?.id} className="product">
-              <article className={c['product-card']} data-id={product?.id}>
-                <div className={c['product-card_img-section']}>
-                  <div className={c['product-card_top-section']}>
-                    <div className={c['product-card_badges']}>
-                      {product?.isNew && (
-                        <div className={c['product-card_budge-new']}>New</div>
-                      )}
-                      {product?.isInStock && (
-                        <div className={c['product-card_budge-inStock']}>
-                          In Stock
-                        </div>
-                      )}
-                    </div>
-
-                    <div
-                      className={c['product-card_compare']}
-                      data-tooltip-id="compare-tooltip"
-                      data-tooltip-content="Compare"
-                    >
-                      <img src={compareImg} alt="compare the product" />
-                    </div>
-                    <Tooltip id="compare-tooltip" place="left" />
-                  </div>
-                  <img src={product?.imagePath} alt="img 1" />
-                </div>
-                <div className={c['product-card_bottom-section']}>
-                  <h3 className={c['product-card_title']}>{product?.title}</h3>
-                  <div className={c['product-card_price']}>
-                    <span>$ {product?.newPrice}</span>
-                    <del>{product?.oldPrice}</del>
-                  </div>
-                  {product?.hasColorGroups && (
-                    <>
-                      {' '}
-                      <div className={c['product-card_color-groups']}>
-                        <p
-                          data-tooltip-id="yellow-tooltip"
-                          data-tooltip-content="Yellow"
-                        >
-                          <p>
-                            <div></div>
-                          </p>
-                        </p>
-
-                        <p
-                          data-tooltip-id="green-tooltip"
-                          data-tooltip-content="Green"
-                        >
-                          <p
-                            data-tooltip-id="green-tooltip"
-                            data-tooltip-content="Green"
-                          >
-                            <div></div>
-                          </p>
-                        </p>
-
-                        <p
-                          data-tooltip-id="light-blue-tooltip"
-                          data-tooltip-content="Light Blue"
-                        >
-                          <p>
-                            <div></div>
-                          </p>
-                        </p>
-                      </div>
-                      <Tooltip id="yellow-tooltip" place="top" />
-                      <Tooltip id="green-tooltip" place="top" />{' '}
-                      <Tooltip id="light-blue-tooltip" place="top" />
-                    </>
-                  )}
-                </div>
-              </article>
-            </Link>
-          ))}
-        </div>
+        <ProductList products={currentProduct} />
 
         {isShowed && <ButtonShowMore handleShowMore={handleShowMore} />}
 

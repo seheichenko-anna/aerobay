@@ -1,6 +1,6 @@
 import { ChangeEvent, forwardRef, useEffect } from 'react';
+import rangeStat from '../../../assets/catalog/sidebar/price_range_stat.svg'
 import c from './FilterProduct.module.scss';
-import rangeStat from '../../../assets/catalog/sidebar/price_range_stat.svg';
 
 type PriceRangeProps = {
   minPrice: number;

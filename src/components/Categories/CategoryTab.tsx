@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './CategoryOfDrones.module.scss';
 import categoryTabs, { CategoryTabType } from './categoryTabs';
+import { CatalogContext } from '../../pages/Catalog/CatalogProvider';
 
 type CategoryType = {
   id: number;
@@ -14,12 +15,6 @@ type CategoryType = {
 type CategoryTabProps = {
   /** The category object containing details about the category. */
   category: CategoryType;
-
-  /** An array containing the current selected category state. **/
-  selectedCategoryState: [
-    CategoryTabType | undefined,
-    React.Dispatch<CategoryTabType | undefined>,
-  ];
 };
 
 /**
@@ -27,8 +22,10 @@ type CategoryTabProps = {
  * It displays the category's image and title, and highlights the active category.
  */
 const CategoryTab = (props: CategoryTabProps) => {
-  const { category, selectedCategoryState } = props;
-  const [selectedCategory, setSelectedCategory] = selectedCategoryState;
+  const { selectedCategory, setSelectedCategory } =
+    React.useContext(CatalogContext)!;
+
+  const { category } = props;
   const navigate = useNavigate();
   const location = useLocation();
 
