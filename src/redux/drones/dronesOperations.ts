@@ -1,18 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { dronesApi } from '../../axiosConfig/dronesApi';
 import { AxiosError } from 'axios';
+import { BaseProduct } from '../types';
 
-export interface Drone {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  discount: number;
-  image_url: string;
-  amount: number;
+export interface Drone extends BaseProduct {
   group_id: number;
-  manufacturer_id: number;
-  subcategories: number[];
 }
 
 export const fetchDronesThunk = createAsyncThunk<Drone[]>(
