@@ -14,7 +14,7 @@ type PriceRangeProps = {
 };
 
 export const PriceRange = forwardRef<HTMLInputElement, PriceRangeProps>(
-  ({ minPrice, maxPrice, onChange, refInput }) => {
+  ({ minPrice, maxPrice, onChange, refInput }, ref) => {
     const minPriceWithDot = `${String(minPrice).slice(0, -3)}.${String(minPrice).slice(-3)}`;
     const currentValue = !maxPrice.isTrigged ? maxPrice.value - 10 : maxPrice.value;
     const maxPriceWithDot = !maxPrice.isTrigged

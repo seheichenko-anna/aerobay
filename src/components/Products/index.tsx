@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
@@ -8,14 +8,17 @@ import {
   CatalogContext,
   TCatalogContext,
 } from '../../pages/Catalog/CatalogProvider';
+import { BaseProduct } from '../../redux/types';
 import { ButtonShowMore } from './ButtonShowMore';
 import { allProducts } from './consts';
 import { Dropdown2 } from './Dropdown2';
 import { Pagination } from './Pagination';
 import c from './Products.module.scss';
+import { FilterProducts } from './Sidebar';
 import { IProduct } from './types';
+import { BounceLoader } from 'react-spinners'
 
-export const Products = ({ children }: { children: React.ReactNode }) => {
+export const Products = ({ children }: { children: React.ReactNode[] }) => {
   const {
     selectedCategories,
     isAvailabilityChecked,
@@ -195,151 +198,96 @@ export const Products = ({ children }: { children: React.ReactNode }) => {
     document.body.style.overflow = 'hidden';
   };
 
-  const ProductList = ({ products }: { products: IProduct[] }) => {
-    return (
-      <div className={c['all-products']}>
-        {products.map(product => (
-          <ProductItem product={product} />
-        ))}
-      </div>
-    );
-  };
+  // get compound elements from children inside fragment
+  const fromFragment =
+    React.Children.toArray(children).find(
+      (child): child is React.ReactElement =>
+        React.isValidElement(child) && child.type === React.Fragment,
+    )?.props.children || children;
 
-  const ProductItem = ({ product }: { product: IProduct }) => {
-    return (
-      <Link to={product?.href} key={product?.id} className="product">
-        <article className={c['product-card']} data-id={product?.id}>
-          <div className={c['product-card_img-section']}>
-            <div className={c['product-card_top-section']}>
-              <div className={c['product-card_badges']}>
-                {product?.isNew && (
-                  <div className={c['product-card_budge-new']}>New</div>
-                )}
-                {product?.isInStock && (
-                  <div className={c['product-card_budge-inStock']}>
-                    In Stock
-                  </div>
-                )}
-              </div>
+  const header = React.Children.toArray(fromFragment).find(
+    (child): child is React.ReactElement =>
+      React.isValidElement(child) && child.type === Products.Header,
+  );
 
-              <div
-                className={c['product-card_compare']}
-                data-tooltip-id="compare-tooltip"
-                data-tooltip-content="Compare"
-              >
-                <img src={compareImg} alt="compare the product" />
-              </div>
-              <Tooltip id="compare-tooltip" place="left" />
-            </div>
-            <img src={product?.imagePath} alt="img 1" />
-          </div>
+  const productList = React.Children.toArray(fromFragment).find(
+    (child): child is React.ReactElement =>
+      React.isValidElement(child) && child.type === Products.ProductList,
+  );
 
-          <div className={c['product-card_bottom-section']}>
-            <h3 className={c['product-card_title']}>{product?.title}</h3>
-            <div className={c['product-card_price']}>
-              <span>$ {product?.newPrice}</span>
-              <del>{product?.oldPrice}</del>
-            </div>
-            {product?.hasColorGroups && (
-              <>
-                <div className={c['product-card_color-groups']}>
-                  <p
-                    data-tooltip-id="yellow-tooltip"
-                    data-tooltip-content="Yellow"
-                  >
-                    <p>
-                      <div></div>
-                    </p>
-                  </p>
-
-                  <p
-                    data-tooltip-id="green-tooltip"
-                    data-tooltip-content="Green"
-                  >
-                    <p
-                      data-tooltip-id="green-tooltip"
-                      data-tooltip-content="Green"
-                    >
-                      <div></div>
-                    </p>
-                  </p>
-
-                  <p
-                    data-tooltip-id="light-blue-tooltip"
-                    data-tooltip-content="Light Blue"
-                  >
-                    <p>
-                      <div></div>
-                    </p>
-                  </p>
-                </div>
-                <Tooltip id="yellow-tooltip" place="top" />
-                <Tooltip id="green-tooltip" place="top" />{' '}
-                <Tooltip id="light-blue-tooltip" place="top" />
-              </>
-            )}
-          </div>
-        </article>
-      </Link>
-    );
-  };
+  const productFilters = React.Children.toArray(fromFragment).find(
+    (child): child is React.ReactElement =>
+      React.isValidElement(child) && child.type === Products.Filters,
+  );
 
   return (
-    <main>
-      {children}
+    <>
+      {productFilters || <Products.Filters filters={[]} />}
 
-      <div className={c.mobile_devider}></div>
+      <main>
+        {header}
 
-      <div className={c.mobile_filter}>
-        <span>Filter:</span>
-        <img
-          src={mobileFilter}
-          alt="mobile filter icon"
-          onClick={handleVisibleFilter}
-        />
-      </div>
+        <div className={c.mobile_devider}></div>
 
-      <div className={c.filtered_values_section}>
-        {filteredValues?.map((value, i) => (
-          <div key={i} className={c.filtered_value_box}>
-            <p>{Object.keys(value)}</p>
-            <button onClick={handleRemove(Object.keys(value))}>
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 12 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11 1L1 11M1 1L11 11"
-                  stroke="#101828"
-                  stroke-width="1.67"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+        <div className={c.mobile_filter}>
+          <span>Filter:</span>
+          <img
+            src={mobileFilter}
+            alt="mobile filter icon"
+            onClick={handleVisibleFilter}
+          />
+        </div>
+
+        <div className={c.filtered_values_section}>
+          {filteredValues?.map((value, i) => (
+            <div key={i} className={c.filtered_value_box}>
+              <p>{Object.keys(value)}</p>
+
+              <button onClick={handleRemove(Object.keys(value))}>
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11 1L1 11M1 1L11 11"
+                    stroke="#101828"
+                    strokeWidth="1.67"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          ))}
+
+          {filteredValues.length >= 1 && (
+            <button className={c.clear_all_filters} onClick={handleClear}>
+              Clear All Filters
             </button>
-          </div>
-        ))}
+          )}
+        </div>
 
-        {filteredValues.length >= 1 && (
-          <button className={c.clear_all_filters} onClick={handleClear}>
-            Clear All Filters
-          </button>
-        )}
-      </div>
+        <div className={c['all-products-box']}>
+          {productList}
 
-      <div className={c['all-products-box']}>
-        <ProductList products={currentProduct} />
+          {isShowed && <ButtonShowMore handleShowMore={handleShowMore} />}
 
-        {isShowed && <ButtonShowMore handleShowMore={handleShowMore} />}
-
-        <Pagination handlePageClick={handlePageClick} pageCount={ww.length} />
-      </div>
-    </main>
+          <Pagination
+            handlePageClick={handlePageClick}
+            pageCount={ww.length}
+          />
+        </div>
+      </main>
+    </>
   );
 };
+
+Products.Filters = ({ filters }: { filters: React.ReactNode }) => (
+  <FilterProducts>{filters}</FilterProducts>
+);
 
 Products.Header = ({ title }: { title: string }) => {
   const [sortByFilter, setSortByFilter] = useState<string[]>(['Low To High']);
@@ -359,5 +307,142 @@ Products.Header = ({ title }: { title: string }) => {
         />
       </div>
     </div>
+  );
+};
+
+Products.ProductList = ({ products }: { products: BaseProduct[] }) => {
+  return (
+    <div className={c['all-products']}>
+      {products.map(product => (
+        <ProductItem key={product.id} product={product} />
+      ))}
+    </div>
+  );
+};
+
+interface ImageWithLoaderProps {
+  src: string;
+  alt?: string;
+  loaderSize?: number;
+}
+
+const ImageWithLoader: React.FC<ImageWithLoaderProps> = ({
+  src,
+  alt = 'image',
+  loaderSize = 40,
+}) => {
+  const [loading, setLoading] = useState(true);
+
+  const handleImageLoad = () => {
+    setLoading(false);
+  };
+
+  return (
+    <div style={{ position: 'relative', width: 'fit-content' }}>
+      {loading && (
+        <div
+          style={{
+            // position: 'absolute',
+            // top: '50%',
+            // left: '50%',
+            // transform: 'translate(-50%, -50%)',
+            width: '100%',
+            height: '100%'
+          }}
+        >
+          <BounceLoader size={loaderSize} color="#a8a8a8" />
+        </div>
+      )}
+
+      <img
+        src={src}
+        alt={alt}
+        style={{ display: loading ? 'none' : 'block' }}
+        onLoad={handleImageLoad}
+        onError={() => setLoading(false)} // Optional: Handle broken images
+      />
+    </div>
+  );
+};
+
+const ProductItem = ({ product }: { product: IProduct }) => {
+  return (
+    <Link to={String(product.id)} key={product.id} className="product">
+      <article className={c['product-card']} data-id={product?.id}>
+        <div className={c['product-card_img-section']}>
+          <div className={c['product-card_top-section']}>
+            <div className={c['product-card_badges']}>
+              {product.isNew && (
+                <div className={c['product-card_budge-new']}>New</div>
+              )}
+              {product.isInStock && (
+                <div className={c['product-card_budge-inStock']}>In Stock</div>
+              )}
+            </div>
+
+            <div
+              className={c['product-card_compare']}
+              data-tooltip-id="compare-tooltip"
+              data-tooltip-content="Compare"
+            >
+              <img src={compareImg} alt="compare the product" />
+            </div>
+            <Tooltip id="compare-tooltip" place="left" />
+          </div>
+
+          <ImageWithLoader
+            src={product?.image_url.replace('dl=0', 'raw=1')}
+            alt="img 1"
+          />
+        </div>
+
+        <div className={c['product-card_bottom-section']}>
+          <h3 className={c['product-card_title']}>{product?.title}</h3>
+          <div className={c['product-card_price']}>
+            <span>$ {product.price}</span>
+            {/* <span>$ {product.newPrice}</span> */}
+            {/* <del>{product.oldPrice}</del> */}
+          </div>
+          {product?.hasColorGroups && (
+            <>
+              <div className={c['product-card_color-groups']}>
+                <p
+                  data-tooltip-id="yellow-tooltip"
+                  data-tooltip-content="Yellow"
+                >
+                  <p>
+                    <div></div>
+                  </p>
+                </p>
+
+                <p
+                  data-tooltip-id="green-tooltip"
+                  data-tooltip-content="Green"
+                >
+                  <p
+                    data-tooltip-id="green-tooltip"
+                    data-tooltip-content="Green"
+                  >
+                    <div></div>
+                  </p>
+                </p>
+
+                <p
+                  data-tooltip-id="light-blue-tooltip"
+                  data-tooltip-content="Light Blue"
+                >
+                  <p>
+                    <div></div>
+                  </p>
+                </p>
+              </div>
+              <Tooltip id="yellow-tooltip" place="top" />
+              <Tooltip id="green-tooltip" place="top" />{' '}
+              <Tooltip id="light-blue-tooltip" place="top" />
+            </>
+          )}
+        </div>
+      </article>
+    </Link>
   );
 };
