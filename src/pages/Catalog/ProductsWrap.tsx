@@ -1,34 +1,60 @@
 import { useContext } from 'react';
 import { Products } from '../../components/Products';
-import { FilterProducts } from '../../components/Products/Sidebar';
-import { CatalogContext } from './CatalogProvider';
-import styles from './Catalog.module.scss';
 import AccessoriesFilters from './AccessoriesFilters';
+import styles from './Catalog.module.scss';
+import { CatalogContext } from './CatalogProvider';
 import DronesFilters from './DronesFilters';
+import useDrones from './useDrones';
+import useAccessories from './useAccessories';
+
+const Drones = () => {
+  const drones = useDrones();
+
+  return (
+    <Products>
+      <Products.Header title="Drones" />
+      <Products.ProductList products={drones} />
+      <Products.Filters filters={<DronesFilters />} />
+    </Products>
+  );
+};
+
+const Accessories = () => {
+  const accessories = useAccessories();
+
+  return (
+    <Products>
+      <Products.Header title="Accessories" />
+      <Products.ProductList products={accessories} />
+      <Products.Filters filters={<AccessoriesFilters />} />
+    </Products>
+  );
+};
+
+const AllProducts = () => {
+  const drones = useDrones();
+  const accessories = useAccessories();
+
+  const allProducts = [...drones, ...accessories];
+
+  return (
+    <Products>
+      <Products.Header title="All Products" />
+      <Products.ProductList products={allProducts} />
+    </Products>
+  );
+};
 
 const ProductsWrap = () => {
   const { selectedCategory } = useContext(CatalogContext)!;
 
   return (
     <section className={styles.all_products_wrap}>
-      <FilterProducts>
-        {selectedCategory === 'Drones' && <DronesFilters />}
-        {selectedCategory === 'Accessories' && <AccessoriesFilters />}
-      </FilterProducts>
-
-      <Products>
-        {selectedCategory === 'All Products' && (
-          <Products.Header title="All Products" />
-        )}
-        {selectedCategory === 'Drones' && <Products.Header title="Drones" />}
-        {selectedCategory === 'Accessories' && (
-          <Products.Header title="Accessories" />
-        )}
-      </Products>
+      {selectedCategory === 'All Products' && <AllProducts />}
+      {selectedCategory === 'Drones' && <Drones />}
+      {selectedCategory === 'Accessories' && <Accessories />}
     </section>
   );
 };
-
-// Products>Products.Filters+Products.ProductList
 
 export default ProductsWrap;
