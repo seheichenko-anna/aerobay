@@ -3,9 +3,9 @@ import { CategoryTabType } from '../../components/Categories/categoryTabs';
 import { TAvailabilityChecked, TDroneTypeChecked } from './filterOptions';
 
 export type TCatalogContext = {
-  selectedCategory: CategoryTabType | undefined;
+  selectedCategory: CategoryTabType;
   setSelectedCategory: Dispatch<
-    React.SetStateAction<CategoryTabType | undefined>
+    React.SetStateAction<CategoryTabType>
   >;
 
   selectedCategories: string[];
@@ -47,7 +47,7 @@ export const CatalogProvider = ({
 
   const [isMobileFilterVisible, setIsMobileFilterVisible] = useState(false);
 
-  const [selectedCategory, setSelectedCategory] = useState<CategoryTabType>();
+  const [selectedCategory, setSelectedCategory] = useState<CategoryTabType>('All Products');
 
   return (
     <CatalogContext.Provider

@@ -9,7 +9,10 @@ import c from './FilterProduct.module.scss';
 import { PriceRange } from './PriceRange';
 
 import { getCheckboxOptions } from './filterOptions/getCheckboxOptions';
-import { CatalogContext, TCatalogContext } from '../../../pages/Catalog/CatalogProvider';
+import {
+  CatalogContext,
+  TCatalogContext,
+} from '../../../pages/Catalog/CatalogProvider';
 
 export const FilterProducts = ({
   children,
@@ -52,8 +55,6 @@ export const FilterProducts = ({
     setMaxPrice(initialMaxPrice);
     setIsAvailabilityChecked({ 'In Stock': false, 'Not Available': false });
     setIsTypeChecked({ 'Model Drone': false, 'Ready-Solution Drone': false });
-
-    // TODO: add auto clean all objects in filter
   };
 
   const handleCloseSidebar = () => {
@@ -74,12 +75,14 @@ export const FilterProducts = ({
     children?: React.ReactNode;
   }) => (
     <div className={c.filters}>
-      <Dropdown2
-        isSidebarDropdown={true}
-        isOpen={true}
-        selectedFilters={selectedCategories}
-        setSelectedFilters={setSelectedCategories}
-      />
+      {selectedCategory === 'All Products' && (
+        <Dropdown2
+          isSidebarDropdown={true}
+          isOpen={true}
+          selectedFilters={selectedCategories}
+          setSelectedFilters={setSelectedCategories}
+        />
+      )}
 
       <PriceRange
         minPrice={minPrice}

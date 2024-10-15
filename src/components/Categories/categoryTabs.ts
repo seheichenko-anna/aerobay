@@ -32,6 +32,6 @@ const categoryTabs = [
 ] as const;
 
 // Extract the type from the 'title' field
-export type CategoryTabType = (typeof categoryTabs)[number]['title'];
+export type CategoryTabType = (typeof categoryTabs)[number]['title'] | 'All Products';
 
 export default categoryTabs;

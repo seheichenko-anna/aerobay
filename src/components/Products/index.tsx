@@ -1,20 +1,21 @@
 import { useContext, useEffect, useState } from 'react';
-import c from './AllProducts.module.scss';
-import compareImg from '../../../assets/catalog/all-products/compare_arrow.svg';
-import { Dropdown2 } from '../Dropdown2';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
-import { Pagination } from './Pagination';
+import compareImg from '../../assets/catalog/all-products/compare_arrow.svg';
+import { mobileFilter } from '../../assets/catalog/index';
+import {
+  CatalogContext,
+  TCatalogContext,
+} from '../../pages/Catalog/CatalogProvider';
 import { ButtonShowMore } from './ButtonShowMore';
-import { mobileFilter } from '../../../assets/catalog/index';
-import { IProduct } from './types';
 import { allProducts } from './consts';
-import { CatalogContext, TCatalogContext } from '../../../pages/Catalog/CatalogProvider';
+import { Dropdown2 } from './Dropdown2';
+import { Pagination } from './Pagination';
+import c from './Products.module.scss';
+import { IProduct } from './types';
 
-export const Products = ({ title }: { title: string }) => {
-  const [sortByFilter, setSortByFilter] = useState<string[]>(['Low To High']);
-
+export const Products = ({ children }: { children: React.ReactNode }) => {
   const {
     selectedCategories,
     isAvailabilityChecked,
@@ -194,25 +195,6 @@ export const Products = ({ title }: { title: string }) => {
     document.body.style.overflow = 'hidden';
   };
 
-  const ProductsHeader = ({ title }: { title: string }) => {
-    return (
-      <div className={c.title_and_sortBy_section}>
-        <h2>{title}</h2>
-
-        <div className={c.sort_by}>
-          <p>Sort by:</p>
-
-          <Dropdown2
-            isSidebarDropdown={false}
-            isOpen={false}
-            selectedFilters={sortByFilter}
-            setSelectedFilters={setSortByFilter}
-          />
-        </div>
-      </div>
-    );
-  };
-
   const ProductList = ({ products }: { products: IProduct[] }) => {
     return (
       <div className={c['all-products']}>
@@ -304,7 +286,7 @@ export const Products = ({ title }: { title: string }) => {
 
   return (
     <main>
-      <ProductsHeader title={title} />
+      {children}
 
       <div className={c.mobile_devider}></div>
 
@@ -356,5 +338,26 @@ export const Products = ({ title }: { title: string }) => {
         <Pagination handlePageClick={handlePageClick} pageCount={ww.length} />
       </div>
     </main>
+  );
+};
+
+Products.Header = ({ title }: { title: string }) => {
+  const [sortByFilter, setSortByFilter] = useState<string[]>(['Low To High']);
+
+  return (
+    <div className={c.title_and_sortBy_section}>
+      <h2>{title}</h2>
+
+      <div className={c.sort_by}>
+        <p>Sort by:</p>
+
+        <Dropdown2
+          isSidebarDropdown={false}
+          isOpen={false}
+          selectedFilters={sortByFilter}
+          setSelectedFilters={setSortByFilter}
+        />
+      </div>
+    </div>
   );
 };

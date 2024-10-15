@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { CheckboxGroup } from '../../components/ProductsSection/Sidebar/CheckboxGroup';
-import { getCheckboxOptions } from '../../components/ProductsSection/Sidebar/filterOptions/getCheckboxOptions';
+import { CheckboxGroup } from '../../components/Products/Sidebar/CheckboxGroup';
+import { getCheckboxOptions } from '../../components/Products/Sidebar/filterOptions/getCheckboxOptions';
 import {
   batteryLifeStringsWithBoolean,
   batteryStringsWithBoolean,

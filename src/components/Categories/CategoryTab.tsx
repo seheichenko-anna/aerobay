@@ -44,7 +44,7 @@ const CategoryTab = (props: CategoryTabProps) => {
     }
 
     // Reset if no matching category is found
-    setSelectedCategory(undefined);
+    setSelectedCategory('All Products');
   }, [location.pathname, setSelectedCategory]);
 
   /**
@@ -55,7 +55,7 @@ const CategoryTab = (props: CategoryTabProps) => {
    */
   const changeCategoryTab = (category: CategoryType) => () => {
     if (category.title === selectedCategory) {
-      setSelectedCategory(undefined);
+      setSelectedCategory('All Products');
       navigate('/catalog');
       return;
     }

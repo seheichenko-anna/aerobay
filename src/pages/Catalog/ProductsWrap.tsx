@@ -1,10 +1,10 @@
-import { useContext } from "react";
-import { Products } from "../../components/ProductsSection/Products";
-import { FilterProducts } from "../../components/ProductsSection/Sidebar";
-import { CatalogContext } from "./CatalogProvider";
-import styles from "./Catalog.module.scss"
-import AccessoriesFilters from "./AccessoriesFilters";
-import DronesFilters from "./DronesFilters";
+import { useContext } from 'react';
+import { Products } from '../../components/Products';
+import { FilterProducts } from '../../components/Products/Sidebar';
+import { CatalogContext } from './CatalogProvider';
+import styles from './Catalog.module.scss';
+import AccessoriesFilters from './AccessoriesFilters';
+import DronesFilters from './DronesFilters';
 
 const ProductsWrap = () => {
   const { selectedCategory } = useContext(CatalogContext)!;
@@ -12,23 +12,23 @@ const ProductsWrap = () => {
   return (
     <section className={styles.all_products_wrap}>
       <FilterProducts>
-        {selectedCategory === 'Drones' ? <DronesFilters /> : <></>}
-        {selectedCategory === 'Accessories' ? <AccessoriesFilters /> : <></>}
+        {selectedCategory === 'Drones' && <DronesFilters />}
+        {selectedCategory === 'Accessories' && <AccessoriesFilters />}
       </FilterProducts>
 
-      {selectedCategory === undefined ? (
-        <Products title="All Products" />
-      ) : (
-        <></>
-      )}
-      {selectedCategory === 'Drones' ? <Products title="Drones" /> : <></>}
-      {selectedCategory === 'Accessories' ? (
-        <Products title="Accessories" />
-      ) : (
-        <></>
-      )}
+      <Products>
+        {selectedCategory === 'All Products' && (
+          <Products.Header title="All Products" />
+        )}
+        {selectedCategory === 'Drones' && <Products.Header title="Drones" />}
+        {selectedCategory === 'Accessories' && (
+          <Products.Header title="Accessories" />
+        )}
+      </Products>
     </section>
   );
 };
 
-export default ProductsWrap
+// Products>Products.Filters+Products.ProductList
+
+export default ProductsWrap;

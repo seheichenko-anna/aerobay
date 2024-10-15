@@ -1,5 +1,5 @@
-import img_1 from '../../../assets/catalog/all-products/image_2.png';
-import img_2 from '../../../assets/catalog/all-products/image.png';
+import img_1 from '../../assets/catalog/all-products/image_2.png';
+import img_2 from '../../assets/catalog/all-products/image.png';
 
 export const allProducts = [
   {
