@@ -1,30 +1,34 @@
-# React + TypeScript + Vite
+# 🛩️ AeroBay (frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![image](https://github.com/user-attachments/assets/02ed76a7-5eaa-40c7-a245-ae5e3db1155e)
 
-Currently, two official plugins are available:
+## 🎒 Production
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Before pushing changes to the main branch (which triggers the build process for deployment to GitHub Pages), it's recommended to run a local build check to ensure everything compiles correctly. This step helps prevent build errors from reaching the deployment stage.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+npm run build
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+If the project is built successfully, pull a request to the main branch 🤝
+
+> [!Note]
+> If you're using another package manager like PNPM or Yarn, ensure that the npm lock file is synced, as it is required for deployment!
+
+```bash
+# sync package-lock.json for deployment
+npm install
+```
+
+## 🔧 Development
+
+```shell
+npm run dev
+```
+
+## 🧪 Tech Stack
+
+- TypeScript
+- React
+- Redux Toolkit
+- Vite
