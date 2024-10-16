@@ -21,10 +21,12 @@ import Subcategory from './pages/AdminPanel/Subcategory';
 import Drone from './pages/AdminPanel/Drone';
 import Catalog from './pages/Catalog/Catalog';
 import Comprasion from './components/Comprasion/Comprasion';
+import ScrollToTop from './utils/ScrollToTop';
 
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />

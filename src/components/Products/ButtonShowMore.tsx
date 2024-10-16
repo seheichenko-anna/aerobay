@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import showMoreImg from '../../../assets/catalog/all-products/show_more.svg';
+import showMoreImg from '../../assets/catalog/all-products/show_more.svg';
 
 interface IButtonShowMoreProps {
   handleShowMore: any;
