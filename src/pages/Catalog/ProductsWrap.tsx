@@ -6,13 +6,14 @@ import { CatalogContext } from './CatalogProvider';
 import DronesFilters from './DronesFilters';
 import useDrones from './useDrones';
 import useAccessories from './useAccessories';
+import { BaseProduct } from '../../redux/types';
 
 const Drones = () => {
   const drones = useDrones();
 
   return (
     <Products>
-      <Products.Header title="Drones" />
+      <Products.Header title='Drones' />
       <Products.ProductList products={drones} />
       <Products.Filters filters={<DronesFilters />} />
     </Products>
@@ -24,7 +25,7 @@ const Accessories = () => {
 
   return (
     <Products>
-      <Products.Header title="Accessories" />
+      <Products.Header title='Accessories' />
       <Products.ProductList products={accessories} />
       <Products.Filters filters={<AccessoriesFilters />} />
     </Products>
@@ -32,14 +33,11 @@ const Accessories = () => {
 };
 
 const AllProducts = () => {
-  const drones = useDrones();
-  const accessories = useAccessories();
-
-  const allProducts = [...drones, ...accessories];
+  const allProducts: BaseProduct[] = [...useDrones(), ...useAccessories()];
 
   return (
     <Products>
-      <Products.Header title="All Products" />
+      <Products.Header title='All Products' />
       <Products.ProductList products={allProducts} />
     </Products>
   );
