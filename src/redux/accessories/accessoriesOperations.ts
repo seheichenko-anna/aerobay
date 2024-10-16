@@ -3,7 +3,7 @@ import { dronesApi } from '../../axiosConfig/dronesApi';
 import { AxiosError } from 'axios';
 import { BaseProduct } from '../types';
 
-interface Accessory extends BaseProduct {
+export interface Accessory extends BaseProduct {
   dimensions: string;
   weight: string;
   type: string;

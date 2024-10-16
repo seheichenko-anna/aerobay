@@ -27,6 +27,7 @@ function App() {
   return (
     <>
       <ScrollToTop />
+
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
@@ -46,6 +47,7 @@ function App() {
           <Route path="returns-and-refunds" element={<ReturnsAndRefunds />} />
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
         </Route>
+
         <Route path="admin" element={<AdminPanel />}>
           <Route index element={<Dashboard />} />
           <Route path="accessory" element={<Accessory />} />
