@@ -18,8 +18,10 @@ const ImageWithLoader: React.FC<ImageWithLoaderProps> = ({
   };
 
   return (
-    <div style={{ position: 'relative', width: 'fit-content' }}>
-      {loading && <BounceLoader size={40} color="#a8a8a8" />}
+    <div className=''>
+      {loading && (
+        <BounceLoader size={40} color='#a8a8a8' className='m-auto' />
+      )}
 
       <img
         src={src}
