@@ -19,7 +19,7 @@ export const FilterProducts = ({
 }: {
   children?: React.ReactNode;
 }) => {
-  const test2 = useRef<HTMLInputElement>(null);
+  const refInput = useRef<HTMLInputElement>(null);
 
   const minPrice = 8000;
   const initialMaxPrice = { isTrigged: false, price: 200000, value: 100 };
@@ -88,7 +88,7 @@ export const FilterProducts = ({
         minPrice={minPrice}
         maxPrice={maxPrice}
         onChange={handleChangePrice}
-        refInput={test2}
+        ref={refInput}
       />
 
       <CheckboxGroup title="Availability" options={availabilityOptions} />

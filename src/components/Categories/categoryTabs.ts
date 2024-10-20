@@ -1,10 +1,7 @@
 import {
   accessoriesImg,
-  accessoriesSmallImg,
   customizeDroneImg,
-  customizeDroneSmallImg,
   dronesImg,
-  dronesSmallImg,
 } from '../../assets/catalog/index';
 
 const categoryTabs = [
@@ -13,21 +10,18 @@ const categoryTabs = [
     title: 'Drones',
     href: 'drones',
     imagePath: dronesImg,
-    smallImagePath: dronesSmallImg,
   },
   {
     id: 2,
     title: 'Accessories',
     href: 'accessories',
     imagePath: accessoriesImg,
-    smallImagePath: accessoriesSmallImg,
   },
   {
     id: 3,
     title: 'Customize drone',
     href: 'customize_drone',
     imagePath: customizeDroneImg,
-    smallImagePath: customizeDroneSmallImg,
   },
 ] as const;
 
