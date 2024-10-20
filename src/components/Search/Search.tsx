@@ -3,18 +3,29 @@ import { useState } from 'react';
 import svg from '../../assets/sprite.svg';
 import s from './Search.module.css';
 import { useForm } from 'react-hook-form';
+import { useDashboard } from '../../hooks/useDashboard';
 
 type FormData = {
   search: string;
 };
 
-const Search = () => {
+interface SearchProps {
+  handleToggleSearchInput?: () => void;
+  showSearchInput?: boolean;
+}
+
+const Search: React.FC<SearchProps> = ({
+  handleToggleSearchInput,
+  showSearchInput,
+}) => {
   const [isHidden, setIsHidden] = useState<boolean>(true);
   const [search, setSearch] = useState<string>('');
   const { register, handleSubmit, reset } = useForm<FormData>();
+  const { isAllMobile } = useDashboard();
 
   const handleSearchOpener = (): void => {
     setIsHidden(!isHidden);
+    if (isAllMobile && handleToggleSearchInput) handleToggleSearchInput();
   };
 
   const onSubmit = (data: FormData) => {
@@ -67,18 +78,20 @@ const Search = () => {
         </div>
       </div>
 
-      <div className={`${s.search_wrapper} ${isHidden ? '' : s.is_hidden}`}>
-        <button
-          className={`${s.btn} ${s.open_btn}`}
-          onClick={handleSearchOpener}
-          type="button"
-          aria-label="Open search input"
-        >
-          <svg className={s.icon_search}>
-            <use xlinkHref={`${svg}#icon-search`} />
-          </svg>
-        </button>
-      </div>
+      {!showSearchInput && (
+        <div className={`${s.search_wrapper} ${isHidden ? '' : s.is_hidden}`}>
+          <button
+            className={`${s.btn} ${s.open_btn}`}
+            onClick={handleSearchOpener}
+            type="button"
+            aria-label="Open search input"
+          >
+            <svg className={s.icon_search}>
+              <use xlinkHref={`${svg}#icon-search`} />
+            </svg>
+          </button>
+        </div>
+      )}
     </form>
   );
 };

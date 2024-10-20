@@ -20,6 +20,8 @@ type ProductType = 'drones' | 'accessories' | null;
 const Header = () => {
   const [showDropdown, setShowDropdown] = useState<DropdownType>(null);
   const [selectedProduct, setSelectedProduct] = useState<ProductType>(null);
+  const [showSearchInput, setShowSearchInput] = useState<boolean>(false);
+
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleToggleDropdown = (dropdown: DropdownType) => {
@@ -29,6 +31,10 @@ const Header = () => {
     } else {
       setSelectedProduct(null);
     }
+  };
+
+  const handleToggleSearchInput = () => {
+    setShowSearchInput(prev => !prev);
   };
 
   const handleProductSelection = (product: ProductType) => {
@@ -44,10 +50,7 @@ const Header = () => {
   const [openDropdownCompany, setOpenDropdownCompany] =
     useState<boolean>(false);
 
-  const handleToggleDropDownStyle = (
-    dropdownName: string,
-    isOpen: boolean,
-  ) => {
+  const handleToggleDropDownStyle = (dropdownName: string, isOpen: boolean) => {
     if (dropdownName === 'solutions') setOpenDropdownSolutions(isOpen);
     if (dropdownName === 'company') setOpenDropdownCompany(isOpen);
   };
@@ -301,30 +304,38 @@ const Header = () => {
       ) : (
         <div className={s.headerWrapper}>
           <header className={s.header}>
-            <Logo />
+            {!showSearchInput && <Logo />}
 
-            <div className={s.headerActions}>
-              <Search />
-              <button
-                className={`${s.navButton} ${s.cartButton}`}
-                aria-label="Cart"
-              >
-                <span className={s.arrowDown}>
-                  <LuShoppingBag size={20} />
-                </span>
-              </button>
-            </div>
-            <button
-              className={`${s.navButton} ${s.menuButton}`}
-              aria-label="Open or hide menu"
-            >
-              <Hamburger
-                color="black"
-                toggled={isOpen}
-                toggle={setOpen}
-                size={20}
-              />
-            </button>
+            <Search
+              showSearchInput={showSearchInput}
+              handleToggleSearchInput={handleToggleSearchInput}
+            />
+
+            {!showSearchInput && (
+              <>
+                <div className={s.headerActions}>
+                  <button
+                    className={`${s.navButton} ${s.cartButton}`}
+                    aria-label="Cart"
+                  >
+                    <span className={s.arrowDown}>
+                      <LuShoppingBag size={20} />
+                    </span>
+                  </button>
+                </div>
+                <button
+                  className={`${s.navButton} ${s.menuButton}`}
+                  aria-label="Open or hide menu"
+                >
+                  <Hamburger
+                    color="black"
+                    toggled={isOpen}
+                    toggle={setOpen}
+                    size={20}
+                  />
+                </button>
+              </>
+            )}
           </header>
 
           {isOpen && (
