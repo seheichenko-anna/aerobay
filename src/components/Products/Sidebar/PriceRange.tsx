@@ -10,11 +10,10 @@ type PriceRangeProps = {
     value: number;
   };
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  refInput: React.Ref<HTMLInputElement>;
 };
 
 export const PriceRange = forwardRef<HTMLInputElement, PriceRangeProps>(
-  ({ minPrice, maxPrice, onChange, refInput }) => {
+  ({ minPrice, maxPrice, onChange}, ref) => {
     const minPriceWithDot = `${String(minPrice).slice(0, -3)}.${String(minPrice).slice(-3)}`;
     const currentValue = !maxPrice.isTrigged ? maxPrice.value - 10 : maxPrice.value;
     const maxPriceWithDot = !maxPrice.isTrigged
@@ -37,7 +36,7 @@ export const PriceRange = forwardRef<HTMLInputElement, PriceRangeProps>(
     };
 
     useEffect(() => {
-      const inputElement = refInput as React.RefObject<HTMLInputElement>;
+      const inputElement = ref as React.RefObject<HTMLInputElement>;
 
       const handleInput = () => {
         if (inputElement.current) {
@@ -56,7 +55,7 @@ export const PriceRange = forwardRef<HTMLInputElement, PriceRangeProps>(
           inputElement.current.removeEventListener('input', handleInput);
         }
       };
-    }, [maxPrice, refInput]);
+    }, [maxPrice, ref]);
 
     return (
       <div className={c.price_range}>
@@ -71,7 +70,7 @@ export const PriceRange = forwardRef<HTMLInputElement, PriceRangeProps>(
               value={currentValue}
               onChange={onChange}
               step={1}
-              ref={refInput} // Set the input reference here
+              ref={ref} // Set the input reference here
             />
           </div>
         </div>

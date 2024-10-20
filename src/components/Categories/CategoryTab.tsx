@@ -9,7 +9,6 @@ type CategoryType = {
   title: CategoryTabType;
   href: string;
   imagePath: string;
-  smallImagePath: string;
 };
 
 type CategoryTabProps = {
@@ -76,15 +75,7 @@ const CategoryTab = (props: CategoryTabProps) => {
       onClick={changeCategoryTab(category)}
     >
       <div>
-        <picture>
-          <source
-            type="image/png"
-            media="(max-width: 768px)"
-            srcSet={category?.smallImagePath}
-          />
-
-          <img src={category?.imagePath} alt={category?.title} />
-        </picture>
+          <img className="" src={category?.imagePath} alt={category?.title} />
       </div>
 
       <p>{category?.title}</p>
