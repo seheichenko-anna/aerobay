@@ -2,6 +2,11 @@
   position: relative;
   max-width: 270px;
   width: 100%;
+  margin-left: auto;
+
+  @media screen and (max-width: 768px) {
+    max-width: 100%;
+  }
 }
 
 .search_wrapper {
@@ -68,6 +73,11 @@
   background-color: #fafafa;
   position: relative;
   outline: transparent;
+
+  @media screen and (max-width: 768px) {
+    max-width: 100%;
+  }
+
 }
 
 .search_field::placeholder {
