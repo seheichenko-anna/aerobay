@@ -31,9 +31,11 @@ const sortItemsByPrice =
       );
     }
 
-    // TODO: figure out what to sort...
     if (sortType === 'Sale') {
-      return 0;
+      return (
+        Number(item2.subcategories.some(sub => sub.value === 'In Stock')) -
+        Number(item1.subcategories.some(sub => sub.value === 'In Stock'))
+      );
     }
 
     return 0;
