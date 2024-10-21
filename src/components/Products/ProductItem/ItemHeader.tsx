@@ -5,7 +5,7 @@ import compareImg from '../../../assets/catalog/all-products/compare_arrow.svg';
 import { BaseProduct } from '../../../redux/types';
 
 const isNewItemByCreatedAt = (created_at: string) =>
-  new Date(created_at) > new Date(2024, 9);
+  new Date(created_at) > new Date(2024, 9, 14);
 
 const ItemHeader = ({ product }: { product: BaseProduct }) => {
   return (

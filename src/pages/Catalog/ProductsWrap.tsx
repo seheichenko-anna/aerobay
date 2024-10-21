@@ -19,8 +19,21 @@ const sortItemsByPrice =
   (sortType: SortByItems) => (item1: BaseProduct, item2: BaseProduct) => {
     if (sortType === 'Low To High') {
       return item1.price - item2.price;
-    } else if (sortType === 'High To Low') {
+    }
+
+    if (sortType === 'High To Low') {
       return item2.price - item1.price;
+    }
+
+    if (sortType === 'New') {
+      return (
+        Number(new Date(item2.created_at)) - Number(new Date(item1.created_at))
+      );
+    }
+
+    // TODO: figure out what to sort...
+    if (sortType === 'Sale') {
+      return 0;
     }
 
     return 0;
