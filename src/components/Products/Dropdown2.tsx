@@ -1,6 +1,8 @@
 import { FC, ChangeEvent, Dispatch, useState } from 'react';
 import c from './Dropdown2.module.scss';
 import dropdownArrow from '../../assets/catalog/sidebar/top_arrow.svg';
+import { SortByItems, sortByItems } from '../../pages/Catalog/sortByItems';
+import { useSort } from '../../pages/Catalog/SortProvider';
 
 interface IDropdown2Props {
   isSidebarDropdown: boolean;
@@ -15,13 +17,8 @@ export const Dropdown2: FC<IDropdown2Props> = ({
   selectedFilters,
   setSelectedFilters,
 }) => {
-  const sortByItems = [
-    { id: 1, title: 'Low To High' },
-    { id: 2, title: 'High To Low' },
-    { id: 3, title: 'New' },
-    { id: 4, title: 'Sale' },
-  ];
   const [isDropdownOpen, setIsDropdownOpen] = useState(isOpen ? true : false);
+  const { currentSort, setCurrentSort } = useSort()!;
 
   const handleOpen = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -29,6 +26,7 @@ export const Dropdown2: FC<IDropdown2Props> = ({
 
   const setChecked = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+
     if (e.target.checked) {
       setSelectedFilters([...selectedFilters, value]);
     } else {
@@ -36,11 +34,76 @@ export const Dropdown2: FC<IDropdown2Props> = ({
     }
   };
 
-  const sortByClick = (title: string): React.MouseEventHandler => {
+  const sortByClick = (title: SortByItems): React.MouseEventHandler => {
     return () => {
       setSelectedFilters([title]);
+      setCurrentSort(title);
       setIsDropdownOpen(false);
     };
+  };
+
+  const DropdownArrow = () => {
+    return (
+      <div className={c.sidebar_dropdown__arrow}>
+        <img
+          style={
+            isDropdownOpen
+              ? { transform: 'rotate(360deg)' }
+              : { transform: 'rotate(180deg)' }
+          }
+          src={dropdownArrow}
+          alt='arrow-top'
+        />
+      </div>
+    );
+  };
+
+  const CategoryFilter = () => {
+    return (
+      <div className={c.dropdown_menu}>
+        <div>
+          <input
+            type='checkbox'
+            id='drone'
+            name='drone'
+            value='Drone'
+            checked={selectedFilters?.includes('Drone') ? true : false}
+            onChange={setChecked}
+          />
+          <label htmlFor='drone'>Drone</label>
+        </div>
+
+        <div>
+          <input
+            type='checkbox'
+            id='accessories'
+            name='accessories'
+            value='Accessories'
+            checked={selectedFilters?.includes('Accessories') ? true : false}
+            onChange={setChecked}
+          />
+          <label htmlFor='accessories'>Accessories</label>
+        </div>
+      </div>
+    );
+  };
+
+  const SortDropdownList = () => {
+    return (
+      <div className={c.sortBy_dropdown_menu}>
+        {sortByItems.map(item => (
+          <div key={item.id} onClick={sortByClick(item.title)}>
+            <p style={item.title === currentSort ? { color: '#CAD0D7' } : {}}>
+              {item.title}
+            </p>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  const SortLabel = () => {
+    return <p className={c.dropdown_text}>{currentSort}</p>;
   };
 
   return (
@@ -49,78 +112,14 @@ export const Dropdown2: FC<IDropdown2Props> = ({
         className={`${c.sidebar_dropdown} cursor-pointer`}
         onClick={handleOpen}
       >
-        {selectedFilters?.length >= 1 && isSidebarDropdown ? (
-          <p style={{ width: 'max-content' }}>
-            {selectedFilters?.map(item => (
-              <span key={item} className={c.checked_values}>
-                {item}
-              </span>
-            ))}
-          </p>
-        ) : selectedFilters?.length >= 1 && !isSidebarDropdown ? (
-          <p className={c.dropdown_text}>{selectedFilters[0]}</p>
-        ) : (
-          <p style={{ color: '#667085' }}>Select</p>
-        )}
+        <SortLabel />
 
-        <div className={c.sidebar_dropdown__arrow}>
-          <img
-            style={
-              isDropdownOpen
-                ? { transform: 'rotate(360deg)' }
-                : { transform: 'rotate(180deg)' }
-            }
-            src={dropdownArrow}
-            alt='arrow-top'
-          />
-        </div>
+        <DropdownArrow />
 
-        {isDropdownOpen && !isSidebarDropdown && (
-          <div className={c.sortBy_dropdown_menu}>
-            {sortByItems?.map(item => (
-              <div key={item?.id} onClick={sortByClick(item?.title)}>
-                <p
-                  style={
-                    selectedFilters?.includes(item?.title)
-                      ? { color: '#CAD0D7' }
-                      : {}
-                  }
-                >
-                  {item?.title}
-                </p>
-              </div>
-            ))}
-          </div>
-        )}
+        {isDropdownOpen && !isSidebarDropdown && <SortDropdownList />}
       </div>
 
-      {isDropdownOpen && isSidebarDropdown && (
-        <div className={c.dropdown_menu}>
-          <div>
-            <input
-              type='checkbox'
-              id='drone'
-              name='drone'
-              value='Drone'
-              checked={selectedFilters?.includes('Drone') ? true : false}
-              onChange={setChecked}
-            />
-            <label htmlFor='drone'>Drone</label>
-          </div>
-
-          <div>
-            <input
-              type='checkbox'
-              id='accessories'
-              name='accessories'
-              value='Accessories'
-              checked={selectedFilters?.includes('Accessories') ? true : false}
-              onChange={setChecked}
-            />
-            <label htmlFor='accessories'>Accessories</label>
-          </div>
-        </div>
-      )}
+      {isDropdownOpen && isSidebarDropdown && <CategoryFilter />}
     </>
   );
 };

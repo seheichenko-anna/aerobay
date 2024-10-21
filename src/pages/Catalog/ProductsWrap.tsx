@@ -1,15 +1,33 @@
 import { useContext } from 'react';
 import { Products } from '../../components/Products';
-import AccessoriesFilters from './AccessoriesFilters';
+import { BaseProduct } from '../../redux/types';
 import styles from './Catalog.module.scss';
 import { CatalogContext } from './CatalogProvider';
-import DronesFilters from './DronesFilters';
-import useDrones from './useDrones';
+import { SortProvider, useSort } from './SortProvider';
+import AccessoriesFilters from './filters/AccessoriesFilters';
+import DronesFilters from './filters/DronesFilters';
+import { SortByItems } from './sortByItems';
 import useAccessories from './useAccessories';
-import { BaseProduct } from '../../redux/types';
+import useDrones from './useDrones';
+
+const useSorted = (products: BaseProduct[]) => {
+  const { currentSort } = useSort()!;
+  return products.slice().sort(sortItemsByPrice(currentSort));
+};
+
+const sortItemsByPrice =
+  (sortType: SortByItems) => (item1: BaseProduct, item2: BaseProduct) => {
+    if (sortType === 'Low To High') {
+      return item1.price - item2.price;
+    } else if (sortType === 'High To Low') {
+      return item2.price - item1.price;
+    }
+
+    return 0;
+  };
 
 const Drones = () => {
-  const drones = useDrones();
+  const drones = useSorted(useDrones());
 
   return (
     <Products>
@@ -21,7 +39,7 @@ const Drones = () => {
 };
 
 const Accessories = () => {
-  const accessories = useAccessories();
+  const accessories = useSorted(useAccessories());
 
   return (
     <Products>
@@ -33,7 +51,7 @@ const Accessories = () => {
 };
 
 const AllProducts = () => {
-  const allProducts: BaseProduct[] = [...useDrones(), ...useAccessories()];
+  const allProducts = useSorted([...useDrones(), ...useAccessories()]);
 
   return (
     <Products>
@@ -47,11 +65,13 @@ const ProductsWrap = () => {
   const { selectedCategory } = useContext(CatalogContext)!;
 
   return (
-    <section className={styles.all_products_wrap}>
-      {selectedCategory === 'All Products' && <AllProducts />}
-      {selectedCategory === 'Drones' && <Drones />}
-      {selectedCategory === 'Accessories' && <Accessories />}
-    </section>
+    <SortProvider>
+      <section className={styles.all_products_wrap}>
+        {selectedCategory === 'All Products' && <AllProducts />}
+        {selectedCategory === 'Drones' && <Drones />}
+        {selectedCategory === 'Accessories' && <Accessories />}
+      </section>
+    </SortProvider>
   );
 };
 

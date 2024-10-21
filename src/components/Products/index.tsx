@@ -164,7 +164,7 @@ const MoreFiltersMobileBtn = () => {
 
       <img
         src={mobileFilter}
-        alt="mobile filter icon"
+        alt='mobile filter icon'
         onClick={handleVisibleFilter}
       />
     </div>
@@ -214,18 +214,18 @@ const FilterTags = () => {
 
           <button onClick={handleRemove(Object.keys(value))}>
             <svg
-              width="12"
-              height="12"
-              viewBox="0 0 12 12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+              width='12'
+              height='12'
+              viewBox='0 0 12 12'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
             >
               <path
-                d="M11 1L1 11M1 1L11 11"
-                stroke="#101828"
-                strokeWidth="1.67"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                d='M11 1L1 11M1 1L11 11'
+                stroke='#101828'
+                strokeWidth='1.67'
+                strokeLinecap='round'
+                strokeLinejoin='round'
               />
             </svg>
           </button>
@@ -271,8 +271,8 @@ Products.ProductList = ({ products }: { products: BaseProduct[] }) => {
 
   if (products.length === 0) {
     return (
-      <div className="flex justify-center">
-        <BounceLoader size={50} color="#a8a8a8" />
+      <div className='flex justify-center'>
+        <BounceLoader size={50} color='#a8a8a8' />
       </div>
     );
   }
@@ -281,7 +281,7 @@ Products.ProductList = ({ products }: { products: BaseProduct[] }) => {
     <>
       <div className={c['all-products']}>
         {products.map(product => (
-          <ProductItem key={product.id+product.title} product={product} />
+          <ProductItem key={product.id + product.title} product={product} />
         ))}
       </div>
 

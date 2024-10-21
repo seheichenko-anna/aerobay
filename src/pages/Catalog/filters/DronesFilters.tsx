@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { CheckboxGroup } from '../../components/Products/Sidebar/CheckboxGroup';
-import { getCheckboxOptions } from '../../components/Products/Sidebar/filterOptions/getCheckboxOptions';
+import { CheckboxGroup } from '../../../components/Products/Sidebar/CheckboxGroup';
+import { getCheckboxOptions } from '../../../components/Products/Sidebar/filterOptions/getCheckboxOptions';
 import {
   batteryLifeStringsWithBoolean,
   batteryStringsWithBoolean,
   engineTypeStringsWithBoolean,
   flightDistanceStringsWithBoolean,
-} from './filterOptions';
+} from '../filterOptions';
 
 const DronesFilters = () => {
   const engineTypeOptions = getCheckboxOptions(
