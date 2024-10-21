@@ -45,7 +45,10 @@ export const Dropdown2: FC<IDropdown2Props> = ({
 
   return (
     <>
-      <div className={c.sidebar_dropdown}>
+      <div
+        className={`${c.sidebar_dropdown} cursor-pointer`}
+        onClick={handleOpen}
+      >
         {selectedFilters?.length >= 1 && isSidebarDropdown ? (
           <p style={{ width: 'max-content' }}>
             {selectedFilters?.map(item => (
@@ -60,7 +63,7 @@ export const Dropdown2: FC<IDropdown2Props> = ({
           <p style={{ color: '#667085' }}>Select</p>
         )}
 
-        <div className={c.sidebar_dropdown__arrow} onClick={handleOpen}>
+        <div className={c.sidebar_dropdown__arrow}>
           <img
             style={
               isDropdownOpen
@@ -68,9 +71,10 @@ export const Dropdown2: FC<IDropdown2Props> = ({
                 : { transform: 'rotate(180deg)' }
             }
             src={dropdownArrow}
-            alt="arrow-top"
+            alt='arrow-top'
           />
         </div>
+
         {isDropdownOpen && !isSidebarDropdown && (
           <div className={c.sortBy_dropdown_menu}>
             {sortByItems?.map(item => (
@@ -89,29 +93,31 @@ export const Dropdown2: FC<IDropdown2Props> = ({
           </div>
         )}
       </div>
+
       {isDropdownOpen && isSidebarDropdown && (
         <div className={c.dropdown_menu}>
           <div>
             <input
-              type="checkbox"
-              id="drone"
-              name="drone"
-              value="Drone"
+              type='checkbox'
+              id='drone'
+              name='drone'
+              value='Drone'
               checked={selectedFilters?.includes('Drone') ? true : false}
               onChange={setChecked}
             />
-            <label htmlFor="drone">Drone</label>
+            <label htmlFor='drone'>Drone</label>
           </div>
+
           <div>
             <input
-              type="checkbox"
-              id="accessories"
-              name="accessories"
-              value="Accessories"
+              type='checkbox'
+              id='accessories'
+              name='accessories'
+              value='Accessories'
               checked={selectedFilters?.includes('Accessories') ? true : false}
               onChange={setChecked}
             />
-            <label htmlFor="accessories">Accessories</label>
+            <label htmlFor='accessories'>Accessories</label>
           </div>
         </div>
       )}
