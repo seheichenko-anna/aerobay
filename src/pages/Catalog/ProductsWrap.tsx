@@ -33,8 +33,8 @@ const sortItemsByPrice =
 
     if (sortType === 'Sale') {
       return (
-        Number(item2.subcategories.some(sub => sub.value === 'In Stock')) -
-        Number(item1.subcategories.some(sub => sub.value === 'In Stock'))
+        Number(item2.discount) -
+        Number(item1.discount)
       );
     }
 
