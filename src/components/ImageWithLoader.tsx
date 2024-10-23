@@ -5,11 +5,13 @@ interface ImageWithLoaderProps {
   src: string;
   alt?: string;
   loaderSize?: number;
+  className?: string;
 }
 
 const ImageWithLoader: React.FC<ImageWithLoaderProps> = ({
   src,
   alt = 'image',
+  className,
 }) => {
   const [loading, setLoading] = useState(true);
 
@@ -29,6 +31,7 @@ const ImageWithLoader: React.FC<ImageWithLoaderProps> = ({
         style={{ display: loading ? 'none' : 'block' }}
         onLoad={handleImageLoad}
         onError={() => setLoading(false)} // Optional: Handle broken images
+        className={className}
       />
     </div>
   );
