@@ -83,6 +83,13 @@ const CategoryProducts = ({
 
   const triggerApply = () => {
     setIsTriggerApply(prev => !prev);
+
+    const filteredProducts = getFilteredProducts(
+      products,
+      currentFilterGroups,
+    );
+
+    setFilteredProducts(filteredProducts);
   };
 
   return (

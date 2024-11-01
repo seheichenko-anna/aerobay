@@ -1,8 +1,11 @@
-import { FC, ChangeEvent, Dispatch, useState } from 'react';
-import c from './Dropdown.module.scss';
+import { Dispatch, FC, useState } from 'react';
 import dropdownArrow from '../../assets/catalog/sidebar/top_arrow.svg';
-import { SortByItems, sortByItems } from '../../pages/Catalog/consts/sortByItems';
+import {
+    SortByItems,
+    sortByItems,
+} from '../../pages/Catalog/consts/sortByItems';
 import { useSort } from '../../pages/Catalog/providers/SortProvider';
+import c from './Dropdown.module.scss';
 
 interface SortDropdownProps {
   isSidebarDropdown: boolean;
@@ -14,7 +17,6 @@ interface SortDropdownProps {
 export const SortDropdown: FC<SortDropdownProps> = ({
   isSidebarDropdown,
   isOpen,
-  selectedFilters,
   setSelectedFilters,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(isOpen ? true : false);
@@ -22,16 +24,6 @@ export const SortDropdown: FC<SortDropdownProps> = ({
 
   const handleOpen = () => {
     setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const setChecked = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-
-    if (e.target.checked) {
-      setSelectedFilters([...selectedFilters, value]);
-    } else {
-      setSelectedFilters(selectedFilters.filter(el => el !== value));
-    }
   };
 
   const sortByClick = (title: SortByItems): React.MouseEventHandler => {
@@ -54,37 +46,6 @@ export const SortDropdown: FC<SortDropdownProps> = ({
           src={dropdownArrow}
           alt='arrow-top'
         />
-      </div>
-    );
-  };
-
-  const CategoryFilter = () => {
-    return (
-      <div className={c.dropdown_menu}>
-        <div>
-          <input
-            type='checkbox'
-            id='drone'
-            name='drone'
-            value='Drone'
-            checked={selectedFilters?.includes('Drone') ? true : false}
-            onChange={setChecked}
-          />
-          <label htmlFor='drone'>Drone</label>
-        </div>
-
-        <div>
-          <input
-            type='checkbox'
-            id='accessories'
-            name='accessories'
-            value='Accessories'
-            checked={selectedFilters?.includes('Accessories') ? true : false}
-            onChange={setChecked}
-          />
-
-          <label htmlFor='accessories'>Accessories</label>
-        </div>
       </div>
     );
   };

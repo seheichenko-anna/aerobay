@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ChangeEvent, useContext, useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { IoIosClose } from 'react-icons/io';
 
 import { ActionButtons } from './ActionButtons';
@@ -40,8 +40,9 @@ export const FilterProducts = ({ filters }: { filters: ProductFilter[] }) => {
     selectedCategory,
   } = useContext(CatalogContext) as TCatalogContext;
 
-  const handleChangePrice = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangePrice = () => {
     // const value = +e.target.value;
+
 
     // setMaxPrice({
     //   isTrigged: true,

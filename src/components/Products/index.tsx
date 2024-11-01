@@ -6,8 +6,8 @@ import { mobileFilter } from '../../assets/catalog/index';
 import { ProductFiltersContext } from '../../pages/Catalog/ProductsWrap';
 import { SortByItems } from '../../pages/Catalog/consts/sortByItems';
 import {
-    CatalogContext,
-    TCatalogContext,
+  CatalogContext,
+  TCatalogContext,
 } from '../../pages/Catalog/providers/CatalogProvider';
 import { useSort } from '../../pages/Catalog/providers/SortProvider';
 import { RootState } from '../../redux/store';
@@ -176,39 +176,41 @@ const MoreFiltersMobileBtn = () => {
 };
 
 const FilterTags = () => {
-  const {
-    isAvailabilityChecked,
-    setIsAvailabilityChecked,
-    isTypeChecked,
-    setIsTypeChecked,
-  } = useContext(CatalogContext) as TCatalogContext;
+  // const {
+  //   isAvailabilityChecked,
+  //   setIsAvailabilityChecked,
+  //   isTypeChecked,
+  //   setIsTypeChecked,
+  // } = useContext(CatalogContext) as TCatalogContext;
+  //
+  // // TODO: show all selected filters
+  // const filteredValues = Object.entries({
+  //   ...isTypeChecked,
+  //   ...isAvailabilityChecked,
+  // })
+  //   .filter(([, value]) => value === true)
+  //   .map(([key, value]) => ({ [key]: value }));
+  //
+  // // TODO: make to work with all filters
+  // const handleClear = () => {
+  //   setIsAvailabilityChecked({ 'In Stock': false, 'Not Available': false });
+  //   setIsTypeChecked({ 'Model Drone': false, 'Ready-Solution Drone': false });
+  // };
+  //
+  // // TODO: make remove any selected filters
+  // const handleRemove = (value: string[]) => () => {
+  //   const valStr = String(value);
+  //
+  //   if (Object.prototype.hasOwnProperty.call(isTypeChecked, valStr)) {
+  //     setIsTypeChecked({ ...isTypeChecked, [valStr]: false });
+  //   }
+  //
+  //   if (Object.prototype.hasOwnProperty.call(isAvailabilityChecked, valStr)) {
+  //     setIsAvailabilityChecked({ ...isAvailabilityChecked, [valStr]: false });
+  //   }
+  // };
 
-  // TODO: show all selected filters
-  const filteredValues = Object.entries({
-    ...isTypeChecked,
-    ...isAvailabilityChecked,
-  })
-    .filter(([, value]) => value === true)
-    .map(([key, value]) => ({ [key]: value }));
-
-  // TODO: make to work with all filters
-  const handleClear = () => {
-    setIsAvailabilityChecked({ 'In Stock': false, 'Not Available': false });
-    setIsTypeChecked({ 'Model Drone': false, 'Ready-Solution Drone': false });
-  };
-
-  // TODO: make remove any selected filters
-  const handleRemove = (value: string[]) => () => {
-    const valStr = String(value);
-
-    if (Object.prototype.hasOwnProperty.call(isTypeChecked, valStr)) {
-      setIsTypeChecked({ ...isTypeChecked, [valStr]: false });
-    }
-
-    if (Object.prototype.hasOwnProperty.call(isAvailabilityChecked, valStr)) {
-      setIsAvailabilityChecked({ ...isAvailabilityChecked, [valStr]: false });
-    }
-  };
+  const filteredValues: [] = [];
 
   return (
     <div className={c.filtered_values_section}>
@@ -216,7 +218,7 @@ const FilterTags = () => {
         <div key={i} className={c.filtered_value_box}>
           <p>{Object.keys(value)}</p>
 
-          <button onClick={handleRemove(Object.keys(value))}>
+          <button>
             <svg
               width='12'
               height='12'
@@ -237,9 +239,7 @@ const FilterTags = () => {
       ))}
 
       {filteredValues.length >= 1 && (
-        <button className={c.clear_all_filters} onClick={handleClear}>
-          Clear All Filters
-        </button>
+        <button className={c.clear_all_filters}>Clear All Filters</button>
       )}
     </div>
   );
