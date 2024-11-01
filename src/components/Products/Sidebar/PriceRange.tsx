@@ -1,24 +1,33 @@
-import { ChangeEvent, forwardRef, useEffect } from 'react';
-import rangeStat from '../../../assets/catalog/sidebar/price_range_stat.svg'
+import {
+  ChangeEvent,
+  forwardRef,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import rangeStat from '../../../assets/catalog/sidebar/price_range_stat.svg';
 import c from './FilterProduct.module.scss';
+import { ProductFiltersContext } from '../../../pages/Catalog/ProductsWrap';
+import { useAppDispatch } from '../../../redux/hooks/useAppDispatch';
+import { setSliderMaxPrice } from '../../../redux/priceRangeSlice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
 
 type PriceRangeProps = {
-  minPrice: number;
-  maxPrice: {
-    isTrigged: boolean;
-    price: number;
-    value: number;
-  };
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const PriceRange = forwardRef<HTMLInputElement, PriceRangeProps>(
-  ({ minPrice, maxPrice, onChange}, ref) => {
-    const minPriceWithDot = `${String(minPrice).slice(0, -3)}.${String(minPrice).slice(-3)}`;
-    const currentValue = !maxPrice.isTrigged ? maxPrice.value - 10 : maxPrice.value;
-    const maxPriceWithDot = !maxPrice.isTrigged
-      ? `${String(maxPrice.price - 20000).slice(0, -3)}.${String(maxPrice.price - 20000).slice(-3)}`
-      : `${String(maxPrice.price).slice(0, -3)}.${String(maxPrice.price).slice(-3)}`;
+  ({ onChange }, ref) => {
+    const { minPrice, maxPrice } = useContext(ProductFiltersContext)!;
+
+    const currentMaxPrice = useSelector(
+      (state: RootState) => state.priceRange.currentMaxPrice,
+    );
+
+    const [sliderValue, setSliderValue] = useState(
+      currentMaxPrice || maxPrice,
+    );
 
     const setProgress = (elTarget: HTMLInputElement) => {
       const elRangeBar = elTarget.parentElement as HTMLElement;
@@ -26,13 +35,20 @@ export const PriceRange = forwardRef<HTMLInputElement, PriceRangeProps>(
       const intRangeBarWidth = elRangeBar.clientWidth - intThumbWidth;
       const intThumbWidthOffset = intThumbWidth / 2;
 
-      const intProgressPosition =
+      const progressRatio =
         (+elTarget.value - +elTarget.min) / (+elTarget.max - +elTarget.min);
-      const intRangePosition =
-        intRangeBarWidth * intProgressPosition + intThumbWidthOffset;
+      const progressPosition =
+        intRangeBarWidth * progressRatio + intThumbWidthOffset;
 
-      elRangeBar.style.background =
-        `linear-gradient(to right, #101828 ${intRangePosition}px, #E4E6EA ${intRangePosition}px)`;
+      elRangeBar.style.background = `linear-gradient(to right, #101828 ${progressPosition}px, #E4E6EA ${progressPosition}px)`;
+    };
+
+    const handleSliderChange = (
+      event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+      const newValue = Number(event.target.value);
+      setSliderValue(newValue);
+      if (onChange) onChange(event);
     };
 
     useEffect(() => {
@@ -46,10 +62,9 @@ export const PriceRange = forwardRef<HTMLInputElement, PriceRangeProps>(
 
       if (inputElement.current) {
         inputElement.current.addEventListener('input', handleInput);
-        setProgress(inputElement.current); // Set the progress bar initially
+        setProgress(inputElement.current); // Initial progress setup
       }
 
-      // Clean up event listener on unmount
       return () => {
         if (inputElement.current) {
           inputElement.current.removeEventListener('input', handleInput);
@@ -57,28 +72,34 @@ export const PriceRange = forwardRef<HTMLInputElement, PriceRangeProps>(
       };
     }, [maxPrice, ref]);
 
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+      dispatch(setSliderMaxPrice(sliderValue));
+    }, [sliderValue]);
+
     return (
       <div className={c.price_range}>
         <h3>Price range</h3>
         <div className={c.price_range__bgImage}>
-          <img src={rangeStat} alt="range background image" />
+          <img src={rangeStat} alt='range background image' />
           <div className={c.range}>
             <input
-              type="range"
-              min={4}
-              max={100}
-              value={currentValue}
-              onChange={onChange}
+              type='range'
+              min={minPrice}
+              max={maxPrice}
+              value={sliderValue}
+              onChange={handleSliderChange}
               step={1}
-              ref={ref} // Set the input reference here
+              ref={ref} // Input reference
             />
           </div>
         </div>
+
         <div className={c.price_range__minMaxPrices}>
-          <p>$ {minPriceWithDot}</p>
-          <p>$ {maxPriceWithDot}</p>
+          <p>$ {minPrice}</p>
+          <p>$ {sliderValue}</p>
         </div>
       </div>
     );
-  }
+  },
 );

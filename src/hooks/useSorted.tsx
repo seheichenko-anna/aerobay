@@ -1,9 +1,10 @@
-import { BaseProduct } from '../../redux/types';
-import { SortByItems } from './sortByItems';
-import { useSort } from './SortProvider';
+import { BaseProduct } from '../redux/types';
+import { SortByItems } from '../pages/Catalog/consts/sortByItems';
+import { useSort } from '../pages/Catalog/providers/SortProvider';
 
 const useSorted = (products: BaseProduct[]) => {
   const { currentSort } = useSort()!;
+
   return products.slice().sort(sortItemsByPrice(currentSort));
 };
 

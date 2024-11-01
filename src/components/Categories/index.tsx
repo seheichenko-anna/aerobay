@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './CategoryOfDrones.module.scss';
 import CategoryTab from './CategoryTab';
 import categoryTabs from './categoryTabs';
-import { CatalogContext } from '../../pages/Catalog/CatalogProvider';
+import { CatalogContext } from '../../pages/Catalog/providers/CatalogProvider';
 
 export const Categories = () => {
   const { selectedCategory } = React.useContext(CatalogContext)!;

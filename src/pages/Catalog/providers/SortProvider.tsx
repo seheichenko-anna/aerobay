@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import { SortByItems } from './sortByItems';
+import { SortByItems } from '../consts/sortByItems';
 
 export type SortContext = {
   currentSort: SortByItems;
@@ -13,7 +13,7 @@ export const SortProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [currentSort, setCurrentSort] = useState<SortByItems>('Unsorted');
+  const [currentSort, setCurrentSort] = useState<SortByItems>('Low To High');
 
   return (
     <SortContext.Provider

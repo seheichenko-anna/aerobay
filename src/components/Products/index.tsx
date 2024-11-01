@@ -1,18 +1,22 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { BounceLoader } from 'react-spinners';
 import 'react-tooltip/dist/react-tooltip.css';
 import { mobileFilter } from '../../assets/catalog/index';
+import { ProductFiltersContext } from '../../pages/Catalog/ProductsWrap';
+import { SortByItems } from '../../pages/Catalog/consts/sortByItems';
 import {
-  CatalogContext,
-  TCatalogContext,
-} from '../../pages/Catalog/CatalogProvider';
+    CatalogContext,
+    TCatalogContext,
+} from '../../pages/Catalog/providers/CatalogProvider';
+import { useSort } from '../../pages/Catalog/providers/SortProvider';
+import { RootState } from '../../redux/store';
 import { BaseProduct } from '../../redux/types';
-import { ButtonShowMore } from './ButtonShowMore';
-import { Dropdown2 } from './Dropdown2';
 import { Pagination } from './Pagination';
 import ProductItem from './ProductItem';
 import c from './Products.module.scss';
-import { FilterProducts } from './Sidebar';
+import { FilterProducts, ProductFilter } from './Sidebar';
+import { SortDropdown } from './SortDropdown';
 
 export const Products = ({ children }: { children: React.ReactNode[] }) => {
   const fromFragment =
@@ -241,8 +245,8 @@ const FilterTags = () => {
   );
 };
 
-Products.Filters = ({ filters }: { filters: React.ReactNode }) => (
-  <FilterProducts>{filters}</FilterProducts>
+Products.Filters = ({ filters }: { filters: ProductFilter[] }) => (
+  <FilterProducts filters={filters} />
 );
 
 Products.Header = ({ title }: { title: string }) => {
@@ -255,7 +259,7 @@ Products.Header = ({ title }: { title: string }) => {
       <div className={c.sort_by}>
         <p>Sort by:</p>
 
-        <Dropdown2
+        <SortDropdown
           isSidebarDropdown={false}
           isOpen={false}
           selectedFilters={sortByFilter}
@@ -266,10 +270,59 @@ Products.Header = ({ title }: { title: string }) => {
   );
 };
 
-Products.ProductList = ({ products }: { products: BaseProduct[] }) => {
-  const handleShowMore = () => {};
+const sortItemsByPrice =
+  (sortType: SortByItems) => (item1: BaseProduct, item2: BaseProduct) => {
+    if (sortType === 'Low To High') {
+      return item1.price - item2.price;
+    }
 
-  if (products.length === 0) {
+    if (sortType === 'High To Low') {
+      return item2.price - item1.price;
+    }
+
+    if (sortType === 'New') {
+      return (
+        Number(new Date(item2.created_at)) - Number(new Date(item1.created_at))
+      );
+    }
+
+    if (sortType === 'Sale') {
+      return item2.discount - item1.discount;
+    }
+
+    return 0;
+  };
+
+Products.ProductList = ({
+  products,
+  loading,
+}: {
+  products: BaseProduct[];
+  loading: boolean;
+}) => {
+  const currentMaxPrice = useSelector(
+    (state: RootState) => state.priceRange.currentMaxPrice,
+  );
+  const { isApplyTriggered } = useContext(ProductFiltersContext)!;
+
+  const [filteredProducts, setSortedProducts] =
+    useState<BaseProduct[]>(products);
+
+  const { currentSort } = useSort()!;
+
+  useEffect(() => {
+    const filteredByPriceProducts = products
+      .filter(product => product.price <= currentMaxPrice)
+      .slice()
+      .sort(sortItemsByPrice(currentSort));
+
+    setSortedProducts(filteredByPriceProducts);
+  }, [isApplyTriggered, products, currentSort]);
+
+  // TODO: make show more work again!
+  // const handleShowMore = () => {};
+
+  if (loading) {
     return (
       <div className='flex justify-center'>
         <BounceLoader size={50} color='#a8a8a8' />
@@ -277,15 +330,23 @@ Products.ProductList = ({ products }: { products: BaseProduct[] }) => {
     );
   }
 
+  if (filteredProducts.length === 0) {
+    return (
+      <div className='flex justify-center'>
+        <p>No items found.</p>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className={c['all-products']}>
-        {products.map(product => (
+        {filteredProducts.map(product => (
           <ProductItem key={product.id + product.title} product={product} />
         ))}
       </div>
 
-      <ButtonShowMore handleShowMore={handleShowMore} />
+      {/* <ButtonShowMore handleShowMore={handleShowMore} /> */}
     </>
   );
 };
