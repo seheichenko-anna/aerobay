@@ -9,10 +9,12 @@ import {
 
 interface DronesState {
   drones: Drone[];
+  loading: boolean;
 }
 
 const initialDronesState: DronesState = {
   drones: [],
+  loading: true,
 };
 
 const dronesSlice = createSlice({
@@ -28,28 +30,29 @@ const dronesSlice = createSlice({
         fetchDronesThunk.fulfilled,
         (state, { payload }: PayloadAction<Drone[]>) => {
           state.drones = payload;
-        }
+          state.loading = false;
+        },
       )
       .addCase(
         addDroneThunk.fulfilled,
         (state, { payload }: PayloadAction<Drone>) => {
           state.drones = [...state.drones, payload];
-        }
+        },
       )
       .addCase(
         deleteDroneThunk.fulfilled,
         (state, { payload }: PayloadAction<Drone>) => {
           state.drones = state.drones.filter(drone => drone.id !== payload.id);
-        }
+        },
       )
       .addCase(
         editDroneThunk.fulfilled,
         (state, { payload }: PayloadAction<Drone>) => {
           const index = state.drones.findIndex(
-            drone => drone.id === payload.id
+            drone => drone.id === payload.id,
           );
           state.drones.splice(index, 1, payload);
-        }
+        },
       );
   },
 });
