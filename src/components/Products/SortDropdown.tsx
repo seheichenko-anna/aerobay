@@ -1,17 +1,17 @@
 import { FC, ChangeEvent, Dispatch, useState } from 'react';
-import c from './Dropdown2.module.scss';
+import c from './Dropdown.module.scss';
 import dropdownArrow from '../../assets/catalog/sidebar/top_arrow.svg';
-import { SortByItems, sortByItems } from '../../pages/Catalog/sortByItems';
-import { useSort } from '../../pages/Catalog/SortProvider';
+import { SortByItems, sortByItems } from '../../pages/Catalog/consts/sortByItems';
+import { useSort } from '../../pages/Catalog/providers/SortProvider';
 
-interface IDropdown2Props {
+interface SortDropdownProps {
   isSidebarDropdown: boolean;
   isOpen: boolean;
   selectedFilters: string[];
   setSelectedFilters: Dispatch<React.SetStateAction<string[]>>;
 }
 
-export const Dropdown2: FC<IDropdown2Props> = ({
+export const SortDropdown: FC<SortDropdownProps> = ({
   isSidebarDropdown,
   isOpen,
   selectedFilters,
@@ -82,6 +82,7 @@ export const Dropdown2: FC<IDropdown2Props> = ({
             checked={selectedFilters?.includes('Accessories') ? true : false}
             onChange={setChecked}
           />
+
           <label htmlFor='accessories'>Accessories</label>
         </div>
       </div>
@@ -119,7 +120,7 @@ export const Dropdown2: FC<IDropdown2Props> = ({
         {isDropdownOpen && !isSidebarDropdown && <SortDropdownList />}
       </div>
 
-      {isDropdownOpen && isSidebarDropdown && <CategoryFilter />}
+      {/* {isDropdownOpen && isSidebarDropdown && <CategoryFilter />} */}
     </>
   );
 };

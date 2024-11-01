@@ -1,6 +1,5 @@
 import { Dispatch, createContext, useState } from 'react';
-import { CategoryTabType } from '../../components/Categories/categoryTabs';
-import { TAvailabilityChecked, TDroneTypeChecked } from './filterOptions';
+import { CategoryTabType } from '../../../components/Categories/categoryTabs';
 
 export type TCatalogContext = {
   selectedCategory: CategoryTabType;
@@ -10,14 +9,6 @@ export type TCatalogContext = {
 
   selectedCategories: string[];
   setSelectedCategories: Dispatch<React.SetStateAction<string[]>>;
-
-  isAvailabilityChecked: TAvailabilityChecked;
-  setIsAvailabilityChecked: Dispatch<
-    React.SetStateAction<TAvailabilityChecked>
-  >;
-
-  isTypeChecked: TDroneTypeChecked;
-  setIsTypeChecked: Dispatch<React.SetStateAction<TDroneTypeChecked>>;
 
   isMobileFilterVisible: boolean;
   setIsMobileFilterVisible: Dispatch<React.SetStateAction<boolean>>;
@@ -35,16 +26,6 @@ export const CatalogProvider = ({
     'Accessories',
   ]);
 
-  const [isAvailabilityChecked, setIsAvailabilityChecked] = useState({
-    'In Stock': true,
-    'Not Available': false,
-  });
-
-  const [isTypeChecked, setIsTypeChecked] = useState({
-    'Model Drone': true,
-    'Ready-Solution Drone': true,
-  });
-
   const [isMobileFilterVisible, setIsMobileFilterVisible] = useState(false);
 
   const [selectedCategory, setSelectedCategory] = useState<CategoryTabType>('All Products');
@@ -56,10 +37,6 @@ export const CatalogProvider = ({
         setSelectedCategory,
         selectedCategories,
         setSelectedCategories,
-        isAvailabilityChecked,
-        setIsAvailabilityChecked,
-        isTypeChecked,
-        setIsTypeChecked,
         isMobileFilterVisible,
         setIsMobileFilterVisible,
       }}

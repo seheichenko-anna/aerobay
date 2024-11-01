@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './CategoryOfDrones.module.scss';
 import categoryTabs, { CategoryTabType } from './categoryTabs';
-import { CatalogContext } from '../../pages/Catalog/CatalogProvider';
+import { CatalogContext } from '../../pages/Catalog/providers/CatalogProvider';
 
 type CategoryType = {
   id: number;

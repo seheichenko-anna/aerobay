@@ -19,7 +19,7 @@ import Category from './pages/AdminPanel/Category';
 import GroupForDrones from './pages/AdminPanel/GroupForDrones';
 import Subcategory from './pages/AdminPanel/Subcategory';
 import Drone from './pages/AdminPanel/Drone';
-import Catalog from './pages/Catalog/Catalog';
+import Catalog from './pages/Catalog';
 import Comprasion from './components/Comprasion/Comprasion';
 import ScrollToTop from './utils/ScrollToTop';
 

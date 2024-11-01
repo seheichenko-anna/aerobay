@@ -1,5 +1,4 @@
 export const sortByItems = [
-  { id: 0, title: 'Unsorted' },
   { id: 1, title: 'Low To High' },
   { id: 2, title: 'High To Low' },
   { id: 3, title: 'New' },
