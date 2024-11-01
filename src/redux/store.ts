@@ -8,6 +8,8 @@ import { dronesReducer } from './drones/dronesSlice';
 import { loadingReducer } from './loadingSlice';
 import { errorReducer } from './errorSlice';
 import { comprasionProductsReducer } from './comprasionProducts/comprasionProductsSlice';
+import { filtersReducer } from './filtersSlice';
+import { priceRangeReducer } from './priceRangeSlice';
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +22,8 @@ export const store = configureStore({
     loading: loadingReducer,
     error: errorReducer,
     comprasionProducts: comprasionProductsReducer,
+    filters: filtersReducer,
+    priceRange: priceRangeReducer,
   },
 });
 
