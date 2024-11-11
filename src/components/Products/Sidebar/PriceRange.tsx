@@ -7,11 +7,7 @@ import {
 } from 'react';
 import rangeStat from '../../../assets/catalog/sidebar/price_range_stat.svg';
 import c from './FilterProduct.module.scss';
-import { ProductFiltersContext } from '../../../pages/Catalog/ProductsWrap';
-import { useAppDispatch } from '../../../redux/hooks/useAppDispatch';
-import { setSliderMaxPrice } from '../../../redux/priceRangeSlice';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
+import { ProductFiltersContext } from '../../../pages/Catalog/CategoryProducts';
 
 type PriceRangeProps = {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -19,15 +15,11 @@ type PriceRangeProps = {
 
 export const PriceRange = forwardRef<HTMLInputElement, PriceRangeProps>(
   ({ onChange }, ref) => {
-    const { minPrice, maxPrice } = useContext(ProductFiltersContext)!;
+    const { minPrice, maxPrice, currentPriceRef } = useContext(
+      ProductFiltersContext,
+    )!;
 
-    const currentMaxPrice = useSelector(
-      (state: RootState) => state.priceRange.currentMaxPrice,
-    );
-
-    const [sliderValue, setSliderValue] = useState(
-      currentMaxPrice || maxPrice,
-    );
+    const [sliderValue, setSliderValue] = useState(currentPriceRef.current);
 
     const setProgress = (elTarget: HTMLInputElement) => {
       const elRangeBar = elTarget.parentElement as HTMLElement;
@@ -47,8 +39,13 @@ export const PriceRange = forwardRef<HTMLInputElement, PriceRangeProps>(
       event: React.ChangeEvent<HTMLInputElement>,
     ) => {
       const newValue = Number(event.target.value);
+      currentPriceRef.current = newValue;
+      setProgress(event.target);
       setSliderValue(newValue);
-      if (onChange) onChange(event);
+
+      if (onChange) {
+        onChange(event);
+      }
     };
 
     useEffect(() => {
@@ -62,7 +59,7 @@ export const PriceRange = forwardRef<HTMLInputElement, PriceRangeProps>(
 
       if (inputElement.current) {
         inputElement.current.addEventListener('input', handleInput);
-        setProgress(inputElement.current); // Initial progress setup
+        setProgress(inputElement.current);
       }
 
       return () => {
@@ -72,14 +69,10 @@ export const PriceRange = forwardRef<HTMLInputElement, PriceRangeProps>(
       };
     }, [maxPrice, ref]);
 
-    const dispatch = useAppDispatch();
-    useEffect(() => {
-      dispatch(setSliderMaxPrice(sliderValue));
-    }, [sliderValue]);
-
     return (
       <div className={c.price_range}>
         <h3>Price range</h3>
+
         <div className={c.price_range__bgImage}>
           <img src={rangeStat} alt='range background image' />
           <div className={c.range}>
@@ -90,14 +83,14 @@ export const PriceRange = forwardRef<HTMLInputElement, PriceRangeProps>(
               value={sliderValue}
               onChange={handleSliderChange}
               step={1}
-              ref={ref} // Input reference
+              ref={ref}
             />
           </div>
         </div>
 
         <div className={c.price_range__minMaxPrices}>
           <p>$ {minPrice}</p>
-          <p>$ {sliderValue}</p>
+          <p>$ {currentPriceRef.current}</p>
         </div>
       </div>
     );

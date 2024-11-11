@@ -1,22 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useContext, useState } from 'react';
 import { BounceLoader } from 'react-spinners';
 import 'react-tooltip/dist/react-tooltip.css';
 import { mobileFilter } from '../../assets/catalog/index';
-import { ProductFiltersContext } from '../../pages/Catalog/ProductsWrap';
-import { SortByItems } from '../../pages/Catalog/consts/sortByItems';
-import {
-  CatalogContext,
-  TCatalogContext,
-} from '../../pages/Catalog/providers/CatalogProvider';
-import { useSort } from '../../pages/Catalog/providers/SortProvider';
-import { RootState } from '../../redux/store';
 import { BaseProduct } from '../../redux/types';
 import { Pagination } from './Pagination';
 import ProductItem from './ProductItem';
 import c from './Products.module.scss';
 import { FilterProducts, ProductFilter } from './Sidebar';
 import { SortDropdown } from './SortDropdown';
+import { ProductFiltersContext } from '../../pages/Catalog/CategoryProducts';
 
 export const Products = ({ children }: { children: React.ReactNode[] }) => {
   const fromFragment =
@@ -40,93 +32,6 @@ export const Products = ({ children }: { children: React.ReactNode[] }) => {
       React.isValidElement(child) && child.type === Products.Filters,
   );
 
-  // let totalProductsCount = Array.from({ length: 41 }, (_, index) =>
-  //   allProducts?.map(product => ({
-  //     ...product,
-  //     id: index * allProducts?.length + product?.id,
-  //   })),
-  // ).flat();
-
-  // Filter the total products if there are selected categories
-  // if (selectedCategories?.length) {
-  //   totalProductsCount = totalProductsCount.filter(el => {
-  //     return selectedCategories.some(category => category === el.category);
-  //   });
-  // }
-
-  // const allProductsX80Length = totalProductsCount?.length;
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [visibleProductsCount, setVisibleProductsCount] = useState(9);
-  //
-  // const [isShowed, setIsShowed] = useState(true);
-  //
-  // const er = allProductsX80Length / visibleProductsCount;
-  // const [ww, setWW] = useState(
-  //   Array(Math.ceil(er))
-  //     .fill(0)
-  //     .map((_, i) => {
-  //       if (i + 1 === Math.ceil(er)) {
-  //         const a1 = Math.ceil(er) - 1;
-  //         const a2 = allProductsX80Length - a1 * 9;
-  //         return { [i + 1]: a2 };
-  //       }
-  //       return { [i + 1]: 9 };
-  //     }),
-  // );
-
-  // useEffect(() => {
-  //   setWW(
-  //     Array(Math.ceil(er))
-  //       .fill(0)
-  //       .map((_, i) => {
-  //         if (i + 1 === Math.ceil(er)) {
-  //           const a1 = Math.ceil(er) - 1;
-  //           const a2 = allProductsX80Length - a1 * 9;
-  //           return { [i + 1]: a2 };
-  //         }
-  //         return { [i + 1]: 9 };
-  //       }),
-  //   );
-  // }, [totalProductsCount?.length]);
-
-  // const [currentProduct, setCurrentProduct] = useState<IProduct[]>([]);
-
-  // useEffect(() => {
-  //   const productElements = document.querySelectorAll('.product article');
-  //   const lastProductElement = productElements[productElements.length - 1];
-  //   const lastProductDataId =
-  //     lastProductElement?.getAttribute('data-id') ?? '0'; // Fallback to '0' if null
-  //
-  //   const totalProductsLength = totalProductsCount.length; // Assuming it's an array
-  //   const isAllProductsLoaded =
-  //     productElements.length > 0 && +lastProductDataId === totalProductsLength;
-  //
-  //   setIsShowed(!isAllProductsLoaded);
-  // }, [totalProductsCount]);
-  //
-  // const currentShowedProduct = +Object.values(ww[currentPage - 1]);
-
-  // useEffect(() => {
-  //   const a1 = ww.slice(0, currentPage - 1);
-  //   const a2 = a1.reduce((total, el) => {
-  //     return total + Number(Object.values(el));
-  //   }, 0);
-  //   const a3 = a2 + currentShowedProduct;
-  //   const result = totalProductsCount.slice(a2, a3);
-  //
-  //   setCurrentProduct(result);
-  // }, [currentPage, currentShowedProduct]);
-
-  // const handlePageClick = ({ selected }: { selected: number }) => {
-  //   setCurrentPage(selected + 1);
-  // };
-  //
-  // useEffect(() => {
-  //   setVisibleProductsCount(currentShowedProduct);
-  // }, [currentShowedProduct]);
-  //
-
-  // TODO: make pagination works again!
   const handlePageClick = () => {};
 
   return (
@@ -154,12 +59,11 @@ export const Products = ({ children }: { children: React.ReactNode[] }) => {
 
 const MoreFiltersMobileBtn = () => {
   const { setIsMobileFilterVisible } = useContext(
-    CatalogContext,
-  ) as TCatalogContext;
+    ProductFiltersContext
+  )!;
 
   const handleVisibleFilter = () => {
     setIsMobileFilterVisible(true);
-    document.body.style.overflow = 'hidden';
   };
 
   return (
@@ -176,40 +80,6 @@ const MoreFiltersMobileBtn = () => {
 };
 
 const FilterTags = () => {
-  // const {
-  //   isAvailabilityChecked,
-  //   setIsAvailabilityChecked,
-  //   isTypeChecked,
-  //   setIsTypeChecked,
-  // } = useContext(CatalogContext) as TCatalogContext;
-  //
-  // // TODO: show all selected filters
-  // const filteredValues = Object.entries({
-  //   ...isTypeChecked,
-  //   ...isAvailabilityChecked,
-  // })
-  //   .filter(([, value]) => value === true)
-  //   .map(([key, value]) => ({ [key]: value }));
-  //
-  // // TODO: make to work with all filters
-  // const handleClear = () => {
-  //   setIsAvailabilityChecked({ 'In Stock': false, 'Not Available': false });
-  //   setIsTypeChecked({ 'Model Drone': false, 'Ready-Solution Drone': false });
-  // };
-  //
-  // // TODO: make remove any selected filters
-  // const handleRemove = (value: string[]) => () => {
-  //   const valStr = String(value);
-  //
-  //   if (Object.prototype.hasOwnProperty.call(isTypeChecked, valStr)) {
-  //     setIsTypeChecked({ ...isTypeChecked, [valStr]: false });
-  //   }
-  //
-  //   if (Object.prototype.hasOwnProperty.call(isAvailabilityChecked, valStr)) {
-  //     setIsAvailabilityChecked({ ...isAvailabilityChecked, [valStr]: false });
-  //   }
-  // };
-
   const filteredValues: [] = [];
 
   return (
@@ -270,29 +140,6 @@ Products.Header = ({ title }: { title: string }) => {
   );
 };
 
-const sortItemsByPrice =
-  (sortType: SortByItems) => (item1: BaseProduct, item2: BaseProduct) => {
-    if (sortType === 'Low To High') {
-      return item1.price - item2.price;
-    }
-
-    if (sortType === 'High To Low') {
-      return item2.price - item1.price;
-    }
-
-    if (sortType === 'New') {
-      return (
-        Number(new Date(item2.created_at)) - Number(new Date(item1.created_at))
-      );
-    }
-
-    if (sortType === 'Sale') {
-      return item2.discount - item1.discount;
-    }
-
-    return 0;
-  };
-
 Products.ProductList = ({
   products,
   loading,
@@ -300,28 +147,6 @@ Products.ProductList = ({
   products: BaseProduct[];
   loading: boolean;
 }) => {
-  const currentMaxPrice = useSelector(
-    (state: RootState) => state.priceRange.currentMaxPrice,
-  );
-  const { isApplyTriggered } = useContext(ProductFiltersContext)!;
-
-  const [filteredProducts, setSortedProducts] =
-    useState<BaseProduct[]>(products);
-
-  const { currentSort } = useSort()!;
-
-  useEffect(() => {
-    const filteredByPriceProducts = products
-      .filter(product => product.price <= currentMaxPrice)
-      .slice()
-      .sort(sortItemsByPrice(currentSort));
-
-    setSortedProducts(filteredByPriceProducts);
-  }, [isApplyTriggered, products, currentSort]);
-
-  // TODO: make show more work again!
-  // const handleShowMore = () => {};
-
   if (loading) {
     return (
       <div className='flex justify-center'>
@@ -330,7 +155,7 @@ Products.ProductList = ({
     );
   }
 
-  if (filteredProducts.length === 0) {
+  if (products.length === 0) {
     return (
       <div className='flex justify-center'>
         <p>No items found.</p>
@@ -341,11 +166,12 @@ Products.ProductList = ({
   return (
     <>
       <div className={c['all-products']}>
-        {filteredProducts.map(product => (
+        {products.map(product => (
           <ProductItem key={product.id + product.title} product={product} />
         ))}
       </div>
 
+      {/*  TODO: make show more work again! */}
       {/* <ButtonShowMore handleShowMore={handleShowMore} /> */}
     </>
   );
