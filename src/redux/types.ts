@@ -11,6 +11,5 @@ export interface BaseProduct {
   manufacturer_id: number;
   subcategories: Subcategory[];
   images: string[];
-  filter_values: string;
   created_at: string;
 }
