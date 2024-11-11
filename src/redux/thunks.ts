@@ -28,6 +28,11 @@ import {
   deleteGroupForDronesThunk,
   editGroupForDronesThunk,
 } from './groupsForDrones/groupsForDronesOperations';
+import {
+  addImageThunk,
+  deleteImageThunk,
+  editImageThunk,
+} from './images/imagesOperations';
 
 export const thunks = {
   drone: {
@@ -59,5 +64,10 @@ export const thunks = {
     add: addGroupForDronesThunk,
     edit: editGroupForDronesThunk,
     delete: deleteGroupForDronesThunk,
+  },
+  image: {
+    add: addImageThunk,
+    edit: editImageThunk,
+    delete: deleteImageThunk,
   },
 };

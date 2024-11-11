@@ -6,6 +6,7 @@ import { fetchCategoriesThunk } from '../../redux/categories/categoriesOperation
 import { fetchGroupsForDronesThunk } from '../../redux/groupsForDrones/groupsForDronesOperations';
 import { fetchManufacturersThunk } from '../../redux/manufacturers/manufacturersOperations';
 import { fetchSubcategoriesThunk } from '../../redux/subcategories/subcategoriesOperations';
+import { fetchImagesThunk } from '../../redux/images/imagesOperations';
 
 const user = {
   name: 'Test',
@@ -33,6 +34,11 @@ const navigation = [
     href: '#/admin/filters',
     current: false,
   },
+  {
+    name: 'Images',
+    href: '#/admin/images',
+    current: false,
+  },
 ];
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
@@ -50,6 +56,7 @@ const AdminPanel: React.FC = () => {
     dispatch(fetchGroupsForDronesThunk());
     dispatch(fetchManufacturersThunk());
     dispatch(fetchSubcategoriesThunk());
+    dispatch(fetchImagesThunk());
   }, [dispatch]);
 
   useEffect(() => {

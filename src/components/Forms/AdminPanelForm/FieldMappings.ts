@@ -10,6 +10,7 @@ export const fieldMappings: Record<string, FieldMapping[]> = {
     { id: 'amount', type: 'number', label: 'Amount' },
     { id: 'group_id', type: 'number', label: 'Group Id' },
     { id: 'manufacturer_id', type: 'number', label: 'Manufacturer Id' },
+    { id: 'images', type: 'text', label: 'Images' },
     { id: 'subcategories', type: 'text', label: 'Subcategories' },
   ],
   accessory: [
@@ -24,6 +25,7 @@ export const fieldMappings: Record<string, FieldMapping[]> = {
     { id: 'amount', type: 'number', label: 'Amount' },
     { id: 'category_id', type: 'number', label: 'Category Id' },
     { id: 'manufacturer_id', type: 'number', label: 'Manufacturer Id' },
+    { id: 'images', type: 'number', label: 'Images' },
     { id: 'subcategories', type: 'text', label: 'Subcategories' },
   ],
   category: [
@@ -40,5 +42,9 @@ export const fieldMappings: Record<string, FieldMapping[]> = {
     { id: 'value', type: 'text', label: 'Value' },
     { id: 'category_id', type: 'number', label: 'Category Id' },
     { id: 'group_id', type: 'number', label: 'Group Id' },
+  ],
+  image: [
+    { id: 'name', type: 'text', label: 'Name' },
+    { id: 'url', type: 'text', label: 'Url' },
   ],
 };

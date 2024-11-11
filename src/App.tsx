@@ -22,6 +22,7 @@ import Drone from './pages/AdminPanel/Drone';
 import Catalog from './pages/Catalog';
 import Comprasion from './components/Comprasion/Comprasion';
 import ScrollToTop from './utils/ScrollToTop';
+import Image from './pages/AdminPanel/Image';
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
           <Route path="group-for-drones" element={<GroupForDrones />} />
           <Route path="manufacturer" element={<Manufacturer />} />
           <Route path="filters" element={<Subcategory />} />
+          <Route path="images" element={<Image />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

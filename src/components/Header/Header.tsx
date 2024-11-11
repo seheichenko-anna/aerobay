@@ -1,6 +1,6 @@
 import Hamburger from 'hamburger-react';
 import { useEffect, useRef, useState } from 'react';
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { IoIosArrowDown } from 'react-icons/io';
 import { LuShoppingBag } from 'react-icons/lu';
 import { MdOutlineArrowOutward } from 'react-icons/md';
 import { Link, useLocation } from 'react-router-dom';
@@ -24,6 +24,13 @@ const Header = () => {
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.includes('/catalog')) {
+      setShowDropdown(null);
+    }
+  }, [location.pathname]);
   const handleToggleDropdown = (dropdown: DropdownType) => {
     setShowDropdown(showDropdown === dropdown ? null : dropdown);
     if (dropdown === 'products') {
@@ -32,16 +39,13 @@ const Header = () => {
       setSelectedProduct(null);
     }
   };
-
   const handleToggleSearchInput = () => {
     setShowSearchInput(prev => !prev);
   };
-
   const handleProductSelection = (product: ProductType) => {
     setSelectedProduct(product);
   };
 
-  const location = useLocation();
   const screenSize = useScreenSize();
   const [isOpen, setOpen] = useState(false);
 
@@ -123,12 +127,10 @@ const Header = () => {
                   onClick={() => handleToggleDropdown('products')}
                 >
                   Products
-                  <span className={s.arrowDown}>
-                    {showDropdown ? (
-                      <IoIosArrowUp size={20} />
-                    ) : (
-                      <IoIosArrowDown size={20} />
-                    )}
+                  <span
+                    className={`${s.arrowDown} ${showDropdown ? s.active : ''}`}
+                  >
+                    <IoIosArrowDown size={20} />
                   </span>
                 </button>
               </div>
@@ -171,7 +173,7 @@ const Header = () => {
                   {selectedProduct === 'drones' && (
                     <ul className={s.dronesList}>
                       <li className={s.droneItem}>
-                        <Link to={'/'} className={s.linkStyle}>
+                        <Link to={'/catalog/drones'} className={s.linkStyle}>
                           <div
                             className={`${s.electricalDrone} ${s.bigfotoDrone}`}
                           ></div>
@@ -179,7 +181,7 @@ const Header = () => {
                         </Link>
                       </li>
                       <li className={s.droneItem}>
-                        <Link to={'/'} className={s.linkStyle}>
+                        <Link to={'/catalog/drones'} className={s.linkStyle}>
                           <div
                             className={`${s.hybrideDrone} ${s.bigfotoDrone}`}
                           ></div>
@@ -202,7 +204,10 @@ const Header = () => {
                         </li>
                       ))}
                       <li className={s.accessoryItem}>
-                        <Link to={'/'} className={s.linkStyle}>
+                        <Link
+                          to={'/catalog/accessories'}
+                          className={s.linkStyle}
+                        >
                           <span className={s.btnArrow}>
                             <MdOutlineArrowOutward size={24} />
                           </span>
@@ -223,12 +228,10 @@ const Header = () => {
                       }
                     >
                       <span>Company</span>{' '}
-                      <span className={s.arrowDown}>
-                        {openDropdownCompany ? (
-                          <IoIosArrowUp size={20} />
-                        ) : (
-                          <IoIosArrowDown size={20} />
-                        )}
+                      <span
+                        className={`${s.arrowDown} ${openDropdownCompany ? s.active : ''}`}
+                      >
+                        <IoIosArrowDown size={20} />
                       </span>
                     </button>
                   }
@@ -256,12 +259,10 @@ const Header = () => {
                       }
                     >
                       <span>Solutions</span>{' '}
-                      <span className={s.arrowDown}>
-                        {openDropdownSolutions ? (
-                          <IoIosArrowUp size={20} />
-                        ) : (
-                          <IoIosArrowDown size={20} />
-                        )}
+                      <span
+                        className={`${s.arrowDown} ${openDropdownSolutions ? s.active : ''}`}
+                      >
+                        <IoIosArrowDown size={20} />
                       </span>
                     </button>
                   }

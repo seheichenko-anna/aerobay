@@ -10,6 +10,7 @@ import { errorReducer } from './errorSlice';
 import { comprasionProductsReducer } from './comprasionProducts/comprasionProductsSlice';
 import { filtersReducer } from './filtersSlice';
 import { priceRangeReducer } from './priceRangeSlice';
+import { imagesReducer } from './images/imagesSlice';
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     loading: loadingReducer,
     error: errorReducer,
     comprasionProducts: comprasionProductsReducer,
+    images: imagesReducer,
     filters: filtersReducer,
     priceRange: priceRangeReducer,
   },

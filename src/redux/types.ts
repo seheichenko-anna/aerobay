@@ -1,4 +1,4 @@
-import { Subcategory } from "./subcategories/subcategoriesOperations";
+import { Subcategory } from './subcategories/subcategoriesOperations';
 
 export interface BaseProduct {
   id: number;
@@ -10,5 +10,6 @@ export interface BaseProduct {
   amount: number;
   manufacturer_id: number;
   subcategories: Subcategory[];
+  images: string[];
   created_at: string;
 }
