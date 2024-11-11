@@ -10,8 +10,8 @@ export type TCatalogContext = {
   selectedCategories: string[];
   setSelectedCategories: Dispatch<React.SetStateAction<string[]>>;
 
-  isMobileFilterVisible: boolean;
-  setIsMobileFilterVisible: Dispatch<React.SetStateAction<boolean>>;
+  // isMobileFilterVisible: boolean;
+  // setIsMobileFilterVisible: Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const CatalogContext = createContext<TCatalogContext | null>(null);
@@ -26,7 +26,7 @@ export const CatalogProvider = ({
     'Accessories',
   ]);
 
-  const [isMobileFilterVisible, setIsMobileFilterVisible] = useState(false);
+  // const [isMobileFilterVisible, setIsMobileFilterVisible] = useState(false);
 
   const [selectedCategory, setSelectedCategory] = useState<CategoryTabType>('All Products');
 
@@ -37,8 +37,8 @@ export const CatalogProvider = ({
         setSelectedCategory,
         selectedCategories,
         setSelectedCategories,
-        isMobileFilterVisible,
-        setIsMobileFilterVisible,
+        // isMobileFilterVisible,
+        // setIsMobileFilterVisible,
       }}
     >
       {children}

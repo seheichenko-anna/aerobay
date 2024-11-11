@@ -1,16 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { accessoriesReducer } from './accessories/accessoriesSlice';
-import { manufacturesReducer } from './manufacturers/manufacturersSlice';
 import { categoriesReducer } from './categories/categoriesSlice';
-import { groupsForDronesReducer } from './groupsForDrones/groupsForDronesSlice';
-import { subcategoriesReducer } from './subcategories/subcategoriesSlice';
-import { dronesReducer } from './drones/dronesSlice';
-import { loadingReducer } from './loadingSlice';
-import { errorReducer } from './errorSlice';
 import { comprasionProductsReducer } from './comprasionProducts/comprasionProductsSlice';
+import { dronesReducer } from './drones/dronesSlice';
+import { errorReducer } from './errorSlice';
 import { filtersReducer } from './filtersSlice';
-import { priceRangeReducer } from './priceRangeSlice';
 import { imagesReducer } from './images/imagesSlice';
+import { groupsForDronesReducer } from './groupsForDrones/groupsForDronesSlice';
+import { loadingReducer } from './loadingSlice';
+import { manufacturesReducer } from './manufacturers/manufacturersSlice';
+import { subcategoriesReducer } from './subcategories/subcategoriesSlice';
 
 export const store = configureStore({
   reducer: {
@@ -25,7 +24,6 @@ export const store = configureStore({
     comprasionProducts: comprasionProductsReducer,
     images: imagesReducer,
     filters: filtersReducer,
-    priceRange: priceRangeReducer,
   },
 });
 
