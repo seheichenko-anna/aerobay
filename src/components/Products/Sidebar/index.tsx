@@ -10,11 +10,12 @@ import { PriceRange } from './PriceRange';
 import { BounceLoader } from 'react-spinners';
 import useFilters from '../../../hooks/useFilters';
 import {
-    CatalogContext,
-    TCatalogContext,
+  CatalogContext,
+  TCatalogContext,
 } from '../../../pages/Catalog/providers/CatalogProvider';
 import { CategoryTabType } from '../../Categories/categoryTabs';
 import { CategoryFilterDropdown } from '../CategoryFilterDropdown';
+import { ProductFiltersContext } from '../../../pages/Catalog/CategoryProducts';
 
 export type ProductFilterOption = { label: string; checked: boolean };
 export type ProductFilter = {
@@ -26,41 +27,24 @@ export type ProductFilter = {
 export const FilterProducts = ({ filters }: { filters: ProductFilter[] }) => {
   const refInput = useRef<HTMLInputElement>(null);
 
-  // const {minPrice, maxPrice} = useContext(ProductFiltersContext)!;
-  // const initialMaxPrice = { isTrigged: false, price: 200000, value: 100 };
-  // const [maxPrice, setMaxPrice] = useState(initialMaxPrice);
+  const { selectedCategories, setSelectedCategories, selectedCategory } =
+    useContext(CatalogContext) as TCatalogContext;
 
-  const {
-    selectedCategories,
-    setSelectedCategories,
+  const { isMobileFilterVisible, setIsMobileFilterVisible } = useContext(
+    ProductFiltersContext,
+  )!;
 
-    isMobileFilterVisible,
-    setIsMobileFilterVisible,
-
-    selectedCategory,
-  } = useContext(CatalogContext) as TCatalogContext;
-
-  const handleChangePrice = () => {
-    // const value = +e.target.value;
-
-
-    // setMaxPrice({
-    //   isTrigged: true,
-    //   price: value * 2000,
-    //   value,
-    // });
-  };
-
-  // TODO: apply reseting for price range and selected categories
-  // const handleClear = () => {
-  //   setSelectedCategories([]);
-  //   setMaxPrice(initialMaxPrice);
-  // };
+  const handleChangePrice = () => {};
 
   const handleCloseSidebar = () => {
     setIsMobileFilterVisible(false);
-    document.body.style.overflow = '';
   };
+
+  if (isMobileFilterVisible) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
 
   const WithDefaultFilters = () => {
     const { loading } = useFilters();
@@ -86,10 +70,7 @@ export const FilterProducts = ({ filters }: { filters: ProductFilter[] }) => {
           />
         )}
 
-        <PriceRange
-          onChange={handleChangePrice}
-          ref={refInput}
-        />
+        <PriceRange onChange={handleChangePrice} ref={refInput} />
 
         <BackendFilters />
       </div>

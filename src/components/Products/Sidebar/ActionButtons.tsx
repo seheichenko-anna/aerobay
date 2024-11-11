@@ -1,21 +1,21 @@
-import { useContext } from 'react';
 import c from './FilterProduct.module.scss';
-import { ProductFiltersContext } from '../../../pages/Catalog/ProductsWrap';
 import { useAppDispatch } from '../../../redux/hooks/useAppDispatch';
 import { resetFilters } from '../../../redux/filtersSlice';
+import { useContext } from 'react';
+import { ProductFiltersContext } from '../../../pages/Catalog/CategoryProducts';
 
 export const ActionButtons = () => {
-  const { triggerApply } = useContext(ProductFiltersContext)!;
+  const { applyFilters, clearFilters } = useContext(ProductFiltersContext)!;
 
   const dispatch = useAppDispatch();
   const onClear = () => {
+    clearFilters()
     dispatch(resetFilters());
-    triggerApply();
   };
 
   return (
     <div className={c.buttons}>
-      <button className={c.buttons__apply} onClick={triggerApply}>
+      <button className={c.buttons__apply} onClick={applyFilters}>
         Apply
       </button>
 
