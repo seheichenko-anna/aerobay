@@ -1,36 +1,34 @@
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import c from './Breadcrumbs.module.scss';
+import styles from './Breadcrumbs.module.scss';
 
 export const Breadcrumbs = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
 
-  let currentLink = '';
-  let isHomeCrumb = true;
+  // Split and filter out empty crumbs
+  const pathSegments = pathname.split('/').filter(Boolean);
 
-  const crumbs = location.pathname
-    .split('/')
-    .filter(crumb => crumb !== '')
-    .map(crumb => {
-      currentLink += `/${crumb}`;
-      const uppercasedCrumb = `${crumb.charAt(0).toUpperCase()}${crumb.slice(1)}`;
+  // Map each path segment to a breadcrumb link
+  const crumbs = pathSegments.map((segment, index) => {
+    // Construct the link for each segment
+    const linkPath = `/${pathSegments.slice(0, index + 1).join('/')}`;
 
-      if (isHomeCrumb && currentLink[0] === '/') {
-        isHomeCrumb = false;
-        return (
-          <React.Fragment key={crumb}>
-            <Link to="/">Home</Link>
-            <Link to={currentLink}>{uppercasedCrumb}</Link>
-          </React.Fragment>
-        );
-      } else {
-        return (
-          <Link key={crumb} to={currentLink}>
-            {uppercasedCrumb}
-          </Link>
-        );
-      }
-    });
+    // Replace underscores with spaces and capitalize the first letter
+    const formattedCrumb = segment.replace(/_/g, ' ');
+    const uppercasedCrumb =
+      formattedCrumb.charAt(0).toUpperCase() + formattedCrumb.slice(1);
 
-  return <div className={c.breadcrumbs}>{crumbs}</div>;
+    return (
+      <Link key={segment} to={linkPath}>
+        {uppercasedCrumb}
+      </Link>
+    );
+  });
+
+  return (
+    <div className={styles.breadcrumbs}>
+      {/* Always show 'Home' as the first breadcrumb */}
+      <Link to="/">Home</Link>
+      {crumbs}
+    </div>
+  );
 };

@@ -58,7 +58,6 @@ body {
 @tailwind components;
 @tailwind utilities;
 
-
 .pagenation-container {
   margin: 20px 0 15px 0;
   display: flex;
@@ -67,11 +66,9 @@ body {
   gap: 10px;
   list-style: none;
 }
-
 .pagenation-container li:focus-visible {
   outline: none;
 }
-
 .pagenation-container li a {
   width: 46px;
   height: 46px;
@@ -81,17 +78,14 @@ body {
   border-radius: 50%;
   transition: 0.3s linear;
 }
-
 .pagenation-container li a:focus-visible {
   outline: none;
 }
-
 .pagenation-container li a:not(.break):hover {
   cursor: pointer;
   background-color: #e4dbdb;
   border-radius: 50%;
 }
-
 .pagenation-page-link {
   font-size: 18px;
   color: #3e3e59;
@@ -115,7 +109,33 @@ body {
   display: none !important;
 }
 
+@media screen and (max-width: 500px) {
+  .pagenation-container li a {
+    width: 34px;
+    height: 34px;
+  }
+
+  .pagenation-container .selected {
+    width: 34px;
+    height: 34px;
+  }
+}
+
 @media screen and (max-width: 375px) {
+  .pagenation-container {
+    gap: 2px;
+  }
+
+  .pagenation-container li a {
+    width: 30px;
+    height: 30px;
+  }
+
+  .pagenation-container .selected {
+    width: 30px;
+    height: 30px;
+  }
+
   .swiper-slide {
     height: 80%;
   }

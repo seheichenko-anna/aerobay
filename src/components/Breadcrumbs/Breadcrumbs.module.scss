@@ -1,18 +1,22 @@
 @import '../../assets/sass-functions/functions';
 
 .breadcrumbs {
-  margin-top: 4px;
-  display: flex;
-  column-gap: 15px;
-  font-size: rem(12px);
-  & > a {
-    color: #605f5f;
-    &:hover {
-      font-weight: 600;
+    margin-top: 4px;
+    display: flex;
+    column-gap: 15px;
+    font-size: rem(14px);
+
+    &>a {
+        $color: #605f5f;
+        color: $color;
+
+        &:hover {
+            text-shadow: 0.5px 0px 0px $color;
+        }
     }
-  }
-  & > a:not(:last-child):after {
-    content: url('../../assets/catalog/breadcrumbs//right_arrow.svg');
-    margin-left: 5px;
-  }
+
+    &>a:not(:last-child):after {
+        content: url('../../assets/catalog/breadcrumbs//right_arrow.svg');
+        margin-left: 5px;
+    }
 }

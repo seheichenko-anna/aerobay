@@ -23,3 +23,6 @@ api_docs.json
 *.njsproj
 *.sln
 *.sw?
+
+# Remove unnecessary pnpm lock file
+pnpm-lock.yaml

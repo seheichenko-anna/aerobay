@@ -28,30 +28,30 @@ const categoriesSlice = createSlice({
         fetchCategoriesThunk.fulfilled,
         (state, { payload }: PayloadAction<Category[]>) => {
           state.categories = payload;
-        }
+        },
       )
       .addCase(
         addCategoryThunk.fulfilled,
         (state, { payload }: PayloadAction<Category>) => {
           state.categories = [...state.categories, payload];
-        }
+        },
       )
       .addCase(
         deleteCategoryThunk.fulfilled,
         (state, { payload }: PayloadAction<Category>) => {
           state.categories = state.categories.filter(
-            category => category.id !== payload.id
+            category => category.id !== payload.id,
           );
-        }
+        },
       )
       .addCase(
         editCategoryThunk.fulfilled,
         (state, { payload }: PayloadAction<Category>) => {
           const index = state.categories.findIndex(
-            category => category.id === payload.id
+            category => category.id === payload.id,
           );
           state.categories.splice(index, 1, payload);
-        }
+        },
       );
   },
 });

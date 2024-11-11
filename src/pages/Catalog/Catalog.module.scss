@@ -5,3 +5,18 @@
   display: flex;
   gap: 32px;
 }
+@media screen and (max-width: 1065px) {
+  .all_products_wrap {
+    gap: 20px;
+  }
+}
+@media screen and (max-width: 992px) {
+  .all_products_wrap {
+    gap: 10px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .all_products_wrap {
+    margin: 24px 0;
+  }
+}

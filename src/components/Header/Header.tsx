@@ -3,20 +3,21 @@ import { useEffect, useRef, useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { LuShoppingBag } from 'react-icons/lu';
 import { MdOutlineArrowOutward } from 'react-icons/md';
-import srcLogo from './images/Icon_drone.png';
+import { Link, useLocation } from 'react-router-dom';
 import svg from '../../assets/sprite.svg';
-import Hamburger from 'hamburger-react';
 import useScreenSize from '../../hooks/useScreenSize';
+import DropDown from '../DropDown/Dropdown';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 import Search from '../Search/Search';
+import AccordionMobileMenu from './AccordionMobileMenu';
+import ComprasionIcon from './ComprasionIcon';
+import s from './Header.module.css';
 import { accessories } from './products';
 
 type DropdownType = 'products' | 'company' | 'solutions' | null;
 type ProductType = 'drones' | 'accessories' | null;
 
 const Header = () => {
-  const screenSize = useScreenSize();
-  const [isOpen, setOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState<DropdownType>(null);
   const [selectedProduct, setSelectedProduct] = useState<ProductType>(null);
   const [showSearchInput, setShowSearchInput] = useState<boolean>(false);
@@ -113,13 +114,14 @@ const Header = () => {
 
   return (
     <>
-      {screenSize.width > 375 ? (
+      {screenSize.width > 768 ? (
         <div className={s.headerWrapper}>
           <header className={s.header}>
             <nav className={s.nav}>
               <div className={s.navItemWrapper}>
                 <button
-                  className={s.navButton}
+                  aria-label="Products menu"
+                  className={showDropdown ? s.navButtonActive : s.navButton}
                   onClick={() => handleToggleDropdown('products')}
                 >
                   Products
@@ -131,12 +133,16 @@ const Header = () => {
                 </button>
               </div>
               {showDropdown === 'products' && (
-                <nav className={`${s.dropdown} ${s.dropdownProducts}`}>
+                <nav
+                  className={`${s.dropdown} ${s.dropdownProducts}`}
+                  ref={dropdownRef}
+                >
                   <ul className={s.productList}>
                     <li
                       className={` ${selectedProduct === 'drones' ? s.activeProduct : null}`}
                     >
                       <button
+                        aria-label="Drones"
                         className={`${s.productItemBtn} ${selectedProduct === 'drones' ? s.active : null}`}
                         onClick={() => handleProductSelection('drones')}
                       >
@@ -150,6 +156,7 @@ const Header = () => {
                       className={`${selectedProduct === 'accessories' ? s.activeProduct : null}`}
                     >
                       <button
+                        aria-label="Accessories"
                         className={`${s.productItemBtn} ${selectedProduct === 'accessories' ? s.active : null}`}
                         onClick={() => handleProductSelection('accessories')}
                       >
@@ -201,7 +208,7 @@ const Header = () => {
                         >
                           <span className={s.btnArrow}>
                             <MdOutlineArrowOutward size={24} />
-                          </button>
+                          </span>
                           <h5 className={s.titleCart}>View all</h5>
                         </Link>
                       </li>
@@ -272,24 +279,19 @@ const Header = () => {
               </div>
             </nav>
 
-            <Link to="/">
-              <div className={s.logo}>
-                <img src={srcLogo} alt="Logo-dron" />
-                <svg>
-                  <use xlinkHref={`${svg}#icon-logo`} />
-                </svg>
-              </div>
-            </Link>
+            <Logo />
 
             <div className={s.headerActions}>
               <Search />
               <div className={`${s.navButton} ${s.btnGlobalLine}`}>
                 <span className={`${s.arrowDown} ${s.arrSearch}`}>
-                  {' '}
                   <LanguageSelector />
                 </span>
               </div>
-              <button className={`${s.navButton} ${s.cartButton}`}>
+              <button
+                className={`${s.navButton} ${s.cartButton}`}
+                aria-label="Cart"
+              >
                 Cart{' '}
                 <span className={s.arrowDown}>
                   <LuShoppingBag size={20} />
@@ -299,48 +301,83 @@ const Header = () => {
           </header>
         </div>
       ) : (
-        <>
+        <div className={s.headerWrapper}>
           <header className={s.header}>
-            <Link to="/">
-              <div className={s.logo}>
-                <img src={srcLogo} alt="Logo-dron" />
-                <svg>
-                  <use xlinkHref={`${svg}#icon-logo`} />
-                </svg>
-              </div>
-            </Link>
-            <button className={`${s.navButton} ${s.menuButton}`}>
-              <Hamburger
-                color="black"
-                toggled={isOpen}
-                toggle={setOpen}
-                size={20}
-              />
-            </button>
+            {!showSearchInput && <Logo />}
+
+            <Search
+              showSearchInput={showSearchInput}
+              handleToggleSearchInput={handleToggleSearchInput}
+            />
+
+            {!showSearchInput && (
+              <>
+                <div className={s.headerActions}>
+                  <button
+                    className={`${s.navButton} ${s.cartButton}`}
+                    aria-label="Cart"
+                  >
+                    <span className={s.arrowDown}>
+                      <LuShoppingBag size={20} />
+                    </span>
+                  </button>
+                </div>
+                <button
+                  className={`${s.navButton} ${s.menuButton}`}
+                  aria-label="Open or hide menu"
+                >
+                  <Hamburger
+                    color="black"
+                    toggled={isOpen}
+                    toggle={setOpen}
+                    size={20}
+                  />
+                </button>
+              </>
+            )}
           </header>
 
           {isOpen && (
             <nav className={s.mobileNav}>
-              {
-                <div className={s.mobileNavContainer}>
-                  <button className={`${s.navButton} ${s.navItem}`}>
-                    Products{' '}
-                  </button>
-
-                  <button className={`${s.navButton} ${s.navItem}`}>
-                    Company
-                  </button>
-
-                  <button className={`${s.navButton} ${s.navItem}`}>
-                    Solutions
-                  </button>
-                </div>
-              }
+              <AccordionMobileMenu />
+              <ul className={s.mobileNavList}>
+                <li className={s.mobileNavItem}>
+                  <span>Language</span>
+                  <div className={`${s.navButton} ${s.btnGlobalLine}`}>
+                    <span className={`${s.arrowDown} ${s.arrSearch}`}>
+                      <LanguageSelector
+                        positionY="bottom"
+                        positionX="right-0"
+                      />
+                    </span>
+                  </div>
+                </li>
+                <li className={s.mobileNavItem}>
+                  <span>Comprasion</span>
+                  <div className={`${s.navButton} ${s.btnGlobalLine}`}>
+                    <span className={`${s.arrowDown} ${s.arrSearch}`}>
+                      <ComprasionIcon />
+                    </span>
+                  </div>
+                </li>
+              </ul>
             </nav>
           )}
-        </>
+        </div>
       )}
     </>
+  );
+};
+
+const Logo = () => {
+  return (
+    <Link to="/">
+      <div className={s.logo}>
+        <svg height="50px">
+          <use xlinkHref={`${svg}#icon-logo_aeroBay`} />
+        </svg>
+      </div>
+    </Link>
   );
 };
 

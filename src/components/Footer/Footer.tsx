@@ -90,7 +90,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <LanguageSelector />
+                <LanguageSelector positionX="right-0" />
               </li>
             </ul>
           </div>

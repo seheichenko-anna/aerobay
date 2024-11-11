@@ -27,16 +27,20 @@ import Image from './pages/AdminPanel/Image';
 function App() {
   return (
     <>
+      <ScrollToTop />
+
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="catalog" element={<Catalog />} />
+          <Route path="catalog/:category" element={<Catalog />} />
           <Route path="lidar-drone" element={<LiDARDrone />} />
           <Route path="agriculture-drone" element={<AgricultureDrone />} />
           <Route path="drone-viewer" element={<DroneViewer />} />
           <Route path="about-us" element={<AboutUs />} />
           <Route path="contact-us" element={<ContactUs />} />
           <Route path="cookies-policy" element={<CookiesPolicy />} />
+          <Route path="comprasion" element={<Comprasion />} />
           <Route
             path="delivery-and-payments"
             element={<DeliveryAndPayments />}
@@ -44,6 +48,7 @@ function App() {
           <Route path="returns-and-refunds" element={<ReturnsAndRefunds />} />
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
         </Route>
+
         <Route path="admin" element={<AdminPanel />}>
           <Route index element={<Dashboard />} />
           <Route path="accessory" element={<Accessory />} />

@@ -3,18 +3,29 @@ import { useState } from 'react';
 import svg from '../../assets/sprite.svg';
 import s from './Search.module.css';
 import { useForm } from 'react-hook-form';
+import { useDashboard } from '../../hooks/useDashboard';
 
 type FormData = {
   search: string;
 };
 
-const Search = () => {
+interface SearchProps {
+  handleToggleSearchInput?: () => void;
+  showSearchInput?: boolean;
+}
+
+const Search: React.FC<SearchProps> = ({
+  handleToggleSearchInput,
+  showSearchInput,
+}) => {
   const [isHidden, setIsHidden] = useState<boolean>(true);
   const [search, setSearch] = useState<string>('');
   const { register, handleSubmit, reset } = useForm<FormData>();
+  const { isAllMobile } = useDashboard();
 
   const handleSearchOpener = (): void => {
     setIsHidden(!isHidden);
+    if (isAllMobile && handleToggleSearchInput) handleToggleSearchInput();
   };
 
   const onSubmit = (data: FormData) => {
@@ -36,7 +47,11 @@ const Search = () => {
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={`${s.search_wrapper} ${isHidden ? s.is_hidden : ''}`}>
-        <button className={`${s.search_btn} ${s.btn}`} type="submit">
+        <button
+          className={`${s.search_btn} ${s.btn}`}
+          type="submit"
+          aria-label="Search"
+        >
           <svg className={s.icon_search}>
             <use xlinkHref={`${svg}#icon-search`} />
           </svg>
@@ -48,11 +63,13 @@ const Search = () => {
             {...register('search')}
             onChange={e => updateSearchValue(e.target.value)}
             value={search}
+            aria-label="Search input"
           />
           <button
             className={`${s.reset_btn} ${s.btn}`}
             type="button"
             onClick={search ? handleReset : handleSearchOpener}
+            aria-label="Reset search"
           >
             <svg className={s.icon_reset}>
               <use xlinkHref={`${svg}#icon-x`} />
@@ -61,17 +78,20 @@ const Search = () => {
         </div>
       </div>
 
-      <div className={`${s.search_wrapper} ${isHidden ? '' : s.is_hidden}`}>
-        <button
-          className={`${s.btn} ${s.open_btn}`}
-          onClick={handleSearchOpener}
-          type="button"
-        >
-          <svg className={s.icon_search}>
-            <use xlinkHref={`${svg}#icon-search`} />
-          </svg>
-        </button>
-      </div>
+      {!showSearchInput && (
+        <div className={`${s.search_wrapper} ${isHidden ? '' : s.is_hidden}`}>
+          <button
+            className={`${s.btn} ${s.open_btn}`}
+            onClick={handleSearchOpener}
+            type="button"
+            aria-label="Open search input"
+          >
+            <svg className={s.icon_search}>
+              <use xlinkHref={`${svg}#icon-search`} />
+            </svg>
+          </button>
+        </div>
+      )}
     </form>
   );
 };

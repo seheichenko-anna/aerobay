@@ -1,13 +1,18 @@
 import { AxiosError } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { dronesApi } from '../../axiosConfig/dronesApi';
+import { Category } from '../categories/categoriesOperations';
 
 export interface Subcategory {
   id: number;
   name: string;
   value: string;
-  group_id: number;
-  category_id: number;
+  category_id: number | null;
+  group_id: number | null;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+  category: Category | null;
 }
 
 export const fetchSubcategoriesThunk = createAsyncThunk<Subcategory[]>(
@@ -22,7 +27,7 @@ export const fetchSubcategoriesThunk = createAsyncThunk<Subcategory[]>(
       }
       return thunkAPI.rejectWithValue('An unexpected error occurred');
     }
-  }
+  },
 );
 
 export const addSubcategoryThunk = createAsyncThunk<Subcategory, Subcategory>(
@@ -38,7 +43,7 @@ export const addSubcategoryThunk = createAsyncThunk<Subcategory, Subcategory>(
       }
       return thunkAPI.rejectWithValue('An unexpected error occurred');
     }
-  }
+  },
 );
 
 export const deleteSubcategoryThunk = createAsyncThunk<
@@ -63,7 +68,7 @@ export const editSubcategoryThunk = createAsyncThunk<Subcategory, Subcategory>(
     try {
       const response = await dronesApi.put(
         `subcategory/${subcategory.id}`,
-        subcategory
+        subcategory,
       );
       thunkAPI.dispatch(fetchSubcategoriesThunk());
       return response.data;
@@ -73,5 +78,5 @@ export const editSubcategoryThunk = createAsyncThunk<Subcategory, Subcategory>(
       }
       return thunkAPI.rejectWithValue('An unexpected error occurred');
     }
-  }
+  },
 );
