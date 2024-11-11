@@ -12,7 +12,8 @@ type InputType =
   | 'category'
   | 'manufacturer'
   | 'subcategory'
-  | 'groupForDrones';
+  | 'groupForDrones'
+  | 'image';
 
 interface AdminDataTableProps<T> {
   title: string;

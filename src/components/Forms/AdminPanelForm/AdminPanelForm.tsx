@@ -12,6 +12,8 @@ import { selectCategories } from '../../../redux/categories/categoriesSlice';
 import Select, { MultiValue, SingleValue, StylesConfig } from 'react-select';
 import { thunks } from '../../../redux/thunks';
 import { Subcategory } from '../../../redux/subcategories/subcategoriesOperations';
+import { selectImages } from '../../../redux/images/imagesSlice';
+import { Image } from '../../../redux/images/imagesOperations';
 
 type InputAdminPanelFormType =
   | 'drone'
@@ -19,7 +21,8 @@ type InputAdminPanelFormType =
   | 'category'
   | 'manufacturer'
   | 'subcategory'
-  | 'groupForDrones';
+  | 'groupForDrones'
+  | 'image';
 
 export type FormFieldNames = keyof FormValues;
 
@@ -46,7 +49,9 @@ export interface FormValues {
   group_id?: number | null;
   manufacturer_id?: number | null;
   category_id?: number | null;
+  images?: string[];
   subcategories?: number[] | [];
+  url?: string;
 }
 
 export interface FieldMapping {
@@ -89,6 +94,7 @@ const AdminPanelForm: React.FC<AdminPanelFormProps> = ({
       manufacturer_id: selectedItem?.manufacturer_id ?? null,
       category_id: selectedItem?.category_id ?? null,
       subcategories: selectedItem?.subcategories ?? [],
+      images: selectedItem?.images ?? [],
     },
   });
   const dispatch = useAppDispatch();
@@ -96,6 +102,7 @@ const AdminPanelForm: React.FC<AdminPanelFormProps> = ({
   const manufacturers = useSelector(selectManufacturers);
   const subcategories = useSelector(selectSubcategories);
   const categories = useSelector(selectCategories);
+  const images = useSelector(selectImages);
 
   const selectMultiStyles: StylesConfig<OptionType, true> = {
     menu: styles => ({ ...styles, maxHeight: 100, zIndex: 9999 }),
@@ -159,7 +166,8 @@ const AdminPanelForm: React.FC<AdminPanelFormProps> = ({
         fieldId === 'group_id' ||
         fieldId === 'manufacturer_id' ||
         fieldId === 'category_id' ||
-        fieldId === 'subcategories'
+        fieldId === 'subcategories' ||
+        fieldId === 'images'
       ) {
         const options =
           fieldId === 'group_id'
@@ -168,7 +176,11 @@ const AdminPanelForm: React.FC<AdminPanelFormProps> = ({
               ? manufacturers
               : fieldId === 'category_id'
                 ? categories
-                : subcategories;
+                : fieldId === 'subcategories'
+                  ? subcategories
+                  : fieldId === 'images'
+                    ? images
+                    : [];
         if (!options) {
           console.error(`Options for ${fieldId} are undefined`);
           return (
@@ -202,7 +214,7 @@ const AdminPanelForm: React.FC<AdminPanelFormProps> = ({
                 id={fieldId}
                 options={options.map(option => ({
                   value: option.id,
-                  label: option.name,
+                  label: 'value' in option ? option.value : option.name,
                 }))}
                 isMulti
                 defaultValue={selectedSubcategories}
@@ -223,6 +235,48 @@ const AdminPanelForm: React.FC<AdminPanelFormProps> = ({
             </div>
           );
         }
+
+        if (fieldId === 'images') {
+          const selectedImages = (selectedItem?.images || []).map(
+            (image: Image) => ({
+              value: image.id,
+              label: options.find(option => option.id === image.id)?.name || '',
+            })
+          );
+          return (
+            <div key={fieldId} className="mb-4">
+              <label
+                htmlFor={fieldId}
+                className="block text-sm font-medium text-gray-700"
+              >
+                {field.label}
+              </label>
+              <Select
+                id={fieldId}
+                options={options.map(option => ({
+                  value: option.id,
+                  label: option.name,
+                }))}
+                isMulti
+                defaultValue={selectedImages}
+                onChange={(
+                  selectedOptions: MultiValue<{ value: string; label: string }>
+                ) => {
+                  const values = selectedOptions.map(option => option.value);
+                  setValue(fieldId, values);
+                }}
+                className="mt-1"
+                styles={selectMultiStyles}
+              />
+              {errors[fieldId] && (
+                <p className="mt-2 text-sm text-red-600">
+                  {errors[fieldId]?.message}
+                </p>
+              )}
+            </div>
+          );
+        }
+
         const selectedOption = options.find(
           option => option.id === selectedItem?.[fieldId]
         );

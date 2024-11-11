@@ -1,6 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import s from './Header.module.css';
+import Hamburger from 'hamburger-react';
+import { useEffect, useRef, useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { LuShoppingBag } from 'react-icons/lu';
 import { MdOutlineArrowOutward } from 'react-icons/md';
@@ -20,7 +19,17 @@ const Header = () => {
   const [isOpen, setOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState<DropdownType>(null);
   const [selectedProduct, setSelectedProduct] = useState<ProductType>(null);
+  const [showSearchInput, setShowSearchInput] = useState<boolean>(false);
 
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.includes('/catalog')) {
+      setShowDropdown(null);
+    }
+  }, [location.pathname]);
   const handleToggleDropdown = (dropdown: DropdownType) => {
     setShowDropdown(showDropdown === dropdown ? null : dropdown);
     if (dropdown === 'products') {
@@ -31,8 +40,76 @@ const Header = () => {
   };
 
   const handleProductSelection = (product: ProductType) => {
-    setSelectedProduct(selectedProduct === product ? null : product);
+    setSelectedProduct(product);
   };
+
+  const screenSize = useScreenSize();
+  const [isOpen, setOpen] = useState(false);
+
+  const [openDropdownSolutions, setOpenDropdownSolutions] =
+    useState<boolean>(false);
+  const [openDropdownCompany, setOpenDropdownCompany] =
+    useState<boolean>(false);
+
+  const handleToggleDropDownStyle = (dropdownName: string, isOpen: boolean) => {
+    if (dropdownName === 'solutions') setOpenDropdownSolutions(isOpen);
+    if (dropdownName === 'company') setOpenDropdownCompany(isOpen);
+  };
+
+  useEffect(() => {
+    if (isOpen || showDropdown) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isOpen, showDropdown]);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [location]);
+
+  const closeDropdown = () => {
+    setShowDropdown(null);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        closeDropdown();
+      }
+    };
+
+    const handleEscPress = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeDropdown();
+      }
+    };
+
+    if (showDropdown) {
+      document.body.style.pointerEvents = 'none';
+      if (dropdownRef.current) {
+        dropdownRef.current.style.pointerEvents = 'auto';
+      }
+
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscPress);
+    } else {
+      document.body.style.pointerEvents = 'auto';
+    }
+
+    return () => {
+      document.body.style.pointerEvents = 'auto';
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscPress);
+    };
+  }, [showDropdown]);
 
   return (
     <>
@@ -46,7 +123,9 @@ const Header = () => {
                   onClick={() => handleToggleDropdown('products')}
                 >
                   Products
-                  <span className={s.arrowDown}>
+                  <span
+                    className={`${s.arrowDown} ${showDropdown ? s.active : ''}`}
+                  >
                     <IoIosArrowDown size={20} />
                   </span>
                 </button>
@@ -85,7 +164,7 @@ const Header = () => {
                   {selectedProduct === 'drones' && (
                     <ul className={s.dronesList}>
                       <li className={s.droneItem}>
-                        <Link to={'/'} className={s.linkStyle}>
+                        <Link to={'/catalog/drones'} className={s.linkStyle}>
                           <div
                             className={`${s.electricalDrone} ${s.bigfotoDrone}`}
                           ></div>
@@ -93,7 +172,7 @@ const Header = () => {
                         </Link>
                       </li>
                       <li className={s.droneItem}>
-                        <Link to={'/'} className={s.linkStyle}>
+                        <Link to={'/catalog/drones'} className={s.linkStyle}>
                           <div
                             className={`${s.hybrideDrone} ${s.bigfotoDrone}`}
                           ></div>
@@ -116,8 +195,11 @@ const Header = () => {
                         </li>
                       ))}
                       <li className={s.accessoryItem}>
-                        <Link to={'/'} className={s.linkStyle}>
-                          <button className={s.btnArrow}>
+                        <Link
+                          to={'/catalog/accessories'}
+                          className={s.linkStyle}
+                        >
+                          <span className={s.btnArrow}>
                             <MdOutlineArrowOutward size={24} />
                           </button>
                           <h5 className={s.titleCart}>View all</h5>
@@ -128,62 +210,65 @@ const Header = () => {
                 </nav>
               )}
               <div className={s.navItemWrapper}>
-                {' '}
-                <button
-                  className={s.navButton}
-                  onClick={() => handleToggleDropdown('company')}
-                >
-                  Company{' '}
-                  <span className={s.arrowDown}>
-                    <IoIosArrowDown size={20} />
-                  </span>
-                  {showDropdown === 'company' && (
-                    <nav className={s.dropdown}>
-                      <ul className={s.dropdownList}>
-                        <li>
-                          <Link to="about-us">About us</Link>
-                        </li>
-                        <li>
-                          <Link to="contact-us">Contact</Link>
-                        </li>
-                        <li>
-                          <Link to="delivery-and-payments">
-                            Delivery&Payments
-                          </Link>
-                        </li>
-                      </ul>
-                    </nav>
-                  )}
-                </button>
+                <DropDown
+                  icon={
+                    <button
+                      aria-label="Company menu"
+                      className={
+                        openDropdownCompany ? s.navButtonActive : s.navButton
+                      }
+                    >
+                      <span>Company</span>{' '}
+                      <span
+                        className={`${s.arrowDown} ${openDropdownCompany ? s.active : ''}`}
+                      >
+                        <IoIosArrowDown size={20} />
+                      </span>
+                    </button>
+                  }
+                  items={[
+                    { value: '/about-us', label: 'About us' },
+                    { value: '/contact-us', label: 'Contact' },
+                    {
+                      value: '/delivery-and-payments',
+                      label: 'Delivery & Payments',
+                    },
+                  ]}
+                  size="191px"
+                  handleToggleDropDownStyle={handleToggleDropDownStyle}
+                  dropdownName="company"
+                />
               </div>
 
               <div className={s.navItemWrapper}>
-                <button
-                  className={s.navButton}
-                  onClick={() => handleToggleDropdown('solutions')}
-                >
-                  Solutions{' '}
-                  <span className={s.arrowDown}>
-                    <IoIosArrowDown size={20} />
-                  </span>
-                </button>
-                {showDropdown === 'solutions' && (
-                  <nav className={s.dropdown}>
-                    <ul className={s.dropdownList}>
-                      <li>
-                        <Link to="lidar-drone">LiDAR research</Link>
-                      </li>
-                      <li>
-                        <Link to="agriculture-drone">Agribusiness</Link>
-                      </li>
-                      <li>
-                        <Link to="drone-viewer">
-                          Documentation(photo/video shooting)
-                        </Link>
-                      </li>
-                    </ul>
-                  </nav>
-                )}
+                <DropDown
+                  icon={
+                    <button
+                      aria-label="Solutions menu"
+                      className={
+                        openDropdownSolutions ? s.navButtonActive : s.navButton
+                      }
+                    >
+                      <span>Solutions</span>{' '}
+                      <span
+                        className={`${s.arrowDown} ${openDropdownSolutions ? s.active : ''}`}
+                      >
+                        <IoIosArrowDown size={20} />
+                      </span>
+                    </button>
+                  }
+                  items={[
+                    { value: '/lidar-drone', label: 'LiDAR research' },
+                    { value: '/agriculture-drone', label: 'Agribusiness' },
+                    {
+                      value: '/drone-viewer',
+                      label: 'Documentation (photo/video shooting)',
+                    },
+                  ]}
+                  size="227px"
+                  handleToggleDropDownStyle={handleToggleDropDownStyle}
+                  dropdownName="solutions"
+                />
               </div>
             </nav>
 
