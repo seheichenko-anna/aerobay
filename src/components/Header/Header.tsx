@@ -39,7 +39,9 @@ const Header = () => {
       setSelectedProduct(null);
     }
   };
-
+  const handleToggleSearchInput = () => {
+    setShowSearchInput(prev => !prev);
+  };
   const handleProductSelection = (product: ProductType) => {
     setSelectedProduct(product);
   };
