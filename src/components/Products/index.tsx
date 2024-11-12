@@ -9,6 +9,9 @@ import c from './Products.module.scss';
 import { FilterProducts, ProductFilter } from './Sidebar';
 import { SortDropdown } from './SortDropdown';
 import { ProductFiltersContext } from '../../pages/Catalog/CategoryProducts';
+import useFilters from '../../hooks/useFilters';
+import { resetFilters, toggleOption } from '../../redux/filtersSlice';
+import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
 
 export const Products = ({ children }: { children: React.ReactNode[] }) => {
   const fromFragment =
@@ -58,9 +61,7 @@ export const Products = ({ children }: { children: React.ReactNode[] }) => {
 };
 
 const MoreFiltersMobileBtn = () => {
-  const { setIsMobileFilterVisible } = useContext(
-    ProductFiltersContext
-  )!;
+  const { setIsMobileFilterVisible } = useContext(ProductFiltersContext)!;
 
   const handleVisibleFilter = () => {
     setIsMobileFilterVisible(true);
@@ -80,36 +81,58 @@ const MoreFiltersMobileBtn = () => {
 };
 
 const FilterTags = () => {
-  const filteredValues: [] = [];
+  const { currentFilterGroups } = useFilters();
+  const isSomeFilterChecked = currentFilterGroups.some(group =>
+    group.options.some(option => option.checked),
+  );
+
+  const { clearFilters, triggerForceUpdate } = useContext(ProductFiltersContext)!;
+  const dispatch = useAppDispatch();
+  const clearAll = () => {
+    clearFilters();
+    dispatch(resetFilters());
+  };
 
   return (
     <div className={c.filtered_values_section}>
-      {filteredValues?.map((value, i) => (
-        <div key={i} className={c.filtered_value_box}>
-          <p>{Object.keys(value)}</p>
+      {currentFilterGroups?.map((group, i) =>
+        group.options.map(
+          (option, j) =>
+            option.checked && (
+              <div key={`${i}-${j}`} className={c.filtered_value_box}>
+                <p>{option.label}</p>
 
-          <button>
-            <svg
-              width='12'
-              height='12'
-              viewBox='0 0 12 12'
-              fill='none'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path
-                d='M11 1L1 11M1 1L11 11'
-                stroke='#101828'
-                strokeWidth='1.67'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              />
-            </svg>
-          </button>
-        </div>
-      ))}
+                <button
+                  onClick={() => {
+                    dispatch(toggleOption({ title: group.title, ...option }));
+                    triggerForceUpdate()
+                  }}
+                >
+                  <svg
+                    width='12'
+                    height='12'
+                    viewBox='0 0 12 12'
+                    fill='none'
+                    xmlns='http://www.w3.org/2000/svg'
+                  >
+                    <path
+                      d='M11 1L1 11M1 1L11 11'
+                      stroke='#101828'
+                      strokeWidth='1.67'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </svg>
+                </button>
+              </div>
+            ),
+        ),
+      )}
 
-      {filteredValues.length >= 1 && (
-        <button className={c.clear_all_filters}>Clear All Filters</button>
+      {isSomeFilterChecked && (
+        <button className={c.clear_all_filters} onClick={clearAll}>
+          Clear All Filters
+        </button>
       )}
     </div>
   );

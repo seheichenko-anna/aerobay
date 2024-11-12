@@ -14,6 +14,7 @@ import { getFilteredProducts } from '../../utils/filters';
 type ProductFiltersContext = {
   applyFilters: () => void;
   clearFilters: () => void;
+  triggerForceUpdate: () => void;
 
   isMobileFilterVisible: boolean;
   setIsMobileFilterVisible: React.Dispatch<boolean>;
@@ -38,9 +39,12 @@ export const CategoryProducts = ({
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
   const currentPriceRef = useRef(0);
+  const [isForceTriggered, setIsForceTriggered] = useState(false);
 
   const { currentFilterGroups } = useFilters();
   const [isMobileFilterVisible, setIsMobileFilterVisible] = useState(false);
+
+  const triggerForceUpdate = () => setIsForceTriggered(p => !p);
 
   const filterByCurrentCategoryGroups = (products: BaseProduct[]) =>
     getFilteredProducts(products, currentFilterGroups);
@@ -72,6 +76,10 @@ export const CategoryProducts = ({
   };
 
   useEffect(() => {
+    applyFilters();
+  }, [isForceTriggered]);
+
+  useEffect(() => {
     const filteredProducts = filterByCurrentCategoryGroups(products);
 
     if (!loading) {
@@ -94,6 +102,7 @@ export const CategoryProducts = ({
         currentPriceRef,
         applyFilters,
         clearFilters,
+        triggerForceUpdate,
         isMobileFilterVisible,
         setIsMobileFilterVisible,
       }}
