@@ -16,6 +16,12 @@ const ItemHeader = ({ product }: { product: BaseProduct }) => {
             <div className={c['product-card_budge-new']}>New</div>
           )}
 
+          {product.discount > 0 && (
+            <div className={c['product-card_budge-Save']}>
+              Save {product.discount}%
+            </div>
+          )}
+
           {product.subcategories.find(sub => sub.value === 'In Stock') && (
             <div className={c['product-card_budge-inStock']}>In Stock</div>
           )}
