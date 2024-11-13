@@ -1,5 +1,7 @@
+import { useReducer } from 'react';
 import { BounceLoader } from 'react-spinners';
 import { BaseProduct } from '../../redux/types';
+import { ButtonShowMore } from './ButtonShowMore';
 import ProductItem from './ProductItem';
 import styles from './Products.module.scss';
 
@@ -26,16 +28,25 @@ const ProductList = ({
     );
   }
 
+  const SHOW_LIMIT = 9;
+  const [showMoreLimit, increaseShowMoreLimit] = useReducer(
+    state => state + SHOW_LIMIT,
+    SHOW_LIMIT,
+  );
+
+  const shouldShowMoreBtn = products.length >= showMoreLimit;
+
   return (
     <>
       <div className={styles['all-products']}>
-        {products.map(product => (
+        {products.slice(0, showMoreLimit).map(product => (
           <ProductItem key={product.id + product.title} product={product} />
         ))}
       </div>
 
-      {/*  TODO: make show more work again! */}
-      {/* <ButtonShowMore handleShowMore={handleShowMore} /> */}
+      {shouldShowMoreBtn && (
+        <ButtonShowMore handleShowMore={increaseShowMoreLimit} />
+      )}
     </>
   );
 };
