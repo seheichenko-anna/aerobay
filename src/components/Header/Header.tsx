@@ -221,7 +221,7 @@ const Header = () => {
               <div className={s.navItemWrapper}>
                 <DropDown
                   icon={
-                    <button
+                    <div
                       aria-label="Company menu"
                       className={
                         openDropdownCompany ? s.navButtonActive : s.navButton
@@ -233,7 +233,7 @@ const Header = () => {
                       >
                         <IoIosArrowDown size={20} />
                       </span>
-                    </button>
+                    </div>
                   }
                   items={[
                     { value: '/about-us', label: 'About us' },
@@ -252,7 +252,7 @@ const Header = () => {
               <div className={s.navItemWrapper}>
                 <DropDown
                   icon={
-                    <button
+                    <div
                       aria-label="Solutions menu"
                       className={
                         openDropdownSolutions ? s.navButtonActive : s.navButton
@@ -264,7 +264,7 @@ const Header = () => {
                       >
                         <IoIosArrowDown size={20} />
                       </span>
-                    </button>
+                    </div>
                   }
                   items={[
                     { value: '/lidar-drone', label: 'LiDAR research' },

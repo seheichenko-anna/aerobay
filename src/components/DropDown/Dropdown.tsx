@@ -26,7 +26,7 @@ const DropDown = ({
   positionY,
 }: DropDownProps) => {
   const widthSize = size ? size : '128px';
-  const [_, setIsOpen] = useState(false);
+  const [, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     const buttonElement = buttonRef.current;

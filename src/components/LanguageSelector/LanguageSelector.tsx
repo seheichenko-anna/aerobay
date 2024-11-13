@@ -9,7 +9,7 @@ interface LanguageSelectorProps {
 }
 
 const LanguageSelector = ({ positionX, positionY }: LanguageSelectorProps) => {
-  const [_, setSelectedLang] = useState<string>('en');
+  const [, setSelectedLang] = useState<string>('en');
 
   const handleSelectLanguage = useCallback((lang: string) => {
     setSelectedLang(lang);
