@@ -20,7 +20,7 @@ import GroupForDrones from './pages/AdminPanel/GroupForDrones';
 import Subcategory from './pages/AdminPanel/Subcategory';
 import Drone from './pages/AdminPanel/Drone';
 import Catalog from './pages/Catalog';
-import Comprasion from './components/Comprasion/Comprasion';
+import Comparison from './components/Comparison/Comparison';
 import ScrollToTop from './utils/ScrollToTop';
 import Image from './pages/AdminPanel/Image';
 
@@ -40,7 +40,7 @@ function App() {
           <Route path="about-us" element={<AboutUs />} />
           <Route path="contact-us" element={<ContactUs />} />
           <Route path="cookies-policy" element={<CookiesPolicy />} />
-          <Route path="comprasion" element={<Comprasion />} />
+          <Route path="comparison" element={<Comparison />} />
           <Route
             path="delivery-and-payments"
             element={<DeliveryAndPayments />}

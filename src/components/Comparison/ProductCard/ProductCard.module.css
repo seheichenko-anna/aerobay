@@ -1,0 +1,231 @@
+.product {
+    width: 293px;
+    border: 1px solid #EAECF0;
+    border-radius: 10px;
+    background-color: #FAFAFA;
+    display: flex;
+    position: relative;
+
+    @media screen and (min-width:768px) {
+        flex-direction: column;
+        width: 310px;
+    }
+}
+
+.product_info_wrapper {
+    padding: 5px 10px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+
+    @media screen and (min-width:768px) {
+        padding: 10px 22px 25px;
+    }
+}
+
+
+.product_title {
+    font-size: 12px;
+    line-height: 14.56px;
+    text-align: center;
+
+    @media screen and (min-width:768px) {
+        font-size: 14px;
+        line-height: 16.98px;
+    }
+}
+
+
+.delete_btn {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    top: 20px;
+    right: 20px;
+    background-color: #EAECF0;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media screen and (min-width:768px) {
+        width: 40px;
+        height: 40px;
+        top: 14px;
+    }
+}
+
+.photo {
+    max-width: 130px;
+    height: 100%;
+    width: 100%;
+    padding: 12px 12px 0;
+
+    @media screen and (min-width:768px) {
+        max-width: 310px;
+        padding: 18px 25px 0;
+    }
+
+}
+
+.img_labels {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.img_label {
+    width: max-content;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 11px;
+    line-height: 16px;
+    background-color: #EAECF0;
+    text-align: center;
+
+    @media screen and (min-width:768px) {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+}
+
+.new_product {
+    background-color: #BAFC50;
+}
+
+.availability {
+    background-color: #EAECF0;
+}
+
+.discount {
+    background-color: #FED700;
+}
+
+.cart_btn {
+    width: 36px;
+    height: 36px;
+    background-color: #101828;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.4s ease-in-out;
+    margin-left: auto;
+
+    @media screen and (min-width:768px) {
+        width: 48px;
+        height: 48px;
+    }
+
+    &:hover {
+        background-color: #BAFC50;
+    }
+}
+
+.cart_btn:hover>.cart {
+    stroke: #101828;
+}
+
+.price_wrapper {
+    text-align: center;
+}
+
+
+.price_with_discount {
+    margin-right: 5px;
+    line-height: 14.56px;
+
+    @media screen and (min-width:768px) {
+        font-size: 14px;
+        line-height: 16.98px;
+    }
+}
+
+.full_price {
+    text-decoration: line-through;
+    color: #475467;
+    font-size: 12px;
+    line-height: 14.56px;
+
+    @media screen and (min-width:768px) {
+        font-size: 14px;
+        line-height: 16.98px;
+    }
+}
+
+.trash {
+    stroke: #667085;
+    transition: stroke 0.4s ease-in-out;
+
+    &:hover {
+        stroke: #101828
+    }
+}
+
+
+.add_to_cart {
+    border-radius: 50px;
+    padding: 3.5px 5px 3.5px 10px;
+    background-color: #bafc50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+    margin-top: 10px;
+
+    @media screen and (min-width: 768px) {
+        padding: 6px 5px 6px 20px;
+        flex: 1;
+        width: auto;
+        display: flex;
+        gap: 10px;
+    }
+
+    &&:hover,
+    &&:focus {
+        color: #fff;
+        background-color: #101828;
+    }
+}
+
+.add_to_cart:first-child {
+    font-weight: 500;
+    color: #000;
+}
+
+.arrow_wrapper {
+    display: inline-block;
+    border-radius: 50px;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: #101828;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.4s ease-in-out;
+}
+
+.add_to_cart:hover .arrow_wrapper,
+.add_to_cart:focus .arrow_wrapper {
+    background-color: #bafc50;
+}
+
+.icon_arrow_link {
+    fill: #fff;
+    width: 20px;
+    height: 21px;
+    transition: fill 0.4s ease-in-out;
+}
+
+.add_to_cart:hover .icon_arrow_link,
+.add_to_cart:focus .icon_arrow_link {
+    fill: #101828
+}

@@ -11,7 +11,7 @@
     flex-wrap: wrap;
 }
 
-.comprasion_data_title {
+.comparison_data_title {
     font-size: 18px;
     line-height: 22.05px;
     color: #101828;
@@ -20,7 +20,7 @@
     font-weight: 600;
 }
 
-.comprasion_data_list {
+.comparison_data_list {
     width: 100%;
     background: #F5F5F5;
     display: flex;
@@ -29,12 +29,12 @@
 
 }
 
-.comprasion_data_list>li {
+.comparison_data_list>li {
     color: #475467;
     flex: 1;
     padding: 15px 5px;
 }
 
-.comprasion_data_wrapper {
+.comparison_data_wrapper {
     padding: 64px 0 96px;
 }

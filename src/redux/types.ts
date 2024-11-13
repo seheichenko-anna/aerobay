@@ -12,4 +12,7 @@ export interface BaseProduct {
   subcategories: Subcategory[];
   images: string[];
   created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+  filter_values: [];
 }

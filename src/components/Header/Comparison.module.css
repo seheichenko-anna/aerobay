@@ -1,0 +1,43 @@
+.icon_wrapper {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #fff;
+    width: 30px;
+    height: 30px;
+    border: none;
+    position: relative;
+    fill: #667085;
+    transition: fill 0.4s ease-in-out;
+    position: relative;
+}
+
+.icon_wrapper:active,
+.icon_wrapper:focus,
+.icon_wrapper:hover {
+    fill: #101828;
+}
+
+.icon_comparison {
+    width: 20px;
+    height: 20px;
+    fill: inherit;
+}
+
+.comparison_quantity {
+    position: absolute;
+    top: -12px;
+    left: 16px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #BAFC50;
+    color: #101828;
+    font-size: 13px;
+    line-height: 15.77px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
