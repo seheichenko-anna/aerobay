@@ -12,7 +12,7 @@ export interface Subcategory {
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
-  // category: Category | null;
+  category?: Category | null;
 }
 
 export const fetchSubcategoriesThunk = createAsyncThunk<Subcategory[]>(
