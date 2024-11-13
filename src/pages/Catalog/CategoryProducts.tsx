@@ -5,7 +5,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Products } from '../../components/Products';
+import Products from '../../components/Products';
 import useFilters from '../../hooks/useFilters';
 import useSorted from '../../hooks/useSorted';
 import { BaseProduct } from '../../redux/types';

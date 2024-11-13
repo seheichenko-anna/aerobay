@@ -20,7 +20,7 @@ const ImageWithLoader: React.FC<ImageWithLoaderProps> = ({
   };
 
   return (
-    <div className=''>
+    <div className='h-full grid place-items-center text-center'>
       {loading && (
         <BounceLoader size={40} color='#a8a8a8' className='m-auto' />
       )}
