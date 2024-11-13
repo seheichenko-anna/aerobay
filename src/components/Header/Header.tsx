@@ -10,7 +10,7 @@ import DropDown from '../DropDown/Dropdown';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 import Search from '../Search/Search';
 import AccordionMobileMenu from './AccordionMobileMenu';
-import ComprasionIcon from './ComprasionIcon';
+import ComparisonIcon from './ComparisonIcon';
 import s from './Header.module.css';
 import { accessories } from './products';
 
@@ -290,6 +290,11 @@ const Header = () => {
                   <LanguageSelector />
                 </span>
               </div>
+              <div className={`${s.navButton} ${s.btnGlobalLine}`}>
+                <span className={`${s.arrowDown} ${s.arrSearch}`}>
+                  <ComparisonIcon />
+                </span>
+              </div>
               <button
                 className={`${s.navButton} ${s.cartButton}`}
                 aria-label="Cart"
@@ -355,10 +360,10 @@ const Header = () => {
                   </div>
                 </li>
                 <li className={s.mobileNavItem}>
-                  <span>Comprasion</span>
+                  <span>Comparison</span>
                   <div className={`${s.navButton} ${s.btnGlobalLine}`}>
                     <span className={`${s.arrowDown} ${s.arrSearch}`}>
-                      <ComprasionIcon />
+                      <ComparisonIcon />
                     </span>
                   </div>
                 </li>

@@ -1,12 +1,12 @@
 import { Breadcrumbs } from '../Breadcrumbs';
 import ProductCard from './ProductCard/ProductCard';
-import s from './Comprasion.module.css';
+import s from './Comparison.module.css';
 import { useDashboard } from '../../hooks/useDashboard';
-import { selectComprasionProducts } from '../../redux/comprasionProducts/comprasionProductsSlice';
+import { selectComparisonProducts } from '../../redux/comparisonProducts/comparisonProductsSlice';
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
 
-const Comprasion = () => {
-  const comprasionProducts = useAppSelector(selectComprasionProducts);
+const Comparison = () => {
+  const comparisonProducts = useAppSelector(selectComparisonProducts);
   const { isBigScreenOrTablet } = useDashboard();
 
   return (
@@ -14,39 +14,39 @@ const Comprasion = () => {
       <Breadcrumbs />
       <h1 className={s.title}>Comparison</h1>
       <ul className={s.products_list}>
-        {comprasionProducts.map(item => (
-          <ProductCard item={item} />
+        {comparisonProducts.map((item, index) => (
+          <ProductCard item={item} key={index} />
         ))}
       </ul>
       {isBigScreenOrTablet && (
-        <div className={s.comprasion_data_wrapper}>
-          <div className={s.comprasion_data}>
-            <h3 className={s.comprasion_data_title}>
+        <div className={s.comparison_data_wrapper}>
+          <div className={s.comparison_data}>
+            <h3 className={s.comparison_data_title}>
               Remote control battery capacity
             </h3>
-            <ul className={s.comprasion_data_list}>
+            <ul className={s.comparison_data_list}>
               <li>3930 mAh</li>
               <li>5000 mAh</li>
               <li>3930 mAh</li>
               <li>3930 mAh</li>
             </ul>
           </div>
-          <div className={s.comprasion_data}>
-            <h3 className={s.comprasion_data_title}>
+          <div className={s.comparison_data}>
+            <h3 className={s.comparison_data_title}>
               Remote control battery capacity
             </h3>
-            <ul className={s.comprasion_data_list}>
+            <ul className={s.comparison_data_list}>
               <li>3930 mAh</li>
               <li>5000 mAh</li>
               <li>3930 mAh</li>
               <li>3930 mAh</li>
             </ul>
           </div>
-          <div className={s.comprasion_data}>
-            <h3 className={s.comprasion_data_title}>
+          <div className={s.comparison_data}>
+            <h3 className={s.comparison_data_title}>
               Remote control battery capacity
             </h3>
-            <ul className={s.comprasion_data_list}>
+            <ul className={s.comparison_data_list}>
               <li>3930 mAh</li>
               <li>5000 mAh</li>
               <li>3930 mAh</li>
@@ -59,4 +59,4 @@ const Comprasion = () => {
   );
 };
 
-export default Comprasion;
+export default Comparison;

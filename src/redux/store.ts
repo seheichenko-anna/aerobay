@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { accessoriesReducer } from './accessories/accessoriesSlice';
 import { categoriesReducer } from './categories/categoriesSlice';
-import { comprasionProductsReducer } from './comprasionProducts/comprasionProductsSlice';
+import { comparisonProductsReducer } from './comparisonProducts/comparisonProductsSlice';
 import { dronesReducer } from './drones/dronesSlice';
 import { errorReducer } from './errorSlice';
 import { filtersReducer } from './filtersSlice';
@@ -21,7 +21,7 @@ export const store = configureStore({
     drones: dronesReducer,
     loading: loadingReducer,
     error: errorReducer,
-    comprasionProducts: comprasionProductsReducer,
+    comparisonProducts: comparisonProductsReducer,
     images: imagesReducer,
     filters: filtersReducer,
   },
