@@ -166,7 +166,7 @@ const initialComparisonProductsState: ComparisonProductsState = {
         {
           id: 64,
           name: 'Availability',
-          value: 'In Stock',
+          value: 'Out of Stock',
           category_id: null,
           group_id: null,
           created_at: '2024-10-12T15:56:04.000000Z',

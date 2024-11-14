@@ -4,12 +4,21 @@
     margin: 30px 0 18px;
 }
 
-.products_list {
+.comparison_swiper {
     display: flex;
     justify-content: center;
-    gap: 32px;
-    flex-wrap: wrap;
+    align-items: center;
 }
+
+.slide {
+    max-width: 293px;
+    width: 100%;
+}
+
+.slide:last-child {
+    margin-right: 16px;
+}
+
 
 .comparison_data_title {
     font-size: 18px;
