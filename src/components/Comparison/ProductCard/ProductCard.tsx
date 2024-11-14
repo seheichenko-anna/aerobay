@@ -30,14 +30,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
     return availabilitySubcategory ? availabilitySubcategory.value : null;
   };
   return (
-    <li className={s.product}>
+    <div className={s.product}>
       <div className={s.photo_wrapper}>
         <img
           src={
             image_url ? image_url.replace('dl=0', 'raw=1') : imagePlaceholder
           }
           alt={title}
-          className={s.photo}
+          className={`${s.photo} ${getAvailabilityValue(subcategories) === 'Out of Stock' ? s.out_of_stock : ''}`}
         />
         <button className={`${s.delete_btn} my-anchor-element`}>
           <svg
@@ -67,8 +67,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
         </ul>
       </div>
       <div className={s.product_info_wrapper}>
-        <h2 className={s.product_title}>{title}</h2>
-        <p className={s.price_wrapper}>
+        <h2
+          className={`${s.product_title} ${getAvailabilityValue(subcategories) === 'Out of Stock' ? s.text_out_of_stock : ''}`}
+        >
+          {title}
+        </h2>
+        <p
+          className={`${s.price_wrapper} ${getAvailabilityValue(subcategories) === 'Out of Stock' ? s.text_out_of_stock : ''}`}
+        >
           {discount > 0 && (
             <span className={s.price_with_discount}>
               {`$ ${getPriceWithDiscount(price, discount).toLocaleString('uk-UA')}`}
@@ -76,10 +82,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
           )}
           <span
             className={discount > 0 ? s.full_price : s.price_with_discount}
-          >{`$ ${price.toLocaleString('uk-UA')}`}</span>
+          >{`$ ${price.toLocaleString('uk-UA')} `}</span>
+          <span>
+            {getAvailabilityValue(subcategories) === 'Out of Stock'
+              ? 'Not Available'
+              : ''}
+          </span>
         </p>
 
-        <button className={s.add_to_cart}>
+        <button
+          className={s.add_to_cart}
+          disabled={getAvailabilityValue(subcategories) === 'Out of Stock'}
+        >
           <span>Add to cart</span>
           <span className={s.arrow_wrapper}>
             <svg className={s.icon_arrow_link}>
@@ -88,7 +102,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
           </span>
         </button>
       </div>
-    </li>
+    </div>
   );
 };
 
