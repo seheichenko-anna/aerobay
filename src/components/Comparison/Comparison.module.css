@@ -47,3 +47,66 @@
 .comparison_data_wrapper {
     padding: 64px 0 96px;
 }
+
+.products_form_types {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-right: auto;
+}
+
+.sort_comparison_products {
+    margin-bottom: 60px;
+}
+
+.product_label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+
+
+    .product_radio {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .product_info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        font-size: 13px;
+        line-height: 20px;
+        color: #475467;
+        border-radius: 30px;
+        border: 1px solid #E9EAEE;
+        padding: 10px 16px;
+        transition: background-color 0.4s ease-in-out,
+            color 0.4s ease-in-out;
+    }
+
+    .product_info:hover {
+        color: #101828;
+    }
+
+    .delete_btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    input[type="radio"]:checked+.product_info {
+        background-color: #101828;
+        color: #fff;
+
+        .delete {
+            fill: #fff;
+        }
+    }
+}
+
+.delete {
+    fill: #49533E;
+}

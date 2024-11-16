@@ -1,8 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Drone } from '../drones/dronesOperations';
+import { Accessory } from '../accessories/accessoriesOperations';
 
 interface ComparisonProductsState {
-  products: Partial<Drone>[];
+  products: (Partial<Drone> | Partial<Accessory>)[];
 }
 
 const initialComparisonProductsState: ComparisonProductsState = {
@@ -351,6 +352,48 @@ const initialComparisonProductsState: ComparisonProductsState = {
           group_id: 5,
           created_at: '2024-10-12T16:14:34.000000Z',
           updated_at: '2024-10-15T20:04:33.000000Z',
+          deleted_at: null,
+        },
+      ],
+      images: [],
+      filter_values: [],
+    },
+    {
+      id: 36,
+      title: 'Multispectral Camera MultiView X',
+      description: 'Multispectral camera for field analysis',
+      price: 1500,
+      discount: 0,
+      image_url:
+        'https://www.dropbox.com/scl/fo/17lnnqrg91oq8jixun6ad/AM5Hce-r5d3CDBwdcBCaMy4/Accessories/Camera/%D1%81amera_module_1.webp?rlkey=dufgzbv7mfb47rr3acwgtjtn0&dl=0',
+      dimensions: '9x9x7 cm',
+      weight: '0.9 kg',
+      type: 'Camera',
+      amount: 25,
+      category_id: 5,
+      manufacturer_id: 13,
+      created_at: '2024-10-13T00:38:44.000000Z',
+      updated_at: '2024-10-13T00:38:44.000000Z',
+      deleted_at: null,
+      subcategories: [
+        {
+          id: 82,
+          name: 'Availability',
+          value: 'In Stock',
+          category_id: 5,
+          group_id: null,
+          created_at: '2024-10-12T19:06:54.000000Z',
+          updated_at: '2024-10-12T19:06:54.000000Z',
+          deleted_at: null,
+        },
+        {
+          id: 85,
+          name: 'Type',
+          value: 'Camera',
+          category_id: 5,
+          group_id: null,
+          created_at: '2024-10-12T19:07:55.000000Z',
+          updated_at: '2024-10-15T19:50:57.000000Z',
           deleted_at: null,
         },
       ],
