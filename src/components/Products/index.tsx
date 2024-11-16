@@ -4,7 +4,6 @@ import { mobileFilter } from '../../assets/catalog/index';
 import { ProductFiltersContext } from '../../pages/Catalog/CategoryProducts';
 import FilterTags from './FilterTags';
 import Header from './Header';
-import { Pagination } from './Pagination';
 import ProductList from './ProductList';
 import c from './Products.module.scss';
 import { FilterProducts } from './Sidebar';
@@ -31,8 +30,6 @@ const Products = ({ children }: { children: React.ReactNode[] }) => {
       React.isValidElement(child) && child.type === Products.Filters,
   );
 
-  const handlePageClick = () => {};
-
   return (
     <>
       {productFilters || <Products.Filters filters={[]} />}
@@ -46,11 +43,7 @@ const Products = ({ children }: { children: React.ReactNode[] }) => {
 
         <FilterTags />
 
-        <div className={c['all-products-box']}>
-          {productList}
-
-          <Pagination handlePageClick={handlePageClick} pageCount={0} />
-        </div>
+        <div className={c['all-products-box']}>{productList}</div>
       </main>
     </>
   );
