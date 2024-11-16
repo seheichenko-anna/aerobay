@@ -1,9 +1,10 @@
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import { BounceLoader } from 'react-spinners';
 import { BaseProduct } from '../../redux/types';
 import { ButtonShowMore } from './ButtonShowMore';
 import ProductItem from './ProductItem';
 import styles from './Products.module.scss';
+import { Pagination } from './Pagination';
 
 const ProductList = ({
   products,
@@ -29,24 +30,41 @@ const ProductList = ({
   }
 
   const SHOW_LIMIT = 9;
+
   const [showMoreLimit, increaseShowMoreLimit] = useReducer(
     state => state + SHOW_LIMIT,
     SHOW_LIMIT,
   );
-
   const shouldShowMoreBtn = products.length >= showMoreLimit;
+
+  const pageCount = Math.ceil(products.length / showMoreLimit)
+  const [offset, setOffset] = useState(0);
+  const endOffset = offset + showMoreLimit
+
+  const handlePageClick = ({ selected }: { selected: number }) => {
+    const newOffset = (selected * SHOW_LIMIT) % products.length
+
+    setOffset(newOffset)
+  };
 
   return (
     <>
       <div className={styles['all-products']}>
-        {products.slice(0, showMoreLimit).map(product => (
-          <ProductItem key={product.id + product.title} product={product} />
-        ))}
+        {products
+          .slice(offset, endOffset)
+          .map(product => (
+            <ProductItem key={product.id + product.title} product={product} />
+          ))}
       </div>
 
       {shouldShowMoreBtn && (
         <ButtonShowMore handleShowMore={increaseShowMoreLimit} />
       )}
+
+      <Pagination
+        handlePageClick={handlePageClick}
+        pageCount={pageCount}
+      />
     </>
   );
 };
