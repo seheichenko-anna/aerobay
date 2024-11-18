@@ -22,6 +22,10 @@ const FilterTags = () => {
     applyFilters();
   }, undefined);
 
+  if (!isSomeFilterChecked) {
+    return <div className="mb-6"></div>
+  }
+
   return (
     <div className={styles.filtered_values_section}>
       {currentFilterGroups?.map((group, i) =>
