@@ -99,11 +99,13 @@ export const CategoryProducts = ({
       }}
     >
       <Products>
-        <Products.Header title={title} />
+        {catalogProducts.length > 0 && <Products.Header title={title} />}
+
         <Products.ProductList
           loading={loading}
           products={useSorted(catalogProducts)}
         />
+
         <Products.Filters filters={currentFilterGroups} />
       </Products>
     </ProductFiltersContext.Provider>

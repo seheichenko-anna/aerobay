@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import 'react-tooltip/dist/react-tooltip.css';
 import { mobileFilter } from '../../assets/catalog/index';
 import { ProductFiltersContext } from '../../pages/Catalog/CategoryProducts';
-import FilterTags from './FilterTags';
 import Header from './Header';
 import ProductList from './ProductList';
 import c from './Products.module.scss';
@@ -40,8 +39,6 @@ const Products = ({ children }: { children: React.ReactNode[] }) => {
         <div className={c.mobile_devider}></div>
 
         <MoreFiltersMobileBtn />
-
-        <FilterTags />
 
         <div className={c['all-products-box']}>{productList}</div>
       </main>
