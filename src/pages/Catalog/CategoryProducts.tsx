@@ -10,6 +10,7 @@ import useFilters from '../../hooks/useFilters';
 import useSorted from '../../hooks/useSorted';
 import { BaseProduct } from '../../redux/types';
 import { getFilteredProducts } from '../../utils/filters';
+import NoProductFound from '../../components/Products/NoProductFound';
 
 type ProductFiltersContext = {
   applyFilters: () => void;
@@ -99,11 +100,13 @@ export const CategoryProducts = ({
       }}
     >
       <Products>
-        <Products.Header title={title} />
+        {catalogProducts.length > 0 && <Products.Header title={title} />}
+
         <Products.ProductList
           loading={loading}
           products={useSorted(catalogProducts)}
         />
+
         <Products.Filters filters={currentFilterGroups} />
       </Products>
     </ProductFiltersContext.Provider>
