@@ -415,11 +415,27 @@ const comparisonProductsSlice = createSlice({
         product => product.id !== payload.id
       );
     },
+    deleteProductsByType: (state, { payload }: PayloadAction<string>) => {
+      state.products = state.products.filter(product => {
+        const productType =
+          'type' in product && product.type ? product.type : 'Drone';
+        return productType !== payload;
+      });
+    },
+    clearAllProducts: state => {
+      state.products = [];
+    },
   },
   selectors: {
     selectComparisonProducts: state => state.products,
   },
 });
 
+export const {
+  addComparisonProducts,
+  deleteComparisonProducts,
+  deleteProductsByType,
+  clearAllProducts,
+} = comparisonProductsSlice.actions;
 export const comparisonProductsReducer = comparisonProductsSlice.reducer;
 export const { selectComparisonProducts } = comparisonProductsSlice.selectors;

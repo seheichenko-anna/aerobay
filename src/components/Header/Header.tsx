@@ -13,6 +13,8 @@ import AccordionMobileMenu from './AccordionMobileMenu';
 import ComparisonIcon from './ComparisonIcon';
 import s from './Header.module.css';
 import { accessories } from './products';
+import { useAppSelector } from '../../redux/hooks/useAppSelector';
+import { selectComparisonProducts } from '../../redux/comparisonProducts/comparisonProductsSlice';
 
 type DropdownType = 'products' | 'company' | 'solutions' | null;
 type ProductType = 'drones' | 'accessories' | null;
@@ -21,6 +23,7 @@ const Header = () => {
   const [showDropdown, setShowDropdown] = useState<DropdownType>(null);
   const [selectedProduct, setSelectedProduct] = useState<ProductType>(null);
   const [showSearchInput, setShowSearchInput] = useState<boolean>(false);
+  const comparisonProducts = useAppSelector(selectComparisonProducts).length;
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -290,11 +293,13 @@ const Header = () => {
                   <LanguageSelector />
                 </span>
               </div>
-              <div className={`${s.navButton} ${s.btnGlobalLine}`}>
-                <span className={`${s.arrowDown} ${s.arrSearch}`}>
-                  <ComparisonIcon />
-                </span>
-              </div>
+              {comparisonProducts > 0 && (
+                <div className={`${s.navButton} ${s.btnGlobalLine}`}>
+                  <span className={`${s.arrowDown} ${s.arrSearch}`}>
+                    <ComparisonIcon />
+                  </span>
+                </div>
+              )}
               <button
                 className={`${s.navButton} ${s.cartButton}`}
                 aria-label="Cart"

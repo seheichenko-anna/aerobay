@@ -5,6 +5,7 @@ import svg from '../../../assets/sprite.svg';
 import { Drone } from '../../../redux/drones/dronesOperations';
 import { Subcategory } from '../../../redux/subcategories/subcategoriesOperations';
 import { Tooltip } from 'react-tooltip';
+import Button from '../../Buttons/Button';
 
 interface ProductCardProps {
   item: Partial<Drone>;
@@ -90,17 +91,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
           </span>
         </p>
 
-        <button
-          className={s.add_to_cart}
+        <Button
           disabled={getAvailabilityValue(subcategories) === 'Out of Stock'}
+          icon
         >
-          <span>Add to cart</span>
-          <span className={s.arrow_wrapper}>
-            <svg className={s.icon_arrow_link}>
-              <use xlinkHref={`${svg}#icon-arrow-up-right`} />
-            </svg>
-          </span>
-        </button>
+          Add to cart
+        </Button>
       </div>
     </div>
   );

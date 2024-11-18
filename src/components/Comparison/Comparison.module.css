@@ -110,3 +110,28 @@
 .delete {
     fill: #49533E;
 }
+
+.clear_all_btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    font-size: 13px;
+    line-height: 20px;
+    color: #475467;
+    border-radius: 30px;
+    border: 1px solid #BDBDBD;
+    transition: color 0.4s ease-in-out;
+    padding: 10px 16px;
+
+    &:hover {
+        color: #101828;
+    }
+}
+
+
+.clear_all_icon {
+    .delete {
+        fill: #BDBDBD;
+    }
+}

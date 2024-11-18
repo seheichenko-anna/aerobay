@@ -2,15 +2,25 @@ import { Breadcrumbs } from '../Breadcrumbs';
 import ProductCard from './ProductCard/ProductCard';
 import s from './Comparison.module.css';
 import { useDashboard } from '../../hooks/useDashboard';
-import { selectComparisonProducts } from '../../redux/comparisonProducts/comparisonProductsSlice';
+import {
+  clearAllProducts,
+  deleteProductsByType,
+  selectComparisonProducts,
+} from '../../redux/comparisonProducts/comparisonProductsSlice';
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import svg from '../../assets/sprite.svg';
 import { useState } from 'react';
+import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
+import { useModal } from '../../hooks/useModal';
+import Modal from '../Modal/Modal';
+import ProductClearedModal from './ProductClearedModal/ProductClearedModal';
 
 const Comparison = () => {
   const comparisonProducts = useAppSelector(selectComparisonProducts);
   const { isBigScreenOrTablet, isBigScreen, isAllMobile } = useDashboard();
+  const dispatch = useAppDispatch();
+  const { toggle } = useModal();
 
   const typeCounts = comparisonProducts.reduce(
     (acc, product) => {
@@ -21,12 +31,20 @@ const Comparison = () => {
     {} as Record<string, number>
   );
 
+  const availableTypes = Object.keys(typeCounts);
+
   const [selectedType, setSelectedType] = useState<string>(
-    Object.keys(typeCounts)[0] || 'Drone'
+    availableTypes[0] || 'Drone'
   );
 
   const handleDeleteType = (type: string) => {
-    console.log(`Видалити всі продукти типу: ${type}`);
+    dispatch(deleteProductsByType(type));
+    const newAvailableTypes = availableTypes.filter(t => t !== type);
+    setSelectedType(newAvailableTypes[0] || 'Drone');
+  };
+
+  const handleClearAll = () => {
+    dispatch(clearAllProducts());
   };
 
   const filteredProducts = comparisonProducts.filter(product => {
@@ -71,6 +89,23 @@ const Comparison = () => {
               </span>
             </label>
           ))}
+          <button
+            className={s.clear_all_btn}
+            type="button"
+            onClick={handleClearAll}
+          >
+            <span>Clear All</span>
+            <span className={s.clear_all_icon}>
+              <svg
+                className={s.delete}
+                aria-label="delete icon"
+                width="18"
+                height="20"
+              >
+                <use xlinkHref={`${svg}#icon-x`} />
+              </svg>
+            </span>
+          </button>
         </form>
       </div>
       <div className={s.products_list}>
@@ -122,6 +157,11 @@ const Comparison = () => {
             </ul>
           </div>
         </div>
+      )}
+      {comparisonProducts.length <= 0 && (
+        <Modal closeModal={toggle}>
+          <ProductClearedModal closeModal={toggle} />
+        </Modal>
       )}
     </>
   );
