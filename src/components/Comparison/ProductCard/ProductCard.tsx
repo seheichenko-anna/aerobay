@@ -7,7 +7,7 @@ import { Subcategory } from '../../../redux/subcategories/subcategoriesOperation
 import { Tooltip } from 'react-tooltip';
 import Button from '../../Buttons/Button';
 import { useAppDispatch } from '../../../redux/hooks/useAppDispatch';
-import { deleteComparisonProducts } from '../../../redux/comparisonProducts/comparisonProductsSlice';
+import { deleteComparisonProduct } from '../../../redux/comparisonProducts/comparisonProductsSlice';
 import { Accessory } from '../../../redux/accessories/accessoriesOperations';
 
 interface ProductCardProps {
@@ -37,7 +37,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
   };
 
   const handleDeleteProduct = (item: Partial<Drone> | Partial<Accessory>) => {
-    dispatch(deleteComparisonProducts(item));
+    dispatch(deleteComparisonProduct(item));
   };
 
   return (
