@@ -410,7 +410,10 @@ const comparisonProductsSlice = createSlice({
     addComparisonProducts: (state, { payload }: PayloadAction<Drone>) => {
       state.products.push(payload);
     },
-    deleteComparisonProducts: (state, { payload }: PayloadAction<Drone>) => {
+    deleteComparisonProducts: (
+      state,
+      { payload }: PayloadAction<Partial<Drone> | Partial<Accessory>>
+    ) => {
       state.products = state.products.filter(
         product => product.id !== payload.id
       );

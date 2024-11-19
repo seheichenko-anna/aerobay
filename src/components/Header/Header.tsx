@@ -294,11 +294,13 @@ const Header = () => {
                 </span>
               </div>
               {comparisonProducts > 0 && (
-                <div className={`${s.navButton} ${s.btnGlobalLine}`}>
-                  <span className={`${s.arrowDown} ${s.arrSearch}`}>
-                    <ComparisonIcon />
-                  </span>
-                </div>
+                <Link to="comparison">
+                  <div className={`${s.navButton} ${s.btnGlobalLine}`}>
+                    <span className={`${s.arrowDown} ${s.arrSearch}`}>
+                      <ComparisonIcon />
+                    </span>
+                  </div>
+                </Link>
               )}
               <button
                 className={`${s.navButton} ${s.cartButton}`}

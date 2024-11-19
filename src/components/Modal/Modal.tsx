@@ -1,6 +1,7 @@
 import React, { ReactNode, useCallback, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { IoCloseOutline } from 'react-icons/io5';
+import classNames from 'classnames';
 import s from './Modal.module.css';
 
 const modalRoot = document.querySelector('#modal') as HTMLElement;
@@ -8,9 +9,16 @@ const modalRoot = document.querySelector('#modal') as HTMLElement;
 interface ModalProps {
   closeModal: () => void;
   children: ReactNode;
+  icon?: boolean;
+  size?: 'small' | 'medium' | 'large';
 }
 
-const Modal: React.FC<ModalProps> = ({ closeModal, children }) => {
+const Modal: React.FC<ModalProps> = ({
+  closeModal,
+  children,
+  icon = true,
+  size = 'medium',
+}) => {
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -38,10 +46,12 @@ const Modal: React.FC<ModalProps> = ({ closeModal, children }) => {
 
   return ReactDOM.createPortal(
     <div onClick={handleBackdropClick} className={s.backdrop}>
-      <div className={s.modal}>
-        <button onClick={closeModal} className={s.btn_close}>
-          <IoCloseOutline className={s.icon_close} />
-        </button>
+      <div className={classNames(s.modal, s[`${size}`])}>
+        {icon && (
+          <button onClick={closeModal} className={s.btn_close}>
+            <IoCloseOutline className={s.icon_close} />
+          </button>
+        )}
         {children}
       </div>
     </div>,

@@ -4,18 +4,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    max-width: 250px;
     width: 100%;
     transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
-    margin-top: 10px;
-
-
-    @media screen and (min-width: 768px) {
-        padding: 6px 5px 6px 20px;
-        flex: 1;
-        width: auto;
-        display: flex;
-        gap: 10px;
-    }
+    gap: 10px;
+    white-space: nowrap;
+    margin: 0 auto;
+    flex: 1;
 
     &&:hover,
     &&:focus {
@@ -85,7 +80,7 @@
     max-width: 250px;
     width: 100%;
     transition: background-color 0.4s ease-in-out;
-    flex: 1;
+    white-space: nowrap;
 
     &&:hover,
     &&:focus {
@@ -100,6 +95,7 @@
 
 .with_arrow_btn_medium {
     padding: 6px 5px 6px 20px;
+
 }
 
 .with_arrow_btn_large {
@@ -113,3 +109,14 @@
 .white_btn_large {
     padding: 18px 20px;
 }
+
+/* .with_arrow_btn.modal,
+.white_btn.modal {
+    flex: 1;
+
+    @media screen and (min-width: 768px) {
+        flex-basis: calc(50% - 6px);
+
+    }
+
+} */

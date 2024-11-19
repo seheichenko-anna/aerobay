@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import svg from '../../../assets/sprite.svg';
 import Button from '../../Buttons/Button';
 import s from './ProductClearedModal.module.css';
@@ -26,10 +27,16 @@ const ProductClearedModal: React.FC<ProductClearedModalProps> = () => {
         All products have been removed from the comparison list.
       </p>
       <div className={s.links_wrapper}>
-        <Button icon={false} variant="white_btn" size="medium">
-          Continue shopping
-        </Button>
-        <Button icon>Go to cart</Button>
+        <Link to="/catalog" className={s.link_modal}>
+          <Button icon={false} variant="white_btn" size="medium" modal>
+            Continue shopping
+          </Button>
+        </Link>
+        <Link to="/cart" className={s.link_modal}>
+          <Button icon modal>
+            Go to cart
+          </Button>
+        </Link>
       </div>
     </div>
   );
