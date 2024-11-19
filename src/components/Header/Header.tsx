@@ -57,7 +57,10 @@ const Header = () => {
   const [openDropdownCompany, setOpenDropdownCompany] =
     useState<boolean>(false);
 
-  const handleToggleDropDownStyle = (dropdownName: string, isOpen: boolean) => {
+  const handleToggleDropDownStyle = (
+    dropdownName: string,
+    isOpen: boolean,
+  ) => {
     if (dropdownName === 'solutions') setOpenDropdownSolutions(isOpen);
     if (dropdownName === 'company') setOpenDropdownCompany(isOpen);
   };
@@ -125,7 +128,7 @@ const Header = () => {
             <nav className={s.nav}>
               <div className={s.navItemWrapper}>
                 <button
-                  aria-label="Products menu"
+                  aria-label='Products menu'
                   className={showDropdown ? s.navButtonActive : s.navButton}
                   onClick={() => handleToggleDropdown('products')}
                 >
@@ -147,7 +150,7 @@ const Header = () => {
                       className={` ${selectedProduct === 'drones' ? s.activeProduct : null}`}
                     >
                       <button
-                        aria-label="Drones"
+                        aria-label='Drones'
                         className={`${s.productItemBtn} ${selectedProduct === 'drones' ? s.active : null}`}
                         onClick={() => handleProductSelection('drones')}
                       >
@@ -161,7 +164,7 @@ const Header = () => {
                       className={`${selectedProduct === 'accessories' ? s.activeProduct : null}`}
                     >
                       <button
-                        aria-label="Accessories"
+                        aria-label='Accessories'
                         className={`${s.productItemBtn} ${selectedProduct === 'accessories' ? s.active : null}`}
                         onClick={() => handleProductSelection('accessories')}
                       >
@@ -225,7 +228,7 @@ const Header = () => {
                 <DropDown
                   icon={
                     <div
-                      aria-label="Company menu"
+                      aria-label='Company menu'
                       className={
                         openDropdownCompany ? s.navButtonActive : s.navButton
                       }
@@ -246,9 +249,9 @@ const Header = () => {
                       label: 'Delivery & Payments',
                     },
                   ]}
-                  size="191px"
+                  size='191px'
                   handleToggleDropDownStyle={handleToggleDropDownStyle}
-                  dropdownName="company"
+                  dropdownName='company'
                 />
               </div>
 
@@ -256,7 +259,7 @@ const Header = () => {
                 <DropDown
                   icon={
                     <div
-                      aria-label="Solutions menu"
+                      aria-label='Solutions menu'
                       className={
                         openDropdownSolutions ? s.navButtonActive : s.navButton
                       }
@@ -277,9 +280,9 @@ const Header = () => {
                       label: 'Documentation (photo/video shooting)',
                     },
                   ]}
-                  size="227px"
+                  size='227px'
                   handleToggleDropDownStyle={handleToggleDropDownStyle}
-                  dropdownName="solutions"
+                  dropdownName='solutions'
                 />
               </div>
             </nav>
@@ -294,15 +297,17 @@ const Header = () => {
                 </span>
               </div>
               {comparisonProducts > 0 && (
-                <div className={`${s.navButton} ${s.btnGlobalLine}`}>
-                  <span className={`${s.arrowDown} ${s.arrSearch}`}>
-                    <ComparisonIcon />
-                  </span>
-                </div>
+                <Link to='comparison'>
+                  <div className={`${s.navButton} ${s.btnGlobalLine}`}>
+                    <span className={`${s.arrowDown} ${s.arrSearch}`}>
+                      <ComparisonIcon />
+                    </span>
+                  </div>
+                </Link>
               )}
               <button
                 className={`${s.navButton} ${s.cartButton}`}
-                aria-label="Cart"
+                aria-label='Cart'
               >
                 Cart{' '}
                 <span className={s.arrowDown}>
@@ -327,7 +332,7 @@ const Header = () => {
                 <div className={s.headerActions}>
                   <button
                     className={`${s.navButton} ${s.cartButton}`}
-                    aria-label="Cart"
+                    aria-label='Cart'
                   >
                     <span className={s.arrowDown}>
                       <LuShoppingBag size={20} />
@@ -336,10 +341,10 @@ const Header = () => {
                 </div>
                 <button
                   className={`${s.navButton} ${s.menuButton}`}
-                  aria-label="Open or hide menu"
+                  aria-label='Open or hide menu'
                 >
                   <Hamburger
-                    color="black"
+                    color='black'
                     toggled={isOpen}
                     toggle={setOpen}
                     size={20}
@@ -358,8 +363,8 @@ const Header = () => {
                   <div className={`${s.navButton} ${s.btnGlobalLine}`}>
                     <span className={`${s.arrowDown} ${s.arrSearch}`}>
                       <LanguageSelector
-                        positionY="bottom"
-                        positionX="right-0"
+                        positionY='bottom'
+                        positionX='right-0'
                       />
                     </span>
                   </div>
@@ -383,9 +388,9 @@ const Header = () => {
 
 const Logo = () => {
   return (
-    <Link to="/">
+    <Link to='/'>
       <div className={s.logo}>
-        <svg height="50px">
+        <svg height='50px'>
           <use xlinkHref={`${svg}#icon-logo_aeroBay`} />
         </svg>
       </div>
