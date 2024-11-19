@@ -407,12 +407,12 @@ const comparisonProductsSlice = createSlice({
   name: 'comparisonProducts',
   initialState: initialComparisonProductsState,
   reducers: {
-    addComparisonProducts: (state, { payload }: PayloadAction<Drone>) => {
+    addComparisonProduct: (state, { payload }: PayloadAction<Drone>) => {
       state.products.push(payload);
     },
-    deleteComparisonProducts: (state, { payload }: PayloadAction<Drone>) => {
+    deleteComparisonProduct: (state, { payload }: PayloadAction<Drone>) => {
       state.products = state.products.filter(
-        product => product.id !== payload.id
+        product => product.id !== payload.id,
       );
     },
     deleteProductsByType: (state, { payload }: PayloadAction<string>) => {
@@ -432,10 +432,11 @@ const comparisonProductsSlice = createSlice({
 });
 
 export const {
-  addComparisonProducts,
-  deleteComparisonProducts,
+  addComparisonProduct,
+  deleteComparisonProduct,
   deleteProductsByType,
   clearAllProducts,
 } = comparisonProductsSlice.actions;
+
 export const comparisonProductsReducer = comparisonProductsSlice.reducer;
 export const { selectComparisonProducts } = comparisonProductsSlice.selectors;
