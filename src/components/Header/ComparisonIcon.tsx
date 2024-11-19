@@ -1,4 +1,4 @@
-import s from './Comparison.module.css';
+import s from './ComparisonIcon.module.css';
 import svg from '../../assets/sprite.svg';
 import { selectComparisonProducts } from '../../redux/comparisonProducts/comparisonProductsSlice';
 import { useAppSelector } from '../../redux/hooks/useAppSelector';

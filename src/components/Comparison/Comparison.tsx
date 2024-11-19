@@ -159,7 +159,7 @@ const Comparison = () => {
         </div>
       )}
       {comparisonProducts.length <= 0 && (
-        <Modal closeModal={toggle}>
+        <Modal closeModal={toggle} icon={false}>
           <ProductClearedModal closeModal={toggle} />
         </Modal>
       )}

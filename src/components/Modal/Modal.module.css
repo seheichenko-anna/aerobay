@@ -14,16 +14,10 @@
     background-color: #ffffff;
     padding: 24px;
     overflow-y: auto;
-    width: 280px;
+
     border-radius: 10px;
 
-    @media screen and (min-width: 768px) {
-        width: 704px;
-    }
 
-    @media screen and (min-width: 1440px) {
-        width: 900px;
-    }
 }
 
 .btn_close {
@@ -41,4 +35,26 @@
     width: 24px;
     height: 24px;
     stroke: #000000;
+}
+
+.modal.medium {
+    max-width: 343px;
+    width: 100%;
+
+    @media screen and (min-width: 768px) {
+        max-width: 426px;
+    }
+}
+
+.modal.large {
+    max-width: 280px;
+    width: 100%;
+
+    @media screen and (min-width: 768px) {
+        max-width: 704px;
+    }
+
+    @media screen and (min-width: 1440px) {
+        max-width: 900px;
+    }
 }

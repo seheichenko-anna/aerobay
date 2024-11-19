@@ -126,7 +126,7 @@ const AdminDataTable = <T extends { id: string | number }>({
         </div>
       </div>
       {isOpen && (
-        <Modal closeModal={toggle}>
+        <Modal closeModal={toggle} size="large">
           <AdminPanelForm
             type={formType}
             inputType={inputType}

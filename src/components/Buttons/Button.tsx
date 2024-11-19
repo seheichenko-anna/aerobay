@@ -9,6 +9,7 @@ interface ButtonProps {
   children: React.ReactNode;
   icon: boolean;
   size?: 'small' | 'medium' | 'large';
+  modal?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -18,12 +19,19 @@ const Button: React.FC<ButtonProps> = ({
   children,
   icon,
   size = 'medium',
+  modal = false,
 }) => {
   return (
     <button
-      className={classNames(s.button, s[variant], s[`${variant}_${size}`], {
-        [s.disabled]: disabled,
-      })}
+      className={classNames(
+        s.button,
+        s[variant],
+        s[`${variant}_${size}`],
+        s[`${modal && 'modal'}`],
+        {
+          [s.disabled]: disabled,
+        }
+      )}
       disabled={disabled}
       onClick={onClick}
     >
