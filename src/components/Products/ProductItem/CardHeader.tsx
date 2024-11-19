@@ -25,11 +25,11 @@ const ItemHeader = ({ product }: { product: BaseProduct }) => {
       comPro => comPro.id === product.id,
     );
 
-    if (isProductInComparisonState) {
-      dispatch(deleteComparisonProduct(product as Drone));
-    }
-
-    dispatch(addComparisonProduct(product as Drone));
+    dispatch(
+      isProductInComparisonState
+        ? deleteComparisonProduct(product as Drone)
+        : addComparisonProduct(product as Drone),
+    );
   };
 
   return (
