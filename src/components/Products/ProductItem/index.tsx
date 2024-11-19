@@ -8,19 +8,25 @@ import { BaseProduct } from '../../../redux/types';
 
 const ProductItem = ({ product }: { product: BaseProduct }) => {
   return (
-    <Link to={String(product.id)} key={product.id} className='product'>
-      <article className={styles['product-card']} data-id={product?.id}>
-        <CardHeader product={product} />
+    <article className={styles['product-card']} data-id={product?.id}>
+      <CardHeader product={product} />
 
-        <ImageWithLoader
-          className="rounded-3xl"
-          src={product?.image_url.replace('dl=0', 'raw=1')}
-          alt={'Product Image'}
-        />
+      <Link
+        to={String(product.id)}
+        key={product.id}
+        className='product h-full w-full flex flex-col justify-center'
+      >
+        <div className='h-full flex flex-col justify-between'>
+          <ImageWithLoader
+            className='rounded-3xl'
+            src={product?.image_url.replace('dl=0', 'raw=1')}
+            alt={'Product Image'}
+          />
 
-        <CardBottom product={product} />
-      </article>
-    </Link>
+          <CardBottom product={product} />
+        </div>
+      </Link>
+    </article>
   );
 };
 
