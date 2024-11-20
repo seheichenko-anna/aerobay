@@ -6,15 +6,14 @@ import { Drone } from '../../../redux/drones/dronesOperations';
 import { Subcategory } from '../../../redux/subcategories/subcategoriesOperations';
 import { Tooltip } from 'react-tooltip';
 import Button from '../../Buttons/Button';
-import { useAppDispatch } from '../../../redux/hooks/useAppDispatch';
-import { deleteComparisonProduct } from '../../../redux/comparisonProducts/comparisonProductsSlice';
 import { Accessory } from '../../../redux/accessories/accessoriesOperations';
 
 interface ProductCardProps {
   item: Partial<Drone> | Partial<Accessory>;
+  onDelete: () => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ item, onDelete }) => {
   const {
     title,
     price = 0,
@@ -24,8 +23,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
     subcategories = [],
   } = item;
 
-  const dispatch = useAppDispatch();
-
   const isNewItemByCreatedAt = (created_at: string = '') =>
     new Date(created_at) > new Date(2024, 9, 14);
 
@@ -34,10 +31,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
       subcategory => subcategory.name === 'Availability'
     );
     return availabilitySubcategory ? availabilitySubcategory.value : null;
-  };
-
-  const handleDeleteProduct = (item: Partial<Drone> | Partial<Accessory>) => {
-    dispatch(deleteComparisonProduct(item));
   };
 
   return (
@@ -52,7 +45,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
         />
         <button
           className={`${s.delete_btn} my-anchor-element`}
-          onClick={() => handleDeleteProduct(item)}
+          onClick={onDelete}
         >
           <svg
             className={s.trash}
