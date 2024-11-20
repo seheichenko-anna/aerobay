@@ -119,7 +119,7 @@ main {
 .all-products-box {
   .all-products {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 32px;
 
     >a:focus-visible {
@@ -150,24 +150,15 @@ main {
         outline: none;
       }
 
-      &_img-section {
-        max-width: 251px;
-        width: 100%;
-        position: absolute;
-
-        >img {
-          width: 100%;
-          height: 100%;
-        }
-      }
-
       &_top-section {
         width: 100%;
         display: flex;
         justify-content: space-between;
-        // position: absolute;
+        position: absolute;
         left: 0;
         top: 0;
+
+        padding: 20px 20px 24px 20px;
       }
 
       &_badges {
@@ -368,7 +359,7 @@ main {
 
   .all-products-box {
     .all-products {
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 25px;
     }
   }
@@ -381,7 +372,7 @@ main {
 @media screen and (max-width: 992px) {
   .all-products-box {
     .all-products {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 15px;
     }
   }
@@ -390,7 +381,7 @@ main {
 @media screen and (max-width: 768px) {
   .all-products-box {
     .all-products {
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       justify-content: center;
       gap: 25px;
     }
@@ -436,11 +427,15 @@ main {
   .all-products-box {
     .all-products {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(166px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(166px, 1fr));
       gap: 7px;
 
       .product-card {
         padding: 10px;
+
+        &_top-section {
+          padding: 10px;
+        }
 
         &_budge-inStock {
           display: none;
@@ -514,7 +509,7 @@ main {
   .all-products-box {
     .all-products {
       justify-content: center;
-      grid-template-columns: repeat(auto-fit, minmax(166px, 250px));
+      grid-template-columns: repeat(auto-fill, minmax(166px, 250px));
     }
   }
 

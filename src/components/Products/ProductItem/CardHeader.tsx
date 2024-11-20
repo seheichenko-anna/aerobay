@@ -33,7 +33,6 @@ const ItemHeader = ({ product }: { product: BaseProduct }) => {
   };
 
   return (
-    <div className={c['product-card_img-section']}>
       <div className={c['product-card_top-section']}>
         <div className={`${c['product-card_badges']} pb-2`}>
           {isNewItemByCreatedAt(product.created_at) && (
@@ -62,7 +61,6 @@ const ItemHeader = ({ product }: { product: BaseProduct }) => {
 
         <Tooltip id='compare-tooltip' place='left' />
       </div>
-    </div>
   );
 };
 

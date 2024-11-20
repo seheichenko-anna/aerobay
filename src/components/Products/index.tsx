@@ -36,33 +36,9 @@ const Products = ({ children }: { children: React.ReactNode[] }) => {
       <main>
         {header}
 
-        <div className={c.mobile_devider}></div>
-
-        <MoreFiltersMobileBtn />
-
         <div className={c['all-products-box']}>{productList}</div>
       </main>
     </>
-  );
-};
-
-const MoreFiltersMobileBtn = () => {
-  const { setIsMobileFilterVisible } = useContext(ProductFiltersContext)!;
-
-  const handleVisibleFilter = () => {
-    setIsMobileFilterVisible(true);
-  };
-
-  return (
-    <div className={c.mobile_filter}>
-      <span>Filter:</span>
-
-      <img
-        src={mobileFilter}
-        alt='mobile filter icon'
-        onClick={handleVisibleFilter}
-      />
-    </div>
   );
 };
 

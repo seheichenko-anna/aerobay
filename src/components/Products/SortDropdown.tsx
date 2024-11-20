@@ -80,8 +80,6 @@ export const SortDropdown: FC<SortDropdownProps> = ({
 
         {isDropdownOpen && !isSidebarDropdown && <SortDropdownList />}
       </div>
-
-      {/* {isDropdownOpen && isSidebarDropdown && <CategoryFilter />} */}
     </>
   );
 };
