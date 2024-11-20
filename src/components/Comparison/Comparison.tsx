@@ -4,6 +4,7 @@ import s from './Comparison.module.css';
 import { useDashboard } from '../../hooks/useDashboard';
 import {
   clearAllProducts,
+  deleteComparisonProduct,
   deleteProductsByType,
   selectComparisonProducts,
 } from '../../redux/comparisonProducts/comparisonProductsSlice';
@@ -15,6 +16,8 @@ import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
 import { useModal } from '../../hooks/useModal';
 import Modal from '../Modal/Modal';
 import ProductClearedModal from './ProductClearedModal/ProductClearedModal';
+import { Drone } from '../../redux/drones/dronesOperations';
+import { Accessory } from '../../redux/accessories/accessoriesOperations';
 
 const Comparison = () => {
   const comparisonProducts = useAppSelector(selectComparisonProducts);
@@ -54,13 +57,41 @@ const Comparison = () => {
     return selectedType === 'Drone';
   });
 
+  const handleDeleteProduct = (item: Partial<Drone> | Partial<Accessory>) => {
+    dispatch(deleteComparisonProduct(item));
+    const remainingProducts = comparisonProducts.filter(
+      product =>
+        product !== item &&
+        ('type' in product
+          ? product.type === selectedType
+          : selectedType === 'Drone')
+    );
+
+    if (remainingProducts.length === 0) {
+      const newAvailableTypes = availableTypes.filter(
+        type => type !== selectedType
+      );
+      setSelectedType(newAvailableTypes[0] || 'Drone');
+    }
+  };
+
+  const sortedTypeCounts = Object.entries(typeCounts).sort((a, b) => {
+    const [typeA, countA] = a;
+    const [typeB, countB] = b;
+
+    if (typeA < typeB) return -1;
+    if (typeA > typeB) return 1;
+
+    return countB - countA;
+  });
+
   return (
     <>
       <Breadcrumbs />
       <h1 className={s.title}>Comparison</h1>
       <div className={s.sort_comparison_products}>
         <form className={s.products_form_types}>
-          {Object.entries(typeCounts).map(([type, count]) => (
+          {sortedTypeCounts.map(([type, count]) => (
             <label key={type} className={s.product_label}>
               <input
                 type="radio"
@@ -116,7 +147,10 @@ const Comparison = () => {
         >
           {filteredProducts.map((item, index) => (
             <SwiperSlide key={index} className={s.slide}>
-              <ProductCard item={item} />
+              <ProductCard
+                item={item}
+                onDelete={() => handleDeleteProduct(item)}
+              />
             </SwiperSlide>
           ))}
         </Swiper>
