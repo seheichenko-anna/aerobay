@@ -7,6 +7,7 @@ import { Subcategory } from '../../../redux/subcategories/subcategoriesOperation
 import { Tooltip } from 'react-tooltip';
 import Button from '../../Buttons/Button';
 import { Accessory } from '../../../redux/accessories/accessoriesOperations';
+import { useDashboard } from '../../../hooks/useDashboard';
 
 interface ProductCardProps {
   item: Partial<Drone> | Partial<Accessory>;
@@ -22,6 +23,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ item, onDelete }) => {
     created_at,
     subcategories = [],
   } = item;
+
+  const { isAllMobile } = useDashboard();
 
   const isNewItemByCreatedAt = (created_at: string = '') =>
     new Date(created_at) > new Date(2024, 9, 14);
@@ -68,9 +71,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ item, onDelete }) => {
               className={`${s.discount} ${s.img_label}`}
             >{`Save ${discount}%`}</li>
           )}
-          <li className={`${s.availability} ${s.img_label}`}>
-            {getAvailabilityValue(subcategories)}
-          </li>
+          {getAvailabilityValue(subcategories) && (
+            <li className={`${s.availability} ${s.img_label}`}>
+              {getAvailabilityValue(subcategories)}
+            </li>
+          )}
         </ul>
       </div>
       <div className={s.product_info_wrapper}>
@@ -100,6 +105,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ item, onDelete }) => {
         <Button
           disabled={getAvailabilityValue(subcategories) === 'Out of Stock'}
           icon
+          size={isAllMobile ? 'small' : 'medium'}
         >
           Add to cart
         </Button>

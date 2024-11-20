@@ -11,8 +11,12 @@
 }
 
 .slide {
-    max-width: 293px;
+    max-width: 170px;
     width: 100%;
+
+    @media screen and (min-width:768px) {
+        max-width: 293px;
+    }
 }
 
 .slide:last-child {
@@ -50,9 +54,13 @@
 
 .products_form_types {
     display: flex;
-    justify-content: flex-end;
     gap: 10px;
     margin-right: auto;
+    flex-wrap: wrap;
+
+    @media screen and (min-width: 768px) {
+        justify-content: flex-end;
+    }
 }
 
 .sort_comparison_products {
