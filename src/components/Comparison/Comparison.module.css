@@ -4,13 +4,20 @@
     margin: 30px 0 18px;
 }
 
-.comparison_swiper {
+.comparison_swiper_first {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 69px;
+
 }
 
-.slide {
+.comparison_swiper_second {
+    margin-bottom: 96px;
+}
+
+.slide_one,
+.slide_two {
     max-width: 170px;
     width: 100%;
 
@@ -19,33 +26,16 @@
     }
 }
 
-.slide:last-child {
-    margin-right: 16px;
+.product_card {
+    padding-right: 32px;
 }
 
-
-.comparison_data_title {
-    font-size: 18px;
-    line-height: 22.05px;
-    color: #101828;
-    padding: 10px 0;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
 
 .comparison_data_list {
     width: 100%;
     background: #F5F5F5;
     display: flex;
     gap: 32px;
-
-
-}
-
-.comparison_data_list>li {
-    color: #475467;
-    flex: 1;
-    padding: 15px 5px;
 }
 
 .comparison_data_wrapper {
@@ -141,5 +131,62 @@
 .clear_all_icon {
     .delete {
         fill: #BDBDBD;
+    }
+}
+
+.products_list {
+
+
+    .comparison_swiper {
+
+
+        .subcategory_list {
+            width: 100%;
+            margin-top: 16px;
+            gap: 0;
+            padding: 0;
+
+
+            .subcategory_item {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                position: relative;
+
+
+                .subcategory_name {
+                    font-size: 18px;
+                    line-height: 22.05px;
+                    color: #101828;
+                    padding: 15px 5px;
+                    margin-bottom: 10px;
+
+                    &:nth-child(odd) {
+                        background-color: #FFFFFF;
+
+                    }
+
+                    &:nth-child(even) {
+                        background-color: #FAFAFA;
+
+                    }
+                }
+
+                .subcategory_value {
+                    color: #475467;
+                    padding: 15px 5px;
+
+                    &:nth-child(odd) {
+                        background-color: #FFFFFF;
+
+                    }
+
+                    &:nth-child(even) {
+                        background-color: #FAFAFA;
+
+                    }
+                }
+            }
+        }
     }
 }

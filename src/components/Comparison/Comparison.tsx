@@ -10,6 +10,7 @@ import {
 } from '../../redux/comparisonProducts/comparisonProductsSlice';
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Controller } from 'swiper/modules';
 import svg from '../../assets/sprite.svg';
 import { useState } from 'react';
 import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
@@ -18,10 +19,12 @@ import Modal from '../Modal/Modal';
 import ProductClearedModal from './ProductClearedModal/ProductClearedModal';
 import { Drone } from '../../redux/drones/dronesOperations';
 import { Accessory } from '../../redux/accessories/accessoriesOperations';
+import 'swiper/css/controller';
+import type { Swiper as SwiperInstance } from 'swiper';
 
 const Comparison = () => {
   const comparisonProducts = useAppSelector(selectComparisonProducts);
-  const { isBigScreenOrTablet, isBigScreen, isAllMobile } = useDashboard();
+  const { isBigScreen, isAllMobile } = useDashboard();
   const dispatch = useAppDispatch();
   const { toggle } = useModal();
 
@@ -85,6 +88,9 @@ const Comparison = () => {
     return countB - countA;
   });
 
+  const [firstSwiper, setFirstSwiper] = useState<SwiperInstance | null>(null);
+  const [secondSwiper, setSecondSwiper] = useState<SwiperInstance | null>(null);
+
   return (
     <>
       <Breadcrumbs />
@@ -141,57 +147,49 @@ const Comparison = () => {
       </div>
       <div className={s.products_list}>
         <Swiper
-          spaceBetween={32}
+          spaceBetween={0}
           slidesPerView={isBigScreen ? 4.5 : isAllMobile ? 2.1 : 3.5}
-          className={s.comparison_swiper}
+          modules={[Controller]}
+          onSwiper={setFirstSwiper}
+          controller={{ control: secondSwiper }}
+          className={`${s.comparison_swiper_first} ${s.comparison_swiper}`}
         >
           {filteredProducts.map((item, index) => (
-            <SwiperSlide key={index} className={s.slide}>
-              <ProductCard
-                item={item}
-                onDelete={() => handleDeleteProduct(item)}
-              />
+            <SwiperSlide key={`product-${index}`} className={s.slide}>
+              <div className={s.product_card}>
+                <ProductCard
+                  item={item}
+                  onDelete={() => handleDeleteProduct(item)}
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        <Swiper
+          spaceBetween={0}
+          slidesPerView={isBigScreen ? 4.5 : isAllMobile ? 2.1 : 3.5}
+          modules={[Controller]}
+          onSwiper={setSecondSwiper}
+          controller={{ control: firstSwiper }}
+          className={`${s.comparison_swiper_second} ${s.comparison_swiper}`}
+        >
+          {filteredProducts.map((item, index) => (
+            <SwiperSlide key={`subcategory-${index}`} className={s.slide}>
+              <div className={s.subcategory_list}>
+                {item.subcategories?.map((subcategory, subIndex) => (
+                  <div key={subIndex} className={s.subcategory_item}>
+                    <div className={s.subcategory_name}>{subcategory.name}</div>
+                    <div className={s.subcategory_value}>
+                      {subcategory.value || 'N/A'}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-      {isBigScreenOrTablet && (
-        <div className={s.comparison_data_wrapper}>
-          <div className={s.comparison_data}>
-            <h3 className={s.comparison_data_title}>
-              Remote control battery capacity
-            </h3>
-            <ul className={s.comparison_data_list}>
-              <li>3930 mAh</li>
-              <li>5000 mAh</li>
-              <li>3930 mAh</li>
-              <li>3930 mAh</li>
-            </ul>
-          </div>
-          <div className={s.comparison_data}>
-            <h3 className={s.comparison_data_title}>
-              Remote control battery capacity
-            </h3>
-            <ul className={s.comparison_data_list}>
-              <li>3930 mAh</li>
-              <li>5000 mAh</li>
-              <li>3930 mAh</li>
-              <li>3930 mAh</li>
-            </ul>
-          </div>
-          <div className={s.comparison_data}>
-            <h3 className={s.comparison_data_title}>
-              Remote control battery capacity
-            </h3>
-            <ul className={s.comparison_data_list}>
-              <li>3930 mAh</li>
-              <li>5000 mAh</li>
-              <li>3930 mAh</li>
-              <li>3930 mAh</li>
-            </ul>
-          </div>
-        </div>
-      )}
       {comparisonProducts.length <= 0 && (
         <Modal closeModal={toggle} icon={false}>
           <ProductClearedModal closeModal={toggle} />
