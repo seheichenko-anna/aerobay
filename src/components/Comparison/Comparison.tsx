@@ -21,6 +21,7 @@ import { Drone } from '../../redux/drones/dronesOperations';
 import { Accessory } from '../../redux/accessories/accessoriesOperations';
 import 'swiper/css/controller';
 import type { Swiper as SwiperInstance } from 'swiper';
+import { keysAccessories, keysDrones } from './characteristicsComparisonValues';
 
 const Comparison = () => {
   const comparisonProducts = useAppSelector(selectComparisonProducts);
@@ -82,10 +83,9 @@ const Comparison = () => {
     const [typeA, countA] = a;
     const [typeB, countB] = b;
 
-    if (typeA < typeB) return -1;
-    if (typeA > typeB) return 1;
+    if (countA !== countB) return countB - countA;
 
-    return countB - countA;
+    return typeA.localeCompare(typeB);
   });
 
   const [firstSwiper, setFirstSwiper] = useState<SwiperInstance | null>(null);
@@ -174,20 +174,30 @@ const Comparison = () => {
           controller={{ control: firstSwiper }}
           className={`${s.comparison_swiper_second} ${s.comparison_swiper}`}
         >
-          {filteredProducts.map((item, index) => (
-            <SwiperSlide key={`subcategory-${index}`} className={s.slide}>
-              <div className={s.subcategory_list}>
-                {item.subcategories?.map((subcategory, subIndex) => (
-                  <div key={subIndex} className={s.subcategory_item}>
-                    <div className={s.subcategory_name}>{subcategory.name}</div>
-                    <div className={s.subcategory_value}>
-                      {subcategory.value || 'N/A'}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </SwiperSlide>
-          ))}
+          {filteredProducts.map((item, index) => {
+            const type = 'type' in item && item.type ? item.type : 'Drone';
+            const keys = type === 'Drone' ? keysDrones : keysAccessories;
+
+            return (
+              <SwiperSlide key={`subcategory-${index}`} className={s.slide}>
+                <div className={s.subcategory_list}>
+                  {keys.map((key, subIndex) => {
+                    const subcategory = item.subcategories?.find(
+                      sub => sub.name === key
+                    );
+                    return (
+                      <div key={subIndex} className={s.subcategory_item}>
+                        <div className={s.subcategory_name}>{key}</div>
+                        <div className={s.subcategory_value}>
+                          {subcategory?.value || 'N/A'}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </div>
       {comparisonProducts.length <= 0 && (
