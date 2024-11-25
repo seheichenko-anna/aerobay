@@ -8,7 +8,7 @@ import c from './FilterProduct.module.scss';
 import { PriceRange } from './PriceRange';
 
 import { BounceLoader } from 'react-spinners';
-import useFilters from '../../../hooks/useFilters';
+import useSelectFilters from '../../../hooks/useSelectFilters';
 import {
   CatalogContext,
   TCatalogContext,
@@ -47,7 +47,7 @@ export const FilterProducts = ({ filters }: { filters: ProductFilter[] }) => {
   }
 
   const WithDefaultFilters = () => {
-    const { loading } = useFilters();
+    const { loading } = useSelectFilters();
 
     const BackendFilters = () => {
       if (loading) {

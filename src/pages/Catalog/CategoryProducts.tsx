@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react';
 import Products from '../../components/Products';
-import useFilters from '../../hooks/useFilters';
+import useSelectFilters from '../../hooks/useSelectFilters';
 import useSorted from '../../hooks/useSorted';
 import { BaseProduct } from '../../redux/types';
 import { getFilteredProducts } from '../../utils/filters';
@@ -39,7 +39,7 @@ export const CategoryProducts = ({
   const [maxPrice, setMaxPrice] = useState(0);
   const currentPriceRef = useRef(0);
 
-  const { currentFilterGroups } = useFilters();
+  const { currentFilterGroups } = useSelectFilters();
   const [isMobileFilterVisible, setIsMobileFilterVisible] = useState(false);
 
   const filterByCurrentCategoryGroups = (products: BaseProduct[]) =>

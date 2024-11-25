@@ -4,7 +4,7 @@ import { fetchAccessoriesThunk } from '../redux/accessories/accessoriesOperation
 import { useAppDispatch } from '../redux/hooks/useAppDispatch';
 import { RootState } from '../redux/store';
 
-export default function useAccessories() {
+export default () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {

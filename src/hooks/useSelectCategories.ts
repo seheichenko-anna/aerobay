@@ -4,7 +4,7 @@ import { selectCategories } from '../redux/categories/categoriesSlice';
 import { useAppDispatch } from '../redux/hooks/useAppDispatch';
 import { useAppSelector } from '../redux/hooks/useAppSelector';
 
-export default function useCategories() {
+export default () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {

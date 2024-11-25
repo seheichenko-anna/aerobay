@@ -4,7 +4,7 @@ import { fetchDronesThunk } from '../redux/drones/dronesOperations';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 
-export default function useDrones() {
+export default () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
