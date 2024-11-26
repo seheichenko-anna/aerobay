@@ -75,7 +75,7 @@ const DropDown = ({
             <MenuItem key={index}>
               {onSelect ? (
                 <a
-                  href="#"
+                  // href="#"
                   onClick={() => onSelect(item.value)}
                   className={s.dropdown_menu_item}
                 >

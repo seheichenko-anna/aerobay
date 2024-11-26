@@ -22,6 +22,8 @@ import { Accessory } from '../../redux/accessories/accessoriesOperations';
 import 'swiper/css/controller';
 import type { Swiper as SwiperInstance } from 'swiper';
 import { keysAccessories, keysDrones } from './characteristicsComparisonValues';
+import { IoIosArrowDown } from 'react-icons/io';
+import DropDown from '../DropDown/Dropdown';
 
 const Comparison = () => {
   const comparisonProducts = useAppSelector(selectComparisonProducts);
@@ -90,12 +92,89 @@ const Comparison = () => {
 
   const [firstSwiper, setFirstSwiper] = useState<SwiperInstance | null>(null);
   const [secondSwiper, setSecondSwiper] = useState<SwiperInstance | null>(null);
+  const [openDropdownCharacteristics, setOpenDropdownCharacteristics] =
+    useState<boolean>(false);
+  const [selectedCharacteristic, setSelectedCharacteristic] =
+    useState<string>('all');
+
+  const handleSelect = (value: string) => {
+    setSelectedCharacteristic(value);
+    setOpenDropdownCharacteristics(false);
+  };
+
+  const getCharacteristicDifference = (key: string): boolean => {
+    const values = filteredProducts.map(product => {
+      const subcategory = product.subcategories?.find(sub => sub.name === key);
+      return subcategory ? subcategory.value : null;
+    });
+
+    const uniqueValues = [...new Set(values)];
+    return uniqueValues.length > 1;
+  };
+
+  const renderSubcategory = (
+    key: string,
+    subcategory: any,
+    subIndex: number
+  ) => {
+    if (selectedCharacteristic === 'all') {
+      return (
+        <div key={subIndex} className={s.subcategory_item}>
+          <div className={s.subcategory_name}>{key}</div>
+          <div className={s.subcategory_value}>
+            {subcategory?.value || 'N/A'}
+          </div>
+        </div>
+      );
+    }
+
+    if (
+      selectedCharacteristic === 'difference' &&
+      getCharacteristicDifference(key)
+    ) {
+      return (
+        <div key={subIndex} className={s.subcategory_item}>
+          <div className={s.subcategory_name}>{key}</div>
+          <div className={s.subcategory_value}>
+            {subcategory?.value || 'N/A'}
+          </div>
+        </div>
+      );
+    }
+
+    return null;
+  };
 
   return (
     <>
       <Breadcrumbs />
       <h1 className={s.title}>Comparison</h1>
       <div className={s.sort_comparison_products}>
+        <div className={s.navItemWrapper}>
+          <DropDown
+            icon={
+              <div
+                aria-label="Sort by characteristics"
+                className={
+                  openDropdownCharacteristics ? s.navButtonActive : s.navButton
+                }
+              >
+                <span>Company</span>{' '}
+                <span
+                  className={`${s.arrowDown} ${openDropdownCharacteristics ? s.active : ''}`}
+                >
+                  <IoIosArrowDown size={20} />
+                </span>
+              </div>
+            }
+            items={[
+              { value: 'all', label: 'All characteristics' },
+              { value: 'difference', label: 'Only difference' },
+            ]}
+            onSelect={handleSelect}
+            size="191px"
+          />
+        </div>
         <form className={s.products_form_types}>
           {sortedTypeCounts.map(([type, count]) => (
             <label key={type} className={s.product_label}>
@@ -185,14 +264,7 @@ const Comparison = () => {
                     const subcategory = item.subcategories?.find(
                       sub => sub.name === key
                     );
-                    return (
-                      <div key={subIndex} className={s.subcategory_item}>
-                        <div className={s.subcategory_name}>{key}</div>
-                        <div className={s.subcategory_value}>
-                          {subcategory?.value || 'N/A'}
-                        </div>
-                      </div>
-                    );
+                    return renderSubcategory(key, subcategory, subIndex);
                   })}
                 </div>
               </SwiperSlide>
