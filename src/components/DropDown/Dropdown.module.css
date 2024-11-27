@@ -70,3 +70,16 @@
     max-width: 227px;
     width: 100%;
 }
+
+.selected_menu_item {
+    color: #CAD0D7;
+
+}
+
+.dropdown_menu_item:hover.selected_menu_item,
+.dropdown_menu_item:active.selected_menu_item,
+.dropdown_menu_item:focus.selected_menu_item {
+    background-color: #fff;
+    color: #CAD0D7;
+    cursor: auto;
+}

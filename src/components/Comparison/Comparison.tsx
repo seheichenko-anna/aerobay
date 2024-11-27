@@ -10,34 +10,45 @@ import {
 } from '../../redux/comparisonProducts/comparisonProductsSlice';
 import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Controller } from 'swiper/modules';
 import svg from '../../assets/sprite.svg';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
 import { useModal } from '../../hooks/useModal';
 import Modal from '../Modal/Modal';
 import ProductClearedModal from './ProductClearedModal/ProductClearedModal';
 import { Drone } from '../../redux/drones/dronesOperations';
 import { Accessory } from '../../redux/accessories/accessoriesOperations';
+import 'swiper/css/controller';
+import type { Swiper as SwiperInstance } from 'swiper';
+import { keysAccessories, keysDrones } from './characteristicsComparisonValues';
+import { IoIosArrowDown } from 'react-icons/io';
+import DropDown from '../DropDown/Dropdown';
 
 const Comparison = () => {
   const comparisonProducts = useAppSelector(selectComparisonProducts);
-  const { isBigScreenOrTablet, isBigScreen, isAllMobile } = useDashboard();
+  const { isBigScreen, isAllMobile } = useDashboard();
   const dispatch = useAppDispatch();
   const { toggle } = useModal();
 
-  const typeCounts = comparisonProducts.reduce(
-    (acc, product) => {
-      const type = 'type' in product && product.type ? product.type : 'Drone';
-      acc[type] = (acc[type] || 0) + 1;
-      return acc;
-    },
-    {} as Record<string, number>
+  const typeCounts = useMemo(
+    () =>
+      comparisonProducts.reduce(
+        (acc, product) => {
+          const type =
+            'type' in product && product.type ? product.type : 'Drone';
+          acc[type] = (acc[type] || 0) + 1;
+          return acc;
+        },
+        {} as Record<string, number>
+      ),
+    [comparisonProducts]
   );
 
-  const availableTypes = Object.keys(typeCounts);
+  const availableTypes = useMemo(() => Object.keys(typeCounts), [typeCounts]);
 
   const [selectedType, setSelectedType] = useState<string>(
-    availableTypes[0] || 'Drone'
+    availableTypes[availableTypes.length - 1] || 'Drone'
   );
 
   const handleDeleteType = (type: string) => {
@@ -79,17 +90,108 @@ const Comparison = () => {
     const [typeA, countA] = a;
     const [typeB, countB] = b;
 
-    if (typeA < typeB) return -1;
-    if (typeA > typeB) return 1;
+    if (countA !== countB) return countB - countA;
 
-    return countB - countA;
+    return typeA.localeCompare(typeB);
   });
+
+  const [firstSwiper, setFirstSwiper] = useState<SwiperInstance | null>(null);
+  const [secondSwiper, setSecondSwiper] = useState<SwiperInstance | null>(null);
+  const [openDropdownCharacteristics, setOpenDropdownCharacteristics] =
+    useState<boolean>(false);
+  const [selectedCharacteristic, setSelectedCharacteristic] =
+    useState<string>('all');
+
+  const handleSelect = (value: string) => {
+    setSelectedCharacteristic(value);
+  };
+
+  const onOpenChange = (isOpen: boolean) => {
+    setOpenDropdownCharacteristics(isOpen);
+  };
+
+  const getCharacteristicDifference = (key: string): boolean => {
+    const values = filteredProducts.map(product => {
+      const subcategory = product.subcategories?.find(sub => sub.name === key);
+      return subcategory ? subcategory.value : null;
+    });
+
+    const uniqueValues = [...new Set(values)];
+    return uniqueValues.length > 1;
+  };
+
+  const renderSubcategory = (
+    key: string,
+    subcategory: any,
+    subIndex: number
+  ) => {
+    if (selectedCharacteristic === 'all') {
+      return (
+        <div key={subIndex} className={s.subcategory_item}>
+          <div className={s.subcategory_name}>{key}</div>
+          <div className={s.subcategory_value}>
+            {subcategory?.value || 'N/A'}
+          </div>
+        </div>
+      );
+    }
+
+    if (
+      selectedCharacteristic === 'difference' &&
+      getCharacteristicDifference(key)
+    ) {
+      return (
+        <div key={subIndex} className={s.subcategory_item}>
+          <div className={s.subcategory_name}>{key}</div>
+          <div className={s.subcategory_value}>
+            {subcategory?.value || 'N/A'}
+          </div>
+        </div>
+      );
+    }
+
+    return null;
+  };
 
   return (
     <>
       <Breadcrumbs />
       <h1 className={s.title}>Comparison</h1>
       <div className={s.sort_comparison_products}>
+        <div className={s.sort_wrapper}>
+          <p>Sort by: </p>
+          <div className={s.sort_btn_wrapper}>
+            <DropDown
+              icon={
+                <div
+                  aria-label="Sort by characteristics"
+                  className={
+                    openDropdownCharacteristics ? s.sort_btn_active : s.sort_btn
+                  }
+                >
+                  <span>
+                    {selectedCharacteristic === 'all'
+                      ? 'All Characteristics'
+                      : 'Only Difference'}
+                  </span>{' '}
+                  <span
+                    className={`${s.arrowDown} ${openDropdownCharacteristics ? s.active : ''}`}
+                  >
+                    <IoIosArrowDown size={20} />
+                  </span>
+                </div>
+              }
+              items={[
+                { value: 'all', label: 'All characteristics' },
+                { value: 'difference', label: 'Only difference' },
+              ]}
+              onSelect={handleSelect}
+              size="172px"
+              dropdownName={selectedCharacteristic}
+              onOpenChange={onOpenChange}
+            />
+          </div>
+        </div>
         <form className={s.products_form_types}>
           {sortedTypeCounts.map(([type, count]) => (
             <label key={type} className={s.product_label}>
@@ -141,57 +243,52 @@ const Comparison = () => {
       </div>
       <div className={s.products_list}>
         <Swiper
-          spaceBetween={32}
+          spaceBetween={0}
           slidesPerView={isBigScreen ? 4.5 : isAllMobile ? 2.1 : 3.5}
-          className={s.comparison_swiper}
+          modules={[Controller]}
+          onSwiper={setFirstSwiper}
+          controller={{ control: secondSwiper }}
+          className={`${s.comparison_swiper_first} ${s.comparison_swiper}`}
         >
           {filteredProducts.map((item, index) => (
-            <SwiperSlide key={index} className={s.slide}>
-              <ProductCard
-                item={item}
-                onDelete={() => handleDeleteProduct(item)}
-              />
+            <SwiperSlide key={`product-${index}`} className={s.slide}>
+              <div className={s.product_card}>
+                <ProductCard
+                  item={item}
+                  onDelete={() => handleDeleteProduct(item)}
+                />
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
+
+        <Swiper
+          spaceBetween={0}
+          slidesPerView={isBigScreen ? 4.5 : isAllMobile ? 2.1 : 3.5}
+          modules={[Controller]}
+          onSwiper={setSecondSwiper}
+          controller={{ control: firstSwiper }}
+          className={`${s.comparison_swiper_second} ${s.comparison_swiper}`}
+        >
+          {filteredProducts.map((item, index) => {
+            const type = 'type' in item && item.type ? item.type : 'Drone';
+            const keys = type === 'Drone' ? keysDrones : keysAccessories;
+
+            return (
+              <SwiperSlide key={`subcategory-${index}`} className={s.slide}>
+                <div className={s.subcategory_list}>
+                  {keys.map((key, subIndex) => {
+                    const subcategory = item.subcategories?.find(
+                      sub => sub.name === key
+                    );
+                    return renderSubcategory(key, subcategory, subIndex);
+                  })}
+                </div>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
       </div>
-      {isBigScreenOrTablet && (
-        <div className={s.comparison_data_wrapper}>
-          <div className={s.comparison_data}>
-            <h3 className={s.comparison_data_title}>
-              Remote control battery capacity
-            </h3>
-            <ul className={s.comparison_data_list}>
-              <li>3930 mAh</li>
-              <li>5000 mAh</li>
-              <li>3930 mAh</li>
-              <li>3930 mAh</li>
-            </ul>
-          </div>
-          <div className={s.comparison_data}>
-            <h3 className={s.comparison_data_title}>
-              Remote control battery capacity
-            </h3>
-            <ul className={s.comparison_data_list}>
-              <li>3930 mAh</li>
-              <li>5000 mAh</li>
-              <li>3930 mAh</li>
-              <li>3930 mAh</li>
-            </ul>
-          </div>
-          <div className={s.comparison_data}>
-            <h3 className={s.comparison_data_title}>
-              Remote control battery capacity
-            </h3>
-            <ul className={s.comparison_data_list}>
-              <li>3930 mAh</li>
-              <li>5000 mAh</li>
-              <li>3930 mAh</li>
-              <li>3930 mAh</li>
-            </ul>
-          </div>
-        </div>
-      )}
       {comparisonProducts.length <= 0 && (
         <Modal closeModal={toggle} icon={false}>
           <ProductClearedModal closeModal={toggle} />
