@@ -26,6 +26,8 @@
     }
 }
 
+
+
 .product_card {
     padding-right: 32px;
 }
@@ -50,11 +52,17 @@
 
     @media screen and (min-width: 768px) {
         justify-content: flex-end;
+        margin: 0;
     }
 }
 
 .sort_comparison_products {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 60px;
+    width: 100%;
+    flex-wrap: wrap;
 }
 
 .product_label {
@@ -188,5 +196,65 @@
                 }
             }
         }
+    }
+}
+
+
+.sort_wrapper {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+
+    p {
+        color: #475467;
+    }
+}
+
+.sort_btn_wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.sort_btn_active {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px 10px 20px;
+    gap: 10px;
+    margin: 0px 0px;
+    border-radius: 50px;
+    background: #fafafa;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+    color: #101828;
+    border: 2px solid #eaecf0;
+    min-width: 200px;
+}
+
+.sort_btn {
+    min-width: 200px;
+    height: 40px;
+    border: 2px solid transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 11.5px 10px 11.5px 20px;
+    gap: 10px;
+    margin: 0px 0px;
+    border-radius: 50px;
+    background: #fafafa;
+    color: #667085;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+    transition: color 0.4s ease-in-out, border 0.4s ease-in-out;
+
+    &&:hover {
+        color: #101828;
+        border: 2px solid #eaecf0;
     }
 }

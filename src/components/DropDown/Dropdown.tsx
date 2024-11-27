@@ -13,6 +13,7 @@ interface DropDownProps {
   handleToggleDropDownStyle?: (dropdownName: string, value: boolean) => void;
   dropdownName?: string;
   positionY?: string;
+  onOpenChange?: (value: boolean) => void;
 }
 
 const DropDown = ({
@@ -24,6 +25,7 @@ const DropDown = ({
   handleToggleDropDownStyle,
   dropdownName,
   positionY,
+  onOpenChange,
 }: DropDownProps) => {
   const widthSize = size ? size : '128px';
   const [, setIsOpen] = useState(false);
@@ -36,6 +38,10 @@ const DropDown = ({
         const state = buttonElement.getAttribute('data-headlessui-state');
         const isOpen = state?.includes('open') ?? false;
         setIsOpen(isOpen);
+
+        if (onOpenChange) {
+          onOpenChange(isOpen);
+        }
         if (handleToggleDropDownStyle) {
           handleToggleDropDownStyle(dropdownName || '', isOpen);
         }
@@ -77,7 +83,11 @@ const DropDown = ({
                 <a
                   // href="#"
                   onClick={() => onSelect(item.value)}
-                  className={s.dropdown_menu_item}
+                  className={classNames(
+                    s.dropdown_menu_item,
+                    item.value === dropdownName && s.selected_menu_item
+                  )}
+                  aria-disabled={item.value === dropdownName}
                 >
                   <div className={s.dropdown_menu_text}>{item.label}</div>
                 </a>

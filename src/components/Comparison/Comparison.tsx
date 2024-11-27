@@ -12,7 +12,7 @@ import { useAppSelector } from '../../redux/hooks/useAppSelector';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Controller } from 'swiper/modules';
 import svg from '../../assets/sprite.svg';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
 import { useModal } from '../../hooks/useModal';
 import Modal from '../Modal/Modal';
@@ -31,19 +31,24 @@ const Comparison = () => {
   const dispatch = useAppDispatch();
   const { toggle } = useModal();
 
-  const typeCounts = comparisonProducts.reduce(
-    (acc, product) => {
-      const type = 'type' in product && product.type ? product.type : 'Drone';
-      acc[type] = (acc[type] || 0) + 1;
-      return acc;
-    },
-    {} as Record<string, number>
+  const typeCounts = useMemo(
+    () =>
+      comparisonProducts.reduce(
+        (acc, product) => {
+          const type =
+            'type' in product && product.type ? product.type : 'Drone';
+          acc[type] = (acc[type] || 0) + 1;
+          return acc;
+        },
+        {} as Record<string, number>
+      ),
+    [comparisonProducts]
   );
 
-  const availableTypes = Object.keys(typeCounts);
+  const availableTypes = useMemo(() => Object.keys(typeCounts), [typeCounts]);
 
   const [selectedType, setSelectedType] = useState<string>(
-    availableTypes[0] || 'Drone'
+    availableTypes[availableTypes.length - 1] || 'Drone'
   );
 
   const handleDeleteType = (type: string) => {
@@ -99,7 +104,10 @@ const Comparison = () => {
 
   const handleSelect = (value: string) => {
     setSelectedCharacteristic(value);
-    setOpenDropdownCharacteristics(false);
+  };
+
+  const onOpenChange = (isOpen: boolean) => {
+    setOpenDropdownCharacteristics(isOpen);
   };
 
   const getCharacteristicDifference = (key: string): boolean => {
@@ -150,30 +158,39 @@ const Comparison = () => {
       <Breadcrumbs />
       <h1 className={s.title}>Comparison</h1>
       <div className={s.sort_comparison_products}>
-        <div className={s.navItemWrapper}>
-          <DropDown
-            icon={
-              <div
-                aria-label="Sort by characteristics"
-                className={
-                  openDropdownCharacteristics ? s.navButtonActive : s.navButton
-                }
-              >
-                <span>Company</span>{' '}
-                <span
-                  className={`${s.arrowDown} ${openDropdownCharacteristics ? s.active : ''}`}
+        <div className={s.sort_wrapper}>
+          <p>Sort by: </p>
+          <div className={s.sort_btn_wrapper}>
+            <DropDown
+              icon={
+                <div
+                  aria-label="Sort by characteristics"
+                  className={
+                    openDropdownCharacteristics ? s.sort_btn_active : s.sort_btn
+                  }
                 >
-                  <IoIosArrowDown size={20} />
-                </span>
-              </div>
-            }
-            items={[
-              { value: 'all', label: 'All characteristics' },
-              { value: 'difference', label: 'Only difference' },
-            ]}
-            onSelect={handleSelect}
-            size="191px"
-          />
+                  <span>
+                    {selectedCharacteristic === 'all'
+                      ? 'All Characteristics'
+                      : 'Only Difference'}
+                  </span>{' '}
+                  <span
+                    className={`${s.arrowDown} ${openDropdownCharacteristics ? s.active : ''}`}
+                  >
+                    <IoIosArrowDown size={20} />
+                  </span>
+                </div>
+              }
+              items={[
+                { value: 'all', label: 'All characteristics' },
+                { value: 'difference', label: 'Only difference' },
+              ]}
+              onSelect={handleSelect}
+              size="172px"
+              dropdownName={selectedCharacteristic}
+              onOpenChange={onOpenChange}
+            />
+          </div>
         </div>
         <form className={s.products_form_types}>
           {sortedTypeCounts.map(([type, count]) => (
