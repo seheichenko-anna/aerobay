@@ -27,7 +27,7 @@ import DropDown from '../DropDown/Dropdown';
 
 const Comparison = () => {
   const comparisonProducts = useAppSelector(selectComparisonProducts);
-  const { isBigScreen, isAllMobile } = useDashboard();
+  const { isBigScreen, isAllMobile, isTablet } = useDashboard();
   const dispatch = useAppDispatch();
   const { toggle } = useModal();
 
@@ -35,8 +35,7 @@ const Comparison = () => {
     () =>
       comparisonProducts.reduce(
         (acc, product) => {
-          const type =
-            'type' in product && product.type ? product.type : 'Drone';
+          const type = hasTypeProperty(product) ? product.type : 'Drone';
           acc[type] = (acc[type] || 0) + 1;
           return acc;
         },
@@ -45,16 +44,30 @@ const Comparison = () => {
     [comparisonProducts]
   );
 
-  const availableTypes = useMemo(() => Object.keys(typeCounts), [typeCounts]);
+  const getSortedTypes = () => {
+    return Object.entries(typeCounts)
+      .sort((a, b) => {
+        const [typeA, countA] = a;
+        const [typeB, countB] = b;
+
+        if (countA !== countB) {
+          return countB - countA;
+        }
+
+        return typeA.localeCompare(typeB);
+      })
+      .map(([type]) => type);
+  };
 
   const [selectedType, setSelectedType] = useState<string>(
-    availableTypes[availableTypes.length - 1] || 'Drone'
+    getSortedTypes()[0] || 'Drone'
   );
 
   const handleDeleteType = (type: string) => {
     dispatch(deleteProductsByType(type));
-    const newAvailableTypes = availableTypes.filter(t => t !== type);
-    setSelectedType(newAvailableTypes[0] || 'Drone');
+    if (type === selectedType) {
+      setSelectedType(getSortedTypes()[0]);
+    }
   };
 
   const handleClearAll = () => {
@@ -62,10 +75,9 @@ const Comparison = () => {
   };
 
   const filteredProducts = comparisonProducts.filter(product => {
-    if ('type' in product) {
-      return product.type === selectedType;
-    }
-    return selectedType === 'Drone';
+    return hasTypeProperty(product)
+      ? product.type === selectedType
+      : selectedType === 'Drone';
   });
 
   const handleDeleteProduct = (item: Partial<Drone> | Partial<Accessory>) => {
@@ -73,16 +85,12 @@ const Comparison = () => {
     const remainingProducts = comparisonProducts.filter(
       product =>
         product !== item &&
-        ('type' in product
+        (hasTypeProperty(product)
           ? product.type === selectedType
           : selectedType === 'Drone')
     );
-
     if (remainingProducts.length === 0) {
-      const newAvailableTypes = availableTypes.filter(
-        type => type !== selectedType
-      );
-      setSelectedType(newAvailableTypes[0] || 'Drone');
+      setSelectedType(getSortedTypes()[0]);
     }
   };
 
@@ -129,8 +137,11 @@ const Comparison = () => {
       return (
         <div key={subIndex} className={s.subcategory_item}>
           <div className={s.subcategory_name}>{key}</div>
-          <div className={s.subcategory_value}>
-            {subcategory?.value || 'N/A'}
+          <div className={s.background_wrapper}>
+            <div className={s.subcategory_value}>
+              {subcategory?.value || 'N/A'}
+            </div>{' '}
+            <div className={s.subcategory_background}></div>
           </div>
         </div>
       );
@@ -143,8 +154,11 @@ const Comparison = () => {
       return (
         <div key={subIndex} className={s.subcategory_item}>
           <div className={s.subcategory_name}>{key}</div>
-          <div className={s.subcategory_value}>
-            {subcategory?.value || 'N/A'}
+          <div className={s.background_wrapper}>
+            <div className={s.subcategory_value}>
+              {subcategory?.value || 'N/A'}
+            </div>{' '}
+            <div className={s.subcategory_background}></div>
           </div>
         </div>
       );
@@ -173,7 +187,7 @@ const Comparison = () => {
                     {selectedCharacteristic === 'all'
                       ? 'All Characteristics'
                       : 'Only Difference'}
-                  </span>{' '}
+                  </span>
                   <span
                     className={`${s.arrowDown} ${openDropdownCharacteristics ? s.active : ''}`}
                   >
@@ -243,15 +257,21 @@ const Comparison = () => {
       </div>
       <div className={s.products_list}>
         <Swiper
-          spaceBetween={0}
-          slidesPerView={isBigScreen ? 4.5 : isAllMobile ? 2.1 : 3.5}
+          spaceBetween={isAllMobile ? 16 : 32}
+          slidesPerView={
+            isBigScreen ? 4 : isAllMobile ? 'auto' : isTablet ? 2.5 : 3
+          }
           modules={[Controller]}
           onSwiper={setFirstSwiper}
           controller={{ control: secondSwiper }}
           className={`${s.comparison_swiper_first} ${s.comparison_swiper}`}
         >
           {filteredProducts.map((item, index) => (
-            <SwiperSlide key={`product-${index}`} className={s.slide}>
+            <SwiperSlide
+              key={`product-${index}`}
+              className={s.slide}
+              style={{ maxWidth: `${isAllMobile ? '170px' : '293px'}` }}
+            >
               <div className={s.product_card}>
                 <ProductCard
                   item={item}
@@ -263,19 +283,25 @@ const Comparison = () => {
         </Swiper>
 
         <Swiper
-          spaceBetween={0}
-          slidesPerView={isBigScreen ? 4.5 : isAllMobile ? 2.1 : 3.5}
+          spaceBetween={isAllMobile ? 16 : 32}
+          slidesPerView={
+            isBigScreen ? 4 : isAllMobile ? 'auto' : isTablet ? 2.5 : 3
+          }
           modules={[Controller]}
           onSwiper={setSecondSwiper}
           controller={{ control: firstSwiper }}
           className={`${s.comparison_swiper_second} ${s.comparison_swiper}`}
         >
           {filteredProducts.map((item, index) => {
-            const type = 'type' in item && item.type ? item.type : 'Drone';
+            const type = hasTypeProperty(item) ? item.type : 'Drone';
             const keys = type === 'Drone' ? keysDrones : keysAccessories;
 
             return (
-              <SwiperSlide key={`subcategory-${index}`} className={s.slide}>
+              <SwiperSlide
+                key={`subcategory-${index}`}
+                className={s.slide}
+                style={{ maxWidth: `${isAllMobile ? '170px' : '293px'}` }}
+              >
                 <div className={s.subcategory_list}>
                   {keys.map((key, subIndex) => {
                     const subcategory = item.subcategories?.find(
@@ -297,5 +323,10 @@ const Comparison = () => {
     </>
   );
 };
+function hasTypeProperty(
+  item: Partial<Drone> | Partial<Accessory>
+): item is { type: string } {
+  return 'type' in item && typeof item.type === 'string';
+}
 
 export default Comparison;
