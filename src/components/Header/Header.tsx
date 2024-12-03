@@ -63,18 +63,6 @@ const Header = () => {
   };
 
   useEffect(() => {
-    if (isOpen || showDropdown) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [isOpen, showDropdown]);
-
-  useEffect(() => {
     setOpen(false);
   }, [location]);
 

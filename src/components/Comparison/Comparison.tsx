@@ -131,16 +131,21 @@ const Comparison = () => {
   const renderSubcategory = (
     key: string,
     subcategory: any,
-    subIndex: number
+    subIndex: number,
+    isFirstSlide: boolean
   ) => {
     if (selectedCharacteristic === 'all') {
       return (
         <div key={subIndex} className={s.subcategory_item}>
-          <div className={s.subcategory_name}>{key}</div>
+          <div
+            className={`${s.subcategory_name} ${!isFirstSlide ? s.hidden_text : ''}`}
+          >
+            {key}
+          </div>
           <div className={s.background_wrapper}>
             <div className={s.subcategory_value}>
               {subcategory?.value || 'N/A'}
-            </div>{' '}
+            </div>
             <div className={s.subcategory_background}></div>
           </div>
         </div>
@@ -153,11 +158,15 @@ const Comparison = () => {
     ) {
       return (
         <div key={subIndex} className={s.subcategory_item}>
-          <div className={s.subcategory_name}>{key}</div>
+          <div
+            className={`${s.subcategory_name} ${!isFirstSlide ? s.hidden_text : ''}`}
+          >
+            {key}
+          </div>
           <div className={s.background_wrapper}>
             <div className={s.subcategory_value}>
               {subcategory?.value || 'N/A'}
-            </div>{' '}
+            </div>
             <div className={s.subcategory_background}></div>
           </div>
         </div>
@@ -307,7 +316,12 @@ const Comparison = () => {
                     const subcategory = item.subcategories?.find(
                       sub => sub.name === key
                     );
-                    return renderSubcategory(key, subcategory, subIndex);
+                    return renderSubcategory(
+                      key,
+                      subcategory,
+                      subIndex,
+                      index === 0
+                    );
                   })}
                 </div>
               </SwiperSlide>
