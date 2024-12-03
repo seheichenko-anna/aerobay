@@ -23,6 +23,7 @@
 .comparison_swiper_second {
     margin-bottom: 96px;
     gap: 32px;
+
 }
 
 .comparison_data_list {
@@ -156,7 +157,6 @@
                 display: flex;
                 flex-direction: column;
                 width: 100%;
-                position: relative;
 
 
                 .subcategory_name {
@@ -171,14 +171,7 @@
                         padding: 10px 0;
                     }
 
-                    /* &:nth-child(odd) {
-                        background-color: #FFFFFF;
 
-                    }
-
-                    &:nth-child(even) {
-                        background-color: #FAFAFA;
-                    } */
                 }
 
                 .subcategory_value {
@@ -193,15 +186,7 @@
                         padding: 10px 0;
                     }
 
-                    /* &:nth-child(odd) {
-                        background-color: #FFFFFF;
 
-                    } */
-
-                    /* &:nth-child(even) {
-                        background-color: #FAFAFA;
-
-                    } */
                 }
             }
         }
@@ -302,4 +287,8 @@
 
 .background_wrapper {
     position: relative;
+}
+
+.hidden_text {
+    visibility: hidden;
 }

@@ -28,7 +28,24 @@ const DropDown = ({
   onOpenChange,
 }: DropDownProps) => {
   const widthSize = size ? size : '128px';
-  const [, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const handleHtmlOverflow = () => {
+      const html = document.documentElement;
+      if (isOpen) {
+        html.style.overflow = '';
+      }
+    };
+
+    handleHtmlOverflow();
+    return () => {
+      if (!isOpen) {
+        document.documentElement.style.overflow = '';
+      }
+    };
+  }, [isOpen]);
+
   const buttonRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     const buttonElement = buttonRef.current;
