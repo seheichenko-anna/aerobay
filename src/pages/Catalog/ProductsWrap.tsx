@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import useSubcategories from '../../hooks/useSubcategories';
+import useSelectSubcategories from '../../hooks/useSelectSubcategories';
 import { setCurrentCategory } from '../../redux/filtersSlice';
 import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
 import styles from './Catalog.module.scss';
@@ -11,7 +11,7 @@ const ProductsWrap = () => {
   const { selectedCategory } = useContext(CatalogContext)!;
 
   // required for filters.
-  const subcategories = useSubcategories();
+  const subcategories = useSelectSubcategories();
 
   // If user changes selected category and subcategories is loaded,
   // it changes current filter groups in redux state,

@@ -1,13 +1,13 @@
 import { useContext } from 'react';
-import useAccessories from '../../hooks/useAccessories';
-import useDrones from '../../hooks/useDrones';
 import { BaseProduct } from '../../redux/types';
 import { CategoryProducts } from './CategoryProducts';
 import { CatalogContext } from './providers/CatalogProvider';
+import useSelectDrones from '../../hooks/useSelectDrones';
+import useSelectAccessories from '../../hooks/useSelectAccessories';
 
 const AllProducts = () => {
-  const { drones, loading: isDronesLoading } = useDrones();
-  const { accessories, loading: isAccessoriesLoading } = useAccessories();
+  const { drones, loading: isDronesLoading } = useSelectDrones();
+  const { accessories, loading: isAccessoriesLoading } = useSelectAccessories();
 
   const { selectedCategories } = useContext(CatalogContext)!;
   let products: BaseProduct[] = [];
@@ -30,7 +30,7 @@ const AllProducts = () => {
 };
 
 const Drones = () => {
-  const { drones, loading } = useDrones();
+  const { drones, loading } = useSelectDrones();
 
   return (
     <CategoryProducts title='Drones' products={drones} loading={loading} />
@@ -38,7 +38,7 @@ const Drones = () => {
 };
 
 const Accessories = () => {
-  const { accessories, loading } = useAccessories();
+  const { accessories, loading } = useSelectAccessories();
 
   return (
     <CategoryProducts

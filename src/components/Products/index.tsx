@@ -1,7 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import 'react-tooltip/dist/react-tooltip.css';
-import { mobileFilter } from '../../assets/catalog/index';
-import { ProductFiltersContext } from '../../pages/Catalog/CategoryProducts';
 import Header from './Header';
 import ProductList from './ProductList';
 import c from './Products.module.scss';
@@ -36,33 +34,9 @@ const Products = ({ children }: { children: React.ReactNode[] }) => {
       <main>
         {header}
 
-        <div className={c.mobile_devider}></div>
-
-        <MoreFiltersMobileBtn />
-
         <div className={c['all-products-box']}>{productList}</div>
       </main>
     </>
-  );
-};
-
-const MoreFiltersMobileBtn = () => {
-  const { setIsMobileFilterVisible } = useContext(ProductFiltersContext)!;
-
-  const handleVisibleFilter = () => {
-    setIsMobileFilterVisible(true);
-  };
-
-  return (
-    <div className={c.mobile_filter}>
-      <span>Filter:</span>
-
-      <img
-        src={mobileFilter}
-        alt='mobile filter icon'
-        onClick={handleVisibleFilter}
-      />
-    </div>
   );
 };
 

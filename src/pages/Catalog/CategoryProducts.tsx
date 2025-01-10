@@ -1,15 +1,23 @@
-import {
-  MutableRefObject,
-  createContext,
-  useEffect,
-  useRef,
-  useState,
+import React, {
+    MutableRefObject,
+    createContext,
+    useEffect,
+    useRef,
+    useState,
 } from 'react';
+import { useLocation } from 'react-router-dom';
 import Products from '../../components/Products';
-import useFilters from '../../hooks/useFilters';
+import useSelectFilters from '../../hooks/useSelectFilters';
 import useSorted from '../../hooks/useSorted';
+import {
+    useClearFilters,
+    useUpdateFilters,
+} from '../../hooks/useUpdateFilters';
+import { toggleOptions } from '../../redux/filtersSlice';
+import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
 import { BaseProduct } from '../../redux/types';
 import { getFilteredProducts } from '../../utils/filters';
+import { CatalogContext } from './providers/CatalogProvider';
 
 type ProductFiltersContext = {
   applyFilters: () => void;
@@ -39,10 +47,14 @@ export const CategoryProducts = ({
   const [maxPrice, setMaxPrice] = useState(0);
   const currentPriceRef = useRef(0);
 
-  const { currentFilterGroups } = useFilters();
+  const { currentFilterGroups } = useSelectFilters();
   const [isMobileFilterVisible, setIsMobileFilterVisible] = useState(false);
 
-  const filterByCurrentCategoryGroups = (products: BaseProduct[]) =>
+  const updateFiltersInURI = useUpdateFilters();
+  const clearFiltersFromURI = useClearFilters();
+  const location = useLocation();
+
+  const filterByCurrentCategoryGroups = (products: BaseProduct[]) => 
     getFilteredProducts(products, currentFilterGroups);
 
   const filterByPrice = (products: BaseProduct[]) =>
@@ -54,11 +66,15 @@ export const CategoryProducts = ({
       filteredProductsByPrice,
     );
 
+    updateFiltersInURI(currentFilterGroups);
+
     callAfterFiltering(filteredProducts);
   };
 
   const clearFilters = () => {
     currentPriceRef.current = maxPrice;
+
+    clearFiltersFromURI();
 
     callAfterFiltering(products);
   };
@@ -71,9 +87,33 @@ export const CategoryProducts = ({
     }
   };
 
-  useEffect(() => {
-    const filteredProducts = filterByCurrentCategoryGroups(products);
+  const { selectedCategory } = React.useContext(CatalogContext)!;
+  const dispatch = useAppDispatch()
 
+  // Extract filters from URL and populate currentFilterGroups
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const filtersFromURL: typeof currentFilterGroups = [];
+
+    // Map query parameters to filter groups
+    searchParams.forEach((value, key) => {
+      const options = value.split(',').map(label => ({
+        label,
+        checked: true,
+      }));
+
+      filtersFromURL.push({ title: key, options, category: selectedCategory });
+    });
+
+    if (filtersFromURL.length > 0 && currentFilterGroups.length > 0) {
+      // Apply filters on initial load
+      const filteredProducts = filterByCurrentCategoryGroups(products);
+      setCatalogProducts(filteredProducts);
+      dispatch(toggleOptions(filtersFromURL))
+    }
+  }, [location.search, products, loading]);
+
+  useEffect(() => {
     if (!loading) {
       const minPrice = Math.min(...products.map(product => product.price));
       const maxPrice = Math.max(...products.map(product => product.price));
@@ -82,9 +122,7 @@ export const CategoryProducts = ({
       setMaxPrice(maxPrice);
       currentPriceRef.current = maxPrice;
     }
-
-    setCatalogProducts(filteredProducts);
-  }, [products]);
+  }, [products, loading]);
 
   return (
     <ProductFiltersContext.Provider

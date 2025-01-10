@@ -1,12 +1,12 @@
 import { useContext, useReducer } from 'react';
-import useFilters from '../../hooks/useFilters';
+import useSelectFilters from '../../hooks/useSelectFilters';
 import { ProductFiltersContext } from '../../pages/Catalog/CategoryProducts';
 import { resetFilters, toggleOption } from '../../redux/filtersSlice';
 import { useAppDispatch } from '../../redux/hooks/useAppDispatch';
 import styles from './Products.module.scss';
 
 const FilterTags = () => {
-  const { currentFilterGroups } = useFilters();
+  const { currentFilterGroups } = useSelectFilters();
   const isSomeFilterChecked = currentFilterGroups.some(group =>
     group.options.some(option => option.checked),
   );

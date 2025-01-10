@@ -58,6 +58,36 @@ const filtersSlice = createSlice({
       }
     },
 
+    toggleOptions(
+      state,
+      action: PayloadAction<
+        { title: string; options: { label: string; checked: boolean }[] }[]
+      >,
+    ) {
+      action.payload.forEach(({ title, options }) => {
+        options.forEach(({ label, checked }) => {
+          // Call toggleOption logic for each option
+          filtersSlice.caseReducers.toggleOption(state, {
+            payload: { title, label, checked },
+            type: 'filters/toggleOption',
+          });
+
+          // Ensure the `checked` state matches the passed value
+          const filterGroup = state.currentFilterGroups.find(
+            group => group.title === title,
+          );
+          if (filterGroup) {
+            const option = filterGroup.options.find(
+              opt => opt.label === label,
+            );
+            if (option) {
+              option.checked = checked;
+            }
+          }
+        });
+      });
+    },
+
     resetFilters(state) {
       state.currentFilterGroups.forEach(group => {
         group.options.forEach(option => {
@@ -109,6 +139,7 @@ export const {
   toggleOption,
   setCurrentCategory,
   resetFilters,
+  toggleOptions,
 } = filtersSlice.actions;
 
 export const filtersReducer = filtersSlice.reducer;
