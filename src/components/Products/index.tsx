@@ -1,7 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import 'react-tooltip/dist/react-tooltip.css';
-import { mobileFilter } from '../../assets/catalog/index';
-import { ProductFiltersContext } from '../../pages/Catalog/CategoryProducts';
 import Header from './Header';
 import ProductList from './ProductList';
 import c from './Products.module.scss';
